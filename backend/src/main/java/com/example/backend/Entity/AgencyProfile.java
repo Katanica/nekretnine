@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.Table;
 
 @Entity
 @AllArgsConstructor
