@@ -1,11 +1,9 @@
 package com.example.backend.Entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Table;
 
 @AllArgsConstructor
 @Data
@@ -16,10 +14,10 @@ import org.springframework.data.relational.core.mapping.Table;
 public class UserProfile extends Profile {
 
     @Column(name = "firstName")
-    private Integer name;
+    private String name;
 
     @Column(name = "surname")
-    private Integer surname;
+    private String surname;
 
     @Column(name = "avatar")
     private String avatar;
