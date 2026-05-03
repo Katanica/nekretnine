@@ -1,5 +1,5 @@
 package com.example.backend.Entity;
-import com.example.backend.Enums.RoleEnum;
+import com.example.backend.Enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +20,7 @@ public abstract class Profile{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
 
     @Column(name = "userName")
     private String userName;
@@ -42,7 +42,7 @@ public abstract class Profile{
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ROLE_id", insertable = false, updatable = false)
-    private RoleEnum role;
+    private Role role;
 
     // PRIVREMENO STRING KASNIJE CEMO STAVIITI TIP LOCATION
     @Column(name = "location")

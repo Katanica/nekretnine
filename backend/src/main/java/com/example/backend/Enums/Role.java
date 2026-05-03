@@ -1,6 +1,6 @@
 package com.example.backend.Enums;
 
-public enum RoleEnum {
+public enum Role {
     ADMIN,
     USER,
     AGENCY
