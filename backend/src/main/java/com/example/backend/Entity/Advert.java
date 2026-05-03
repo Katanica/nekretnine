@@ -1,5 +1,7 @@
 package com.example.backend.Entity;
 
+import com.example.backend.Enums.AdvertType;
+import com.example.backend.Enums.PropertyType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +15,14 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name="ADVERT")
-public abstract class Advert{
+public class Advert{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
+
+    @Column(name="property-type")
+    private PropertyType propertyType;
 
     @Column(name="title", nullable = false)
     private String title;
@@ -34,9 +39,12 @@ public abstract class Advert{
     @Column(name="updated-at")
     private LocalDateTime updatedAt;
 
-    //private advertTypeEnum advertType;
+    @Column(name="advert-type")
+    private AdvertType advertType;
 
-    //private location
+    @ManyToOne
+    @JoinColumn(name="city_id")
+    private City city;
 
     @Column(name="size")
     private Float size;
