@@ -7,9 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Table(name = "AGENCY_PROFILE")
 @DiscriminatorValue("AGENCY")
