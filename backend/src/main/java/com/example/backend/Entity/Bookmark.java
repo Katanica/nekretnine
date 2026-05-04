@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @Table(
         name = "BOOKMARKS",
         uniqueConstraints = @UniqueConstraint(
-                name = "uq_bookmark_oglas_profile",
-                columnNames = {"oglas_id", "profile_id"}
+                name = "uq_bookmark_advert_profile",
+                columnNames = {"advert_id", "profile_id"}
         )
 )
 public class Bookmark {
@@ -25,8 +25,8 @@ public class Bookmark {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "oglas_id", nullable = false)
-    private Oglas oglas;
+    @JoinColumn(name = "advert_id", nullable = false)
+    private Advert advert;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id", nullable = false)

@@ -19,8 +19,8 @@ public class Picture {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "oglas_id", nullable = false)
-    private Oglas oglas;
+    @JoinColumn(name = "advert_id", nullable = false)
+    private Advert advert;
 
     @Column(nullable = false, length = 500)
     private String slikaUrl;
