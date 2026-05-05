@@ -25,5 +25,8 @@
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:10.1.24" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.data:spring-data-commons:3.3.0" level="project" />
     <orderEntry type="library" name="Gradle: org.hibernate.orm:hibernate-core:6.5.2.Final" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-context:6.1.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:3.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:3.3.0" level="project" />
   </component>
 </module>
