@@ -13,10 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserProfile extends Profile {
 
-    @Column(name = "firstName")
+
+    @Column(name = "first_name")
     private String name;
 
-    @Column(name = "surname")
+    @Column(name = "last_name")
     private String surname;
 
     @Column(name = "avatar")
