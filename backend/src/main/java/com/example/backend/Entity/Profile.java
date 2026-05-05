@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -41,12 +43,13 @@ public abstract class Profile{
     private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ROLE_id", insertable = false, updatable = false)
+    @Column(name = "role", insertable = false, updatable = false)
     private Role role;
 
     // PRIVREMENO STRING KASNIJE CEMO STAVIITI TIP LOCATION
-    @Column(name = "location")
-    private String location;
+    @ManyToOne
+    @JoinColumn(name="city_id")
+    private City city;
 
     @Column(name = "phone")
     private Integer phone;
