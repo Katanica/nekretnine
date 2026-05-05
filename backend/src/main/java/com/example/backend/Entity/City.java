@@ -27,4 +27,7 @@ public class City {
 
     @OneToMany(mappedBy="city", cascade=CascadeType.ALL)
     private List<Advert> adverts = new ArrayList<>();
+
+    @OneToMany(mappedBy="city", cascade=CascadeType.ALL)
+    private List<Profile> profiles = new ArrayList<>();
 }
