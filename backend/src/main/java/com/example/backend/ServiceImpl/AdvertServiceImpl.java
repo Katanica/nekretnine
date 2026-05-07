@@ -15,8 +15,8 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public AdvertDto addAdvert(AdvertDto advertDto) {
-        Advert advert = AdvertMapper.mapToAdvert(advertDto);
+        Advert advert = AdvertMapper.toEntity(advertDto);
         Advert savedAdvert = advertRepository.save(advert);
-        return AdvertMapper.mapToAdvertDto(savedAdvert);
+        return AdvertMapper.toDto(savedAdvert);
     }
 }

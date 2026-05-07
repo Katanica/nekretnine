@@ -4,7 +4,7 @@ import com.example.backend.DTO.AdvertDto;
 import com.example.backend.Entity.Advert;
 
 public class AdvertMapper {
-    public static AdvertDto mapToAdvertDto(Advert advert){
+    public static AdvertDto toDto(Advert advert){
         return new AdvertDto(
                 advert.getId(),
                 advert.getPropertyType(),
@@ -18,7 +18,7 @@ public class AdvertMapper {
                 advert.getSize()
         );
     }
-    public static Advert mapToAdvert(AdvertDto advertDto){
+    public static Advert toEntity(AdvertDto advertDto){
         return new Advert(
                 advertDto.getId(),
                 advertDto.getPropertyType(),
