@@ -5,9 +5,9 @@ import com.example.backend.Entity.Picture;
 import java.util.List;
 
 public interface PictureService {
-    List<Picture> getPicturesByAdvert(Long advertId);
-    Picture getPictureById(Long pictureId);
-    Picture addPicture(Picture picture);
+    List<Picture> getAll(Long advertId);
+    Picture getById(Long pictureId);
+    Picture createPicture(Picture picture);
     void deletePicture(Long pictureId);
     Picture setPrimary(Long pictureId);
 }
