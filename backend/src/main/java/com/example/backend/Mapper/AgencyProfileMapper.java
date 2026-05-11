@@ -3,8 +3,9 @@ package com.example.backend.Mapper;
 import com.example.backend.DTO.AgencyProfileDto;
 import com.example.backend.Entity.AgencyProfile;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class AgencyProfileMapper {
 
     public AgencyProfileDto toDto(AgencyProfile agencyProfile){

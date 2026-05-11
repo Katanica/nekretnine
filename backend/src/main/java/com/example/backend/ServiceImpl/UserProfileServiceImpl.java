@@ -25,9 +25,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     public List<UserProfileDto> getAll(){
         return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
 
-
     }
-
     @Override
     public UserProfileDto getById(Long id){
         UserProfile userProfile = repository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));

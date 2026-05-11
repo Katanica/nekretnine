@@ -8,15 +8,52 @@ import com.example.backend.Service.AdvertService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class AdvertServiceImpl implements AdvertService {
-    private AdvertRepository advertRepository;
+    private final AdvertRepository repository;
+    private final AdvertMapper mapper;
 
     @Override
-    public AdvertDto addAdvert(AdvertDto advertDto) {
-        Advert advert = AdvertMapper.toEntity(advertDto);
-        Advert savedAdvert = advertRepository.save(advert);
-        return AdvertMapper.toDto(savedAdvert);
+    public List<AdvertDto> getAll(){
+        return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
+
+    }
+
+    @Override
+    public AdvertDto getById(Long id){
+        Advert advert = repository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return mapper.toDto(advert);
+    }
+
+    @Override
+    public AdvertDto create(AdvertDto dto){
+        Advert advert = mapper.toEntity(dto);
+        Advert saved = repository.save(advert);
+        return mapper.toDto(saved);
+    }
+
+    @Override
+    public AdvertDto update(AdvertDto dto){
+        Advert existing = repository.findById(dto.getId()).orElseThrow(() -> new RuntimeException("User not found"));
+        existing.setId(dto.getId());
+        existing.setPropertyType(dto.getPropertyType());
+        existing.setTitle(dto.getTitle());
+        existing.setDescription(dto.getDescription());
+        existing.setPrice(dto.getPrice());
+        existing.setPostedAt(dto.getPostedAt());
+        existing.setAdvertType(dto.getAdvertType());
+        existing.setCity(dto.getCity());
+        existing.setSize(dto.getSize());
+        Advert saved = repository.save(existing);
+        return mapper.toDto(saved);
+    }
+
+    @Override
+    public void delete(Long id){
+        repository.deleteById(id);
     }
 }

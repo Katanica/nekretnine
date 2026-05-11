@@ -2,9 +2,12 @@ package com.example.backend.Mapper;
 
 import com.example.backend.DTO.AdvertDto;
 import com.example.backend.Entity.Advert;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
+@Component
 public class AdvertMapper {
-    public static AdvertDto toDto(Advert advert){
+    public AdvertDto toDto(Advert advert){
         return new AdvertDto(
                 advert.getId(),
                 advert.getPropertyType(),
@@ -18,7 +21,7 @@ public class AdvertMapper {
                 advert.getSize()
         );
     }
-    public static Advert toEntity(AdvertDto advertDto){
+    public Advert toEntity(AdvertDto advertDto){
         return new Advert(
                 advertDto.getId(),
                 advertDto.getPropertyType(),
