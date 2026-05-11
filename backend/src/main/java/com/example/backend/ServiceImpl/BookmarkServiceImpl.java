@@ -15,12 +15,12 @@ public class BookmarkServiceImpl implements BookmarkService {
     private final BookmarkRepository bookmarkRepository;
 
     @Override
-    public List<Bookmark> getAllBookmarksForUser(Long profileId) {
+    public List<Bookmark> getAll(Long profileId) {
         return bookmarkRepository.findByProfileId(profileId);
     }
 
     @Override
-    public Bookmark getBookmarkById(Long bookmarkId) {
+    public Bookmark getById(Long bookmarkId) {
         return bookmarkRepository.findById(bookmarkId).orElseThrow();
     }
 

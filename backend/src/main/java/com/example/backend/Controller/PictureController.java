@@ -16,17 +16,17 @@ public class PictureController {
 
     @GetMapping("/advert/{advertId}")
     public List<Picture> getPicturesByAdvert(@PathVariable Long advertId) {
-        return pictureService.getPicturesByAdvert(advertId);
+        return pictureService.getAll(advertId);
     }
 
     @GetMapping("/{pictureId}")
     public Picture getPictureById(@PathVariable Long pictureId) {
-        return pictureService.getPictureById(pictureId);
+        return pictureService.getById(pictureId);
     }
 
     @PostMapping
     public Picture addPicture(@RequestBody Picture picture) {
-        return pictureService.addPicture(picture);
+        return pictureService.createPicture(picture);
     }
 
     @DeleteMapping("/{pictureId}")
