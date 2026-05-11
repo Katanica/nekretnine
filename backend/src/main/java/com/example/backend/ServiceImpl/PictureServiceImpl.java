@@ -15,17 +15,17 @@ public class PictureServiceImpl implements PictureService {
     private final PictureRepository pictureRepository;
 
     @Override
-    public List<Picture> getPicturesByAdvert(Long advertId) {
+    public List<Picture> getAll(Long advertId) {
         return pictureRepository.findByAdvertId(advertId);
     }
 
     @Override
-    public Picture getPictureById(Long pictureId) {
+    public Picture getById(Long pictureId) {
         return pictureRepository.findById(pictureId).orElseThrow();
     }
 
     @Override
-    public Picture addPicture(Picture picture) {
+    public Picture createPicture(Picture picture) {
         return pictureRepository.save(picture);
     }
 

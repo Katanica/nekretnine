@@ -16,12 +16,12 @@ public class BookmarkController {
 
     @GetMapping("/profile/{profileId}")
     public List<Bookmark> getAllBookmarksForUser(@PathVariable Long profileId) {
-        return bookmarkService.getAllBookmarksForUser(profileId);
+        return bookmarkService.getAll(profileId);
     }
 
     @GetMapping("/{bookmarkId}")
     public Bookmark getBookmarkById(@PathVariable Long bookmarkId) {
-        return bookmarkService.getBookmarkById(bookmarkId);
+        return bookmarkService.getById(bookmarkId);
     }
 
     @PostMapping
