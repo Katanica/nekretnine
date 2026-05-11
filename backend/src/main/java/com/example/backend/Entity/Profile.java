@@ -11,21 +11,21 @@ import java.util.List;
 
 
 @Inheritance(strategy = InheritanceType.JOINED)
-@AllArgsConstructor
 @Data
 @Entity
 @Table(name = "PROFILE")
 @NoArgsConstructor
+@AllArgsConstructor
 @DiscriminatorColumn(name = "ROLE_id", discriminatorType = DiscriminatorType.STRING)
-public abstract class Profile{
+public class Profile{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "userName")
-    private String userName;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "email")
     private String email;
@@ -55,7 +55,6 @@ public abstract class Profile{
     private Integer phone;
 
 
-
-
-
+    public Profile(Long id, String username, String email, LocalDateTime createdAt, LocalDateTime updatedAt, City city, Integer phone) {
+    }
 }
