@@ -3,41 +3,17 @@ package com.example.backend.Mapper;
 import com.example.backend.DTO.UserProfileDto;
 
 import com.example.backend.Entity.UserProfile;
+import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-@Component
-public class UserProfileMapper {
+import java.util.List;
 
-   //CITY UBACIT KAD SE ZAVRSI CityService i ostalo
-    public UserProfileDto toDto(UserProfile userProfile) {
+@Mapper(componentModel = "spring")
+public interface UserProfileMapper {
 
-        UserProfileDto dto = new UserProfileDto();
+   UserProfileDto toDto(UserProfile userProfile);
 
-        dto.setId(userProfile.getId());
-        dto.setUserName(userProfile.getUserName());
-        dto.setName(userProfile.getName());
-        dto.setSurname(userProfile.getSurname());
-        dto.setEmail(userProfile.getEmail());
-        dto.setPhone(userProfile.getPhone());
-        dto.setStatus(userProfile.getStatus());
+   UserProfile toEntity(UserProfileDto userProfileDto);
 
-        dto.setAvatar(userProfile.getAvatar());
-
-    return dto;
-    }
-
-    public UserProfile toEntity(UserProfileDto userProfileDto){
-        UserProfile userProfile = new UserProfile();
-
-        userProfile.setId(userProfileDto.getId());
-        userProfile.setUserName(userProfileDto.getUserName());
-        userProfile.setName(userProfileDto.getName());
-        userProfile.setSurname(userProfileDto.getSurname());
-        userProfile.setEmail(userProfileDto.getEmail());
-        userProfile.setStatus(userProfileDto.getStatus());
-        userProfile.setPhone(userProfile.getPhone());
-        userProfile.setAvatar(userProfile.getAvatar());
-
-        return userProfile;
-    }
+   List<UserProfileDto> toDtoList(List<UserProfile> userProfiles);
 }

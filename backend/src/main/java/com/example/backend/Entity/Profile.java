@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "PROFILE")
 @NoArgsConstructor
 @DiscriminatorColumn(name = "ROLE_id", discriminatorType = DiscriminatorType.STRING)
-public abstract class Profile{
+public class Profile{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,8 +51,11 @@ public abstract class Profile{
     @JoinColumn(name="city_id")
     private City city;
 
+    @OneToMany(mappedBy="profile", cascade= CascadeType.ALL)
+    private List<Advert> adverts = new ArrayList<>();
+
     @Column(name = "phone")
-    private Integer phone;
+    private String phone;
 
 
 

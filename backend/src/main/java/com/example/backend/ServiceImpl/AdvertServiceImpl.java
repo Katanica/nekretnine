@@ -39,15 +39,7 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public AdvertDto update(AdvertDto dto){
         Advert existing = repository.findById(dto.getId()).orElseThrow(() -> new RuntimeException("User not found"));
-        existing.setId(dto.getId());
-        existing.setPropertyType(dto.getPropertyType());
-        existing.setTitle(dto.getTitle());
-        existing.setDescription(dto.getDescription());
-        existing.setPrice(dto.getPrice());
-        existing.setPostedAt(dto.getPostedAt());
-        existing.setAdvertType(dto.getAdvertType());
-        existing.setCity(dto.getCity());
-        existing.setSize(dto.getSize());
+        mapper.updateEntityFromDto(dto, existing);
         Advert saved = repository.save(existing);
         return mapper.toDto(saved);
     }

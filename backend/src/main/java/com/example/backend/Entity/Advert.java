@@ -2,6 +2,7 @@ package com.example.backend.Entity;
 
 import com.example.backend.Enums.AdvertType;
 import com.example.backend.Enums.PropertyType;
+import com.example.backend.Enums.StatusType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,8 @@ public class Advert{
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name="property-type")
+    @Enumerated(EnumType.STRING)
+    @Column(name="property_type")
     private PropertyType propertyType;
 
     @Column(name="title", nullable = false)
@@ -33,19 +35,39 @@ public class Advert{
     @Column(name="price")
     private BigDecimal price;
 
-    @Column(name="posted-at")
+    @Column(name="posted_at")
     private LocalDateTime postedAt;
 
-    @Column(name="updated-at")
+    @Column(name="updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name="advert-type")
+    @Enumerated(EnumType.STRING)
+    @Column(name="advert_type")
     private AdvertType advertType;
 
     @ManyToOne
     @JoinColumn(name="city_id")
     private City city;
 
+    @ManyToOne
+    @JoinColumn(name="profile_id")
+    private Profile profile;
+
     @Column(name="size")
     private Float size;
+
+    @Column(name="status")
+    @Enumerated(EnumType.STRING)
+    private StatusType status;
+
+    @PrePersist
+    protected void onCreate(){
+        postedAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate(){
+        updatedAt = LocalDateTime.now();
+    }
 }

@@ -8,19 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AgencyProfileDto extends ProfileDto{
-
-    private Long id;
-
-    private String userName;
-
     private String agencyName;
-
-    private String email;
-
-    private Integer status;
-
-    private Integer phone;
-
-
-
+    private String oib;
 }

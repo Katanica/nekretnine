@@ -1,8 +1,11 @@
 package com.example.backend.DTO;
 
+import com.example.backend.Entity.Advert;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +22,7 @@ public class ProfileDto {
 
         //CITY UBACIT KAD SE ZAVRSI CityService i ostalo
 
-        private Integer phone;
+        private String phone;
 
-
+        private List<Advert> adverts;
 }

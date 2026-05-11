@@ -2,37 +2,16 @@ package com.example.backend.Mapper;
 
 import com.example.backend.DTO.AgencyProfileDto;
 import com.example.backend.Entity.AgencyProfile;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
 
-@Component
-public class AgencyProfileMapper {
+import java.util.List;
 
-    public AgencyProfileDto toDto(AgencyProfile agencyProfile){
-        AgencyProfileDto dto = new AgencyProfileDto();
+@Mapper(componentModel = "spring")
+public interface AgencyProfileMapper {
 
-        dto.setId(agencyProfile.getId());
-        dto.setUserName(agencyProfile.getUserName());
-        dto.setAgencyName(agencyProfile.getAgencyName());
-        dto.setEmail(agencyProfile.getEmail());
-        dto.setStatus(agencyProfile.getStatus());
-        dto.setPhone(agencyProfile.getPhone());
+    AgencyProfileDto toDto(AgencyProfile agencyProfile);
 
-        return dto;
+    AgencyProfile toEntity(AgencyProfileDto agencyProfileDto);
 
-    }
-
-    public AgencyProfile toEntity(AgencyProfileDto dto){
-
-        AgencyProfile agencyProfile = new AgencyProfile();
-
-        agencyProfile.setId(dto.getId());
-        agencyProfile.setUserName(dto.getUserName());
-        agencyProfile.setAgencyName(dto.getAgencyName());
-        agencyProfile.setEmail(dto.getEmail());
-        agencyProfile.setStatus(dto.getStatus());
-        agencyProfile.setPhone(dto.getPhone());
-
-        return agencyProfile;
-    }
+    List<AgencyProfileDto> toDtoList(List<AgencyProfile> agencyProfiles);
 }

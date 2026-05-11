@@ -1,12 +1,9 @@
 package com.example.backend.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -16,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "AGENCY_PROFILE")
 @DiscriminatorValue("AGENCY")
 public class AgencyProfile extends Profile{
-
     @Column(name = "agencyName")
     private String agencyName;
 
