@@ -1,8 +1,10 @@
 package com.example.backend.Service;
-import org.springframework.stereotype.Service;
 
-import com.example.backend.Repository.CantonRepository;
+import com.example.backend.DTO.CantonDto;
 
-@Service
+import java.util.List;
+
 public interface CantonService {
+    List<CantonDto> getAll();
+    CantonDto getById(Long id);
 }
