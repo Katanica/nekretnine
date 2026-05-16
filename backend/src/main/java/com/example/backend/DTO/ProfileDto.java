@@ -1,6 +1,8 @@
 package com.example.backend.DTO;
 
 import com.example.backend.Entity.Advert;
+import com.example.backend.Entity.City;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +21,13 @@ public class ProfileDto {
 
         private Integer status;
 
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        private String password;
 
-        //CITY UBACIT KAD SE ZAVRSI CityService i ostalo
+
+
+
+        private City city;
 
         private String phone;
 

@@ -5,9 +5,11 @@ import com.example.backend.Entity.UserProfile;
 import com.example.backend.Mapper.UserProfileMapper;
 import com.example.backend.Repository.UserProfileRepository;
 import com.example.backend.Service.UserProfileService;
+import io.jsonwebtoken.security.Password;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     private final UserProfileRepository repository;
     private final UserProfileMapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<UserProfileDto> getAll(){
@@ -35,6 +38,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public UserProfileDto create(UserProfileDto dto){
         UserProfile userProfile = mapper.toEntity(dto);
+        userProfile.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
         UserProfile saved = repository.save(userProfile);
         return mapper.toDto(saved);
     }
