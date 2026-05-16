@@ -46,7 +46,7 @@ public class Profile{
     @Column(name = "role", insertable = false, updatable = false)
     private Role role;
 
-    // PRIVREMENO STRING KASNIJE CEMO STAVIITI TIP LOCATION
+
     @ManyToOne
     @JoinColumn(name="city_id")
     private City city;
