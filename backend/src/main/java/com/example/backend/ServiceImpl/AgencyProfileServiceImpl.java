@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class AgencyProfileServiceImpl implements AgencyProfileService {
     public final AgencyProfileRepository repository;
     @Qualifier("agencyProfileMapper")
     public final AgencyProfileMapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<AgencyProfileDto> getAll(){
@@ -37,6 +39,7 @@ public class AgencyProfileServiceImpl implements AgencyProfileService {
     @Override
     public AgencyProfileDto create(AgencyProfileDto dto){
         AgencyProfile agencyProfile = mapper.toEntity(dto);
+        agencyProfile.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
         AgencyProfile saved = repository.save(agencyProfile);
         return mapper.toDto(saved);
 
