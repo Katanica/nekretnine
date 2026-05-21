@@ -1,8 +1,14 @@
 package com.example.backend.Controller;
 
 import com.example.backend.DTO.AdvertDto;
+import com.example.backend.Entity.Advert;
+import com.example.backend.Entity.City;
+import com.example.backend.Enums.PropertyType;
 import com.example.backend.Service.AdvertService;
+import com.example.backend.Specification.AdvertFilterRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +24,12 @@ public class AdvertController {
     @GetMapping
     public ResponseEntity<List<AdvertDto>>  getAll(){
         return ResponseEntity.ok(service.getAll());
+    }
+
+    // SPECIFICATION
+    @GetMapping("/find")
+    public List<Advert> getAdverts(@ModelAttribute AdvertFilterRequest filter){
+        return service.searchAdverts(filter);
     }
 
     @GetMapping("/{id}")

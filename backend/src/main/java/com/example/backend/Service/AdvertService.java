@@ -1,13 +1,16 @@
 package com.example.backend.Service;
 
 import com.example.backend.DTO.AdvertDto;
-import com.example.backend.DTO.UserProfileDto;
+import com.example.backend.Entity.Advert;
 import com.example.backend.Repository.AdvertRepository;
-import org.springframework.stereotype.Service;
+import com.example.backend.Specification.AdvertFilterRequest;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface AdvertService {
+
+    List<Advert> searchAdverts(AdvertFilterRequest filter);
 
     List<AdvertDto> getAll();
 

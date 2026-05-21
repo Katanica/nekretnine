@@ -1,5 +1,6 @@
 package com.example.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,8 +27,10 @@ public class City {
     private Canton canton;
 
     @OneToMany(mappedBy="city", cascade=CascadeType.ALL)
+    @JsonIgnore
     private List<Advert> adverts = new ArrayList<>();
 
     @OneToMany(mappedBy="city", cascade=CascadeType.ALL)
+    @JsonIgnore
     private List<Profile> profiles = new ArrayList<>();
 }

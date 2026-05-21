@@ -20,7 +20,7 @@ public class AdvertDto {
     private PropertyType propertyType;
     private String title;
     private String description;
-    private BigDecimal price;
+    private Double price;
     private LocalDateTime postedAt;
     private LocalDateTime updatedAt;
     private AdvertType advertType;
