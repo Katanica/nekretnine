@@ -7,6 +7,7 @@ import com.example.backend.Repository.AgencyProfileRepository;
 import com.example.backend.Service.AgencyProfileService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class AgencyProfileServiceImpl implements AgencyProfileService {
 
     public final AgencyProfileRepository repository;
+    @Qualifier("agencyProfileMapper")
     public final AgencyProfileMapper mapper;
 
     @Override

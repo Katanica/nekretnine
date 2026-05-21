@@ -3,6 +3,7 @@ package com.example.backend.Entity;
 import com.example.backend.Enums.AdvertType;
 import com.example.backend.Enums.PropertyType;
 import com.example.backend.Enums.StatusType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,7 +34,7 @@ public class Advert{
     private String description;
 
     @Column(name="price")
-    private BigDecimal price;
+    private Double price;
 
     @Column(name="posted_at")
     private LocalDateTime postedAt;
