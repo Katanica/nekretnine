@@ -28,7 +28,6 @@ public class AuthService  implements UserDetailsService {
 
     public String login(String email, String password){
         Profile profile = profileRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Incorrect Email or Password"));
-
         if(!passwordEncoder.matches(password, profile.getPasswordHash())){
             throw new RuntimeException("Incorrect email or password");
         }
