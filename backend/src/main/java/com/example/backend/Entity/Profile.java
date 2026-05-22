@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "PROFILE")
 @NoArgsConstructor
-@DiscriminatorColumn(name = "ROLE_id", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "profile_type", discriminatorType = DiscriminatorType.STRING)
 public class Profile{
 
     @Id
@@ -46,7 +46,6 @@ public class Profile{
     @Column(name = "role", insertable = false, updatable = false)
     private Role role;
 
-
     @ManyToOne
     @JoinColumn(name="city_id")
     private City city;
@@ -56,9 +55,5 @@ public class Profile{
 
     @Column(name = "phone")
     private String phone;
-
-
-
-
 
 }

@@ -22,8 +22,9 @@ public class AdvertController {
     private final AdvertService service;
 
     @GetMapping
-    public ResponseEntity<List<AdvertDto>>  getAll(){
-        return ResponseEntity.ok(service.getAll());
+    public ResponseEntity<Page<Advert>>  getAll(@RequestParam(defaultValue="0") int page,
+                                                @RequestParam(defaultValue="10") int size){
+        return ResponseEntity.ok(service.getAll(page, size));
     }
 
     // SPECIFICATION

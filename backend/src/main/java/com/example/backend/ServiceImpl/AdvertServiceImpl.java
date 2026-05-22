@@ -12,6 +12,8 @@ import com.example.backend.Specification.AdvertSpecification;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -67,9 +69,10 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public List<AdvertDto> getAll(){
-        return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
-
+    // OSPOSOBIT NA ADVERT DTO !!!
+    public Page<Advert> getAll(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return repository.findAll(pageable);
     }
 
     @Override

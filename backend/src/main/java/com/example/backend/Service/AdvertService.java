@@ -12,7 +12,7 @@ public interface AdvertService {
 
     List<Advert> searchAdverts(AdvertFilterRequest filter);
 
-    List<AdvertDto> getAll();
+    Page<Advert> getAll(int page, int size);
 
     AdvertDto getById(Long id);
 
