@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface AdvertService {
 
-    List<Advert> searchAdverts(AdvertFilterRequest filter);
+    List<AdvertDto> searchAdverts(AdvertFilterRequest filter);
 
-    Page<Advert> getAll(int page, int size);
+    Page<AdvertDto> getAll(int page, int size);
 
     AdvertDto getById(Long id);
 

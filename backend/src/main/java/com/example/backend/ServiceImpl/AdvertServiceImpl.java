@@ -27,7 +27,7 @@ public class AdvertServiceImpl implements AdvertService {
     @Qualifier("advertMapper")
     private final AdvertMapper mapper;
 
-    public List<Advert> searchAdverts(AdvertFilterRequest filter){
+    public List<AdvertDto> searchAdverts(AdvertFilterRequest filter){
         String title = filter.getTitle();
         PropertyType propertyType = filter.getPropertyType();
         Double maxPrice = filter.getMaxPrice();
@@ -65,14 +65,15 @@ public class AdvertServiceImpl implements AdvertService {
             spec = spec.and((root, query, cb) -> cb.equal(root.get("city").get("canton").get("id"), cantonId));
         }
 
-        return repository.findAll(spec);
+        List<Advert> adverts = repository.findAll(spec);
+        return mapper.toDtoList(adverts);
     }
 
     @Override
-    // OSPOSOBIT NA ADVERT DTO !!!
-    public Page<Advert> getAll(int page, int size){
+    public Page<AdvertDto> getAll(int page, int size){
         Pageable pageable = PageRequest.of(page, size);
-        return repository.findAll(pageable);
+        Page<Advert> adverts = repository.findAll(pageable);
+        return adverts.map(mapper::toDto);
     }
 
     @Override

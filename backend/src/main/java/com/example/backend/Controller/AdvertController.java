@@ -22,14 +22,14 @@ public class AdvertController {
     private final AdvertService service;
 
     @GetMapping
-    public ResponseEntity<Page<Advert>>  getAll(@RequestParam(defaultValue="0") int page,
+    public ResponseEntity<Page<AdvertDto>>  getAll(@RequestParam(defaultValue="0") int page,
                                                 @RequestParam(defaultValue="10") int size){
         return ResponseEntity.ok(service.getAll(page, size));
     }
 
     // SPECIFICATION
     @GetMapping("/find")
-    public List<Advert> getAdverts(@ModelAttribute AdvertFilterRequest filter){
+    public List<AdvertDto> getAdverts(@ModelAttribute AdvertFilterRequest filter){
         return service.searchAdverts(filter);
     }
 
