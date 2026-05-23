@@ -14,6 +14,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+
+// IZVRSAVA SE PRI SVAKOM REQUESTU I PROVJERAVA IMA LI REQUEST TOKEN
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
@@ -31,21 +33,27 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain chain)
             throws ServletException, IOException {
 
+        // 1. UZMI HEADER
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            // IZ HEADERA UZMI SVE POSLIJE 7 indexa tj. poslije "Bearer"
             String token = authHeader.substring(7);
 
+            // provjeri je li token validan
             if (jwtUtil.isTokenValid(token)) {
+                // ako je validan iz tokena izvuci email - svaki token sadrzi i email
                 String email = jwtUtil.extractEmail(token);
+                // nadi tog korisnika
                 var userDetails = userDetailsService.loadUserByUsername(email);
 
+                // upisi tko je ulogovani korisnik te mozes bilo gdje u aplikaciji provjeriti tko je ulogovan
                 var auth = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }
-
+        // pusti ga dalje - jwtfilter pusta sviju, a SecurityConfig kontrolira
         chain.doFilter(request, response);
     }
 }

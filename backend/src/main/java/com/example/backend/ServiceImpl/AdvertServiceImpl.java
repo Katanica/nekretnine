@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -96,8 +97,18 @@ public class AdvertServiceImpl implements AdvertService {
         return mapper.toDto(saved);
     }
 
+    public boolean isOwner(Long advertId, String email) {
+        return repository.findById(advertId)
+                .map(ad -> {
+                    System.out.println(ad.getProfile());
+                    return ad.getProfile().getEmail().equals(email);
+                })
+                .orElse(false);
+    }
+
     @Override
+    @PreAuthorize("hasRole('ADMIN') or @advertServiceImpl.isOwner(#id, authentication.name)")
     public void delete(Long id){
-        repository.deleteById(id);
+        /*repository.deleteById(id)*/;
     }
 }

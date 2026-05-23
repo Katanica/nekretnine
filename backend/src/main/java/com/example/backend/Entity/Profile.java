@@ -1,5 +1,6 @@
 package com.example.backend.Entity;
 import com.example.backend.Enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,6 +52,7 @@ public class Profile{
     private City city;
 
     @OneToMany(mappedBy="profile", cascade= CascadeType.ALL)
+    @JsonIgnore
     private List<Advert> adverts = new ArrayList<>();
 
     @Column(name = "phone")
