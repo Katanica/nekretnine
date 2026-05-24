@@ -2,9 +2,7 @@ package com.example.backend.Entity;
 import com.example.backend.Enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,6 +15,8 @@ import java.util.List;
 @Entity
 @Table(name = "PROFILE")
 @NoArgsConstructor
+@Getter
+@Setter
 @DiscriminatorColumn(name = "profile_type", discriminatorType = DiscriminatorType.STRING)
 public class Profile{
 
