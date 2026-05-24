@@ -1,5 +1,6 @@
 package com.example.backend.Controller;
 
+import com.example.backend.DTO.AdvertDto;
 import com.example.backend.DTO.CantonDto;
 import com.example.backend.Service.CantonService;
 import lombok.AllArgsConstructor;
@@ -13,15 +14,30 @@ import java.util.List;
 @AllArgsConstructor
 public class CantonController {
 
-    private final CantonService cantonService;
+    private final CantonService service;
 
     @GetMapping
     public ResponseEntity<List<CantonDto>> getAll() {
-        return ResponseEntity.ok(cantonService.getAll());
+        return ResponseEntity.ok(service.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CantonDto> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(cantonService.getById(id));
+        return ResponseEntity.ok(service.getById(id));
+    }
+    @PostMapping
+    public ResponseEntity<CantonDto> create(@RequestBody CantonDto dto){
+        return ResponseEntity.status(201).body(service.create(dto));
+    }
+
+    @PutMapping
+    public ResponseEntity<CantonDto> update(@RequestBody CantonDto dto){
+        return ResponseEntity.ok(service.update(dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
