@@ -1,19 +1,24 @@
 package com.example.backend.ServiceImpl;
 
 import com.example.backend.DTO.UserProfileDto;
+import com.example.backend.Entity.Profile;
 import com.example.backend.Entity.UserProfile;
 import com.example.backend.Enums.Role;
 import com.example.backend.Mapper.UserProfileMapper;
+import com.example.backend.Repository.ProfileRepository;
 import com.example.backend.Repository.UserProfileRepository;
 import com.example.backend.Service.UserProfileService;
 import io.jsonwebtoken.security.Password;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -22,8 +27,10 @@ import java.util.stream.Collectors;
 public class UserProfileServiceImpl implements UserProfileService {
 
     private final UserProfileRepository repository;
+    @Qualifier("userProfileMapper")
     private final UserProfileMapper mapper;
     private final PasswordEncoder passwordEncoder;
+    private final ProfileRepository profileRepository;
 
     @Override
     public List<UserProfileDto> getAll(){
@@ -46,6 +53,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN') or @userProfileServiceImpl.isOwner(#dto.id, authentication.name)")
     public UserProfileDto update(UserProfileDto dto){
         UserProfile existing = repository.findById(dto.getId()).orElseThrow(() -> new RuntimeException("User not found"));
         existing.setUserName(dto.getUserName());
@@ -59,7 +67,15 @@ public class UserProfileServiceImpl implements UserProfileService {
         return mapper.toDto(saved);
     }
 
+    public boolean isOwner(Long profileId, String email) {
+        return profileRepository.findById(profileId)
+                .map(Profile::getEmail)
+                .map(profileEmail -> Objects.equals(profileEmail, email))
+                .orElse(false);
+    }
+
     @Override
+    @PreAuthorize("hasRole('ADMIN') or @userProfileServiceImpl.isOwner(#id, authentication.name)")
     public void delete(Long id){
         repository.deleteById(id);
     }

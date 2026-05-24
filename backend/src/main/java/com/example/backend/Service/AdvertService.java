@@ -19,10 +19,8 @@ public interface AdvertService {
 
     AdvertDto create(AdvertDto dto);
 
-    @PreAuthorize("hasRole('ADMIN') or @advertServiceImpl.isOwner(#dto.id, authentication.name)")
     AdvertDto update(AdvertDto dto);
 
-    @PreAuthorize("hasRole('ADMIN') or @advertServiceImpl.isOwner(#id, authentication.name)")
     void delete(Long id);
 
 }

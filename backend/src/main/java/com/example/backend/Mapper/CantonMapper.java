@@ -1,8 +1,11 @@
 package com.example.backend.Mapper;
 
+import com.example.backend.DTO.AdvertDto;
 import com.example.backend.DTO.CantonDto;
+import com.example.backend.Entity.Advert;
 import com.example.backend.Entity.Canton;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -13,4 +16,6 @@ public interface CantonMapper {
     Canton toEntity(CantonDto cantonDto);
 
     List<Canton> toDtoList(List<Canton> canton);
+
+    void updateEntityFromDto(CantonDto dto, @MappingTarget Canton canton);
 }
