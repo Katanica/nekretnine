@@ -3,15 +3,15 @@ package com.example.backend.DTO;
 import com.example.backend.Entity.Advert;
 import com.example.backend.Entity.City;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Getter
+@Setter
 public class ProfileDto {
         private Long id;
 
@@ -23,9 +23,6 @@ public class ProfileDto {
 
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
         private String password;
-
-
-
 
         private City city;
 

@@ -2,16 +2,21 @@ package com.example.backend.ServiceImpl;
 
 import com.example.backend.DTO.AgencyProfileDto;
 import com.example.backend.Entity.AgencyProfile;
+import com.example.backend.Entity.Profile;
 import com.example.backend.Enums.Role;
 import com.example.backend.Mapper.AgencyProfileMapper;
 import com.example.backend.Repository.AgencyProfileRepository;
+import com.example.backend.Repository.ProfileRepository;
 import com.example.backend.Service.AgencyProfileService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +24,7 @@ import java.util.stream.Collectors;
 public class AgencyProfileServiceImpl implements AgencyProfileService {
 
     private final AgencyProfileRepository repository;
+    private final ProfileRepository profileRepository;
 
     @Qualifier("agencyProfileMapper")
     private final AgencyProfileMapper mapper;
@@ -48,7 +54,15 @@ public class AgencyProfileServiceImpl implements AgencyProfileService {
         return mapper.toDto(saved);
     }
 
+    public boolean isOwner(Long profileId, String email) {
+        return profileRepository.findById(profileId)
+                .map(Profile::getEmail)
+                .map(profileEmail -> Objects.equals(profileEmail, email))
+                .orElse(false);
+    }
+
     @Override
+    @PreAuthorize("hasRole('ADMIN') or @agencyProfileServiceImpl.isOwner(#dto.id, authentication.name)")
     public AgencyProfileDto update(AgencyProfileDto dto) {
         AgencyProfile existing = repository.findById(dto.getId())
                 .orElseThrow(() -> new RuntimeException("Agency not found"));
@@ -63,6 +77,7 @@ public class AgencyProfileServiceImpl implements AgencyProfileService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ADMIN') or @agencyProfileServiceImpl.isOwner(#id, authentication.name)")
     public void delete(Long id) {
         repository.deleteById(id);
     }
