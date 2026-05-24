@@ -2,6 +2,7 @@ package com.example.backend.ServiceImpl;
 
 import com.example.backend.DTO.UserProfileDto;
 import com.example.backend.Entity.UserProfile;
+import com.example.backend.Enums.Role;
 import com.example.backend.Mapper.UserProfileMapper;
 import com.example.backend.Repository.UserProfileRepository;
 import com.example.backend.Service.UserProfileService;
@@ -39,6 +40,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     public UserProfileDto create(UserProfileDto dto){
         UserProfile userProfile = mapper.toEntity(dto);
         userProfile.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
+        userProfile.setRole(Role.USER);  // <-- DODAJ
         UserProfile saved = repository.save(userProfile);
         return mapper.toDto(saved);
     }

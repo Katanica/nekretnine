@@ -44,7 +44,7 @@ public class Profile{
     private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", insertable = false, updatable = false)
+    @Column(name = "role")
     private Role role;
 
     @ManyToOne
