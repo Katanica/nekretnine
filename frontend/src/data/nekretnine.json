@@ -1,0 +1,97 @@
+[
+  {
+    "id": 1,
+    "tip": "Prodaja",
+    "cijena": 245000,
+    "valuta": "€",
+    "naslov": "Moderan stan u centru grada",
+    "opis": "Prekrasan trosoban stan u srcu grada s pogledom na park. Stan je potpuno renoviran 2022. godine, visoki stropovi, parket, nova kuhinja i kupaonica. Idealno za obitelj ili investiciju.",
+    "lokacija": {
+      "grad": "Zagreb",
+      "kvart": "Centar"
+    },
+    "kvadratura": 85,
+    "sobe": 3,
+    "kupaonice": 2,
+    "parking": 1,
+    "slika": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80",
+    "istaknuto": true,
+    "datum_objave": "2025-05-10"
+  },
+  {
+    "id": 2,
+    "tip": "Najam",
+    "cijena": 1200,
+    "valuta": "€/mj",
+    "naslov": "Luksuzna kuća s bazenom",
+    "opis": "Raskošna vila s privatnim bazenom, uređenim vrtom i panoramskim pogledom na more. Četiri spavaće sobe, moderna oprema, garaža za dva vozila. Dostupna od lipnja.",
+    "lokacija": {
+      "grad": "Split",
+      "kvart": "Meje"
+    },
+    "kvadratura": 150,
+    "sobe": 4,
+    "kupaonice": 3,
+    "parking": 2,
+    "slika": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80",
+    "istaknuto": true,
+    "datum_objave": "2025-05-08"
+  },
+  {
+    "id": 3,
+    "tip": "Prodaja",
+    "cijena": 180000,
+    "valuta": "€",
+    "naslov": "Dvosoban stan s balkonom",
+    "opis": "Svjetao dvosoban stan na trećem katu s velikim balkonom prema jugu. Nova stolarija, klima uređaji u svim sobama, lift u zgradi. Mirna lokacija, blizu škole i tramvajske stanice.",
+    "lokacija": {
+      "grad": "Rijeka",
+      "kvart": "Belveder"
+    },
+    "kvadratura": 65,
+    "sobe": 2,
+    "kupaonice": 1,
+    "parking": 1,
+    "slika": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
+    "istaknuto": true,
+    "datum_objave": "2025-05-12"
+  },
+  {
+    "id": 4,
+    "tip": "Prodaja",
+    "cijena": 320000,
+    "valuta": "€",
+    "naslov": "Obiteljska kuća s vrtom",
+    "opis": "Prostrana jednokatnica s velikom okućnicom od 400 m². Prizemlje: dnevni boravak, kuhinja, radna soba. Kat: tri spavaće sobe i dvije kupaonice. Garaža, šupa, uređen vrt s terasom.",
+    "lokacija": {
+      "grad": "Osijek",
+      "kvart": "Retfala"
+    },
+    "kvadratura": 160,
+    "sobe": 4,
+    "kupaonice": 2,
+    "parking": 2,
+    "slika": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
+    "istaknuto": false,
+    "datum_objave": "2025-05-01"
+  },
+  {
+    "id": 5,
+    "tip": "Najam",
+    "cijena": 650,
+    "valuta": "€/mj",
+    "naslov": "Studio apartman blizu mora",
+    "opis": "Potpuno opremljen studio apartman, 200 metara od plaže. Klimatiziran, brzi internet, zajednički rooftop s pogledom na more. Idealno za mladi par ili single. Dostupan odmah.",
+    "lokacija": {
+      "grad": "Zadar",
+      "kvart": "Borik"
+    },
+    "kvadratura": 32,
+    "sobe": 1,
+    "kupaonice": 1,
+    "parking": 0,
+    "slika": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80",
+    "istaknuto": false,
+    "datum_objave": "2025-05-14"
+  }
+]

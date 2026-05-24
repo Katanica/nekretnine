@@ -1,0 +1,26 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 20px;
+}
+
+.listings {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+/* mobitel — ispod 768px */
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+}

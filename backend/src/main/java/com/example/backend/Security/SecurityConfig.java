@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // Javni endpointi (ne treba token)
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/canton/**").permitAll()
                         .requestMatchers("/api/city/**").permitAll()
@@ -46,6 +47,10 @@ public class SecurityConfig {
                         // Zaštićeni endpointi
                         .requestMatchers("/api/bookmark/**").authenticated()
                         .requestMatchers("/api/picture/**").authenticated()
+                        // privremeno
+
+                        .requestMatchers(HttpMethod.POST, "/api/userProfile/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/userProfile/**").permitAll()
                         .requestMatchers("/api/userProfile/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/agencyProfile/**").hasAnyRole("AGENCY", "ADMIN")
 

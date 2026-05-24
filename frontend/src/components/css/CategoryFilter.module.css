@@ -1,0 +1,15 @@
+.boxContent {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.span {
+  font-weight: 600;
+  font-size: 14px;
+}

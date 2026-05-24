@@ -27,7 +27,7 @@ public class ProfileDto {
 
 
 
-        private City city;
+       // private City city;
 
         private String phone;
 

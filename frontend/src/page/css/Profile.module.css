@@ -1,0 +1,109 @@
+header {
+  background-color: #e9e6e6;
+  display: flex;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.profile {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.profile img {
+  width: 200px;
+  height: 180px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-left: 20px;
+}
+
+.profilInfo h3 {
+  font-size: 22px;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
+}
+
+.profileInfo .email {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.profileInfo .meta {
+  display: flex;
+  gap: 20px;
+  margin-top: 4px;
+}
+
+.profileInfo .meta span {
+  font-size: 13px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  gap: 8px;
+}
+
+.add {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: #c49a3c;
+  color: #fff;
+  border: none;
+  height: 50px;
+  border-radius: 8px;
+  width: 80px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.add:hover {
+  background: #b08930;
+}
+.edit {
+  display: flex;
+  border: none;
+  height: 50px;
+  font-size: 14px;
+  align-items: center;
+  width: 80px;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.logout {
+  display: flex;
+
+  height: 50px;
+  font-size: 14px;
+  align-items: center;
+  width: 80px;
+  font-weight: 500;
+  border-radius: 8px;
+  text-align: center;
+  border-color: rgb(165, 47, 47);
+}
