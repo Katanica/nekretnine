@@ -3,6 +3,7 @@ package com.example.backend.Mapper;
 import com.example.backend.DTO.AdvertDto;
 import com.example.backend.Entity.Advert;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;
@@ -16,5 +17,6 @@ public interface AdvertMapper {
 
     List<AdvertDto> toDtoList(List<Advert> advert);
 
+    @Mapping(target = "profile", ignore = true)
     void updateEntityFromDto(AdvertDto dto, @MappingTarget Advert advert);
 }

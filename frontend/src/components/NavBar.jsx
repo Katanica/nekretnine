@@ -1,17 +1,24 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./css/NavBar.module.css";
 import { Heart, User, Plus } from "lucide-react";
-import { getToken } from "../api";
+import { getToken, getUserID } from "../api";
 export default function NavBar() {
   const token = getToken();
 
   const navigate = useNavigate();
+  const id = getUserID();
   function handleProfil() {
     if (token) {
-      navigate("/profile");
+      navigate(`profile/${id}`);
     } else {
       navigate("/login");
     }
+  }
+
+  function handleAddAdvert() {
+    console.log(token);
+    console.log(id);
+    navigate("add-advert");
   }
   return (
     <nav className={styles.nav}>
@@ -80,10 +87,12 @@ export default function NavBar() {
           >
             <User size={20} />
           </button>
-          <button className={styles.cta}>
-            <Plus size={16} />
-            Add Advert
-          </button>
+          {token && (
+            <button className={styles.cta} onClick={handleAddAdvert}>
+              <Plus size={16} />
+              Add Advert
+            </button>
+          )}
         </div>
       </div>
     </nav>

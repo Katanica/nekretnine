@@ -34,8 +34,15 @@ export async function action({ request }) {
 
   const resData = await response.json();
   const token = resData.token;
+  const id = resData.id;
   localStorage.setItem("token", token);
+
+  // dekodiranje tokena
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  localStorage.setItem("id", payload.id);
+  console.log(payload);
   console.log(token);
+  console.log(payload.id);
 
   const expiration = new Date();
   expiration.setHours(expiration.getHours() + 1);

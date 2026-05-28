@@ -3,9 +3,11 @@ package com.example.backend.ServiceImpl;
 import com.example.backend.DTO.AdvertDto;
 import com.example.backend.Entity.Advert;
 import com.example.backend.Entity.City;
+import com.example.backend.Entity.Profile;
 import com.example.backend.Enums.PropertyType;
 import com.example.backend.Mapper.AdvertMapper;
 import com.example.backend.Repository.AdvertRepository;
+import com.example.backend.Repository.ProfileRepository;
 import com.example.backend.Service.AdvertService;
 import com.example.backend.Specification.AdvertFilterRequest;
 import com.example.backend.Specification.AdvertSpecification;
@@ -18,6 +20,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AdvertServiceImpl implements AdvertService {
     private final AdvertRepository repository;
+    private final ProfileRepository profileRepository;
     @Qualifier("advertMapper")
     private final AdvertMapper mapper;
 
@@ -84,8 +88,11 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public AdvertDto create(AdvertDto dto){
+    public AdvertDto create(Long id, AdvertDto dto){
+        Profile profile = profileRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         Advert advert = mapper.toEntity(dto);
+        advert.setProfile(profile);
+        advert.setPostedAt(LocalDateTime.now());
         Advert saved = repository.save(advert);
         return mapper.toDto(saved);
     }

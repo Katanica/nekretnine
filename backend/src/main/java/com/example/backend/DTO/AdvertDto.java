@@ -24,6 +24,6 @@ public class AdvertDto {
     private LocalDateTime postedAt;
     private LocalDateTime updatedAt;
     private AdvertType advertType;
-    private City city;
+    //private City city;
     private Float size;
 }

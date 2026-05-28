@@ -16,6 +16,7 @@ export async function action({ request }) {
     dateOfBirth: data.get("dateOfBirth"),
     city: data.get("city"),
   };
+  console.log(registerData);
 
   const response = await fetch("http://localhost:8080/api/auth/register/user", {
     method: "POST",

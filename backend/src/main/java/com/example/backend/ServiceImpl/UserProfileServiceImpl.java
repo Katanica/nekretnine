@@ -45,6 +45,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     public UserProfileDto create(UserProfileDto dto){
+        System.out.println("DTO class: " + dto.getClass().getName());
+        System.out.println("Full DTO: " + dto);
         UserProfile userProfile = mapper.toEntity(dto);
         userProfile.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
         userProfile.setRole(Role.USER);  // <-- DODAJ

@@ -17,7 +17,7 @@ public interface AdvertService {
 
     AdvertDto getById(Long id);
 
-    AdvertDto create(AdvertDto dto);
+    AdvertDto create(Long id, AdvertDto dto);
 
     AdvertDto update(AdvertDto dto);
 
