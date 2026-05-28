@@ -39,9 +39,9 @@ public class AdvertController {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<AdvertDto> create(@RequestBody AdvertDto dto){
-        return ResponseEntity.status(201).body(service.create(dto));
+    @PostMapping("/{id}")
+    public ResponseEntity<AdvertDto> create(@PathVariable Long id, @RequestBody AdvertDto dto){
+        return ResponseEntity.status(201).body(service.create(id, dto));
     }
 
     @PutMapping

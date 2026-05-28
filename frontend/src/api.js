@@ -26,6 +26,11 @@ export function getToken() {
   return token;
 }
 
+export function getUserID() {
+  const id = localStorage.getItem("id");
+  return id;
+}
+
 export function tokenLoader() {
   const token = getToken();
   return token;

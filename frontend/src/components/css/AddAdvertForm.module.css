@@ -1,0 +1,75 @@
+.card {
+  background-color: #ffffff;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 1.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  color: #666;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 0.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #888;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.btn {
+  margin-top: 8px;
+  padding: 10px;
+  background-color: #1a56db;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #1648c4;
+}

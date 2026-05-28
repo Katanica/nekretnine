@@ -42,8 +42,10 @@ public class JwtFilter extends OncePerRequestFilter {
 
             // provjeri je li token validan
             if (jwtUtil.isTokenValid(token)) {
+
                 // ako je validan iz tokena izvuci email - svaki token sadrzi i email
                 String email = jwtUtil.extractEmail(token);
+                System.out.println("Email iz tokena: " + email);
                 // nadi tog korisnika
                 var userDetails = userDetailsService.loadUserByUsername(email);
 
