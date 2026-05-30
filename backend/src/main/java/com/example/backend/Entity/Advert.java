@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -60,6 +62,10 @@ public class Advert{
     @Column(name="status")
     @Enumerated(EnumType.STRING)
     private StatusType status;
+
+    @OneToMany(mappedBy="advert", cascade=CascadeType.ALL)
+    @JsonIgnore
+    private List<Picture> pictures = new ArrayList<>();
 
     @PrePersist
     protected void onCreate(){
