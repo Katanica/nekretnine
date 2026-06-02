@@ -4,15 +4,18 @@ import com.example.backend.DTO.AgencyProfileDto;
 import com.example.backend.Entity.AgencyProfile;
 import com.example.backend.Entity.Profile;
 import com.example.backend.Enums.Role;
+import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Mapper.AgencyProfileMapper;
 import com.example.backend.Repository.AgencyProfileRepository;
 import com.example.backend.Repository.ProfileRepository;
 import com.example.backend.Service.AgencyProfileService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Objects;
@@ -41,12 +44,12 @@ public class AgencyProfileServiceImpl implements AgencyProfileService {
     @Override
     public AgencyProfileDto getById(Long id) {
         AgencyProfile agencyProfile = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Agency not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("AgencyProfile nije pronađen: " + id));
         return mapper.toDto(agencyProfile);
     }
 
     @Override
-    public AgencyProfileDto create(AgencyProfileDto dto) {
+    public AgencyProfileDto create(@Valid @RequestBody AgencyProfileDto dto) {
         AgencyProfile agencyProfile = mapper.toEntity(dto);
         agencyProfile.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
         agencyProfile.setRole(Role.AGENCY);   // <-- bitno, bez ovoga login puca
@@ -63,9 +66,9 @@ public class AgencyProfileServiceImpl implements AgencyProfileService {
 
     @Override
     @PreAuthorize("hasRole('ADMIN') or @agencyProfileServiceImpl.isOwner(#dto.id, authentication.name)")
-    public AgencyProfileDto update(AgencyProfileDto dto) {
+    public AgencyProfileDto update(@Valid @RequestBody AgencyProfileDto dto) {
         AgencyProfile existing = repository.findById(dto.getId())
-                .orElseThrow(() -> new RuntimeException("Agency not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("AgencyProfile nije pronađen: " + dto.getId()));
 
         existing.setUserName(dto.getUserName());
         existing.setAgencyName(dto.getAgencyName());

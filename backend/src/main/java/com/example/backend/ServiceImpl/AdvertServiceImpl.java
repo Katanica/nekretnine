@@ -2,15 +2,15 @@ package com.example.backend.ServiceImpl;
 
 import com.example.backend.DTO.AdvertDto;
 import com.example.backend.Entity.Advert;
-import com.example.backend.Entity.City;
 import com.example.backend.Entity.Profile;
 import com.example.backend.Enums.PropertyType;
+import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Mapper.AdvertMapper;
 import com.example.backend.Repository.AdvertRepository;
 import com.example.backend.Repository.ProfileRepository;
 import com.example.backend.Service.AdvertService;
 import com.example.backend.Specification.AdvertFilterRequest;
-import com.example.backend.Specification.AdvertSpecification;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,16 +19,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class AdvertServiceImpl implements AdvertService {
     private final AdvertRepository repository;
     private final ProfileRepository profileRepository;
+
     @Qualifier("advertMapper")
     private final AdvertMapper mapper;
 
@@ -83,13 +84,13 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public AdvertDto getById(Long id){
-        Advert advert = repository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        Advert advert = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Oglas nije pronađen: " + id));
         return mapper.toDto(advert);
     }
 
     @Override
-    public AdvertDto create(Long id, AdvertDto dto){
-        Profile profile = profileRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public AdvertDto create(Long id, @Valid @RequestBody AdvertDto dto){
+        Profile profile = profileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Oglas nije pronađen: " + id));
         Advert advert = mapper.toEntity(dto);
         advert.setProfile(profile);
         advert.setPostedAt(LocalDateTime.now());
@@ -99,8 +100,8 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     @PreAuthorize("hasRole('ADMIN') or @advertServiceImpl.isOwner(#dto.id, authentication.name)")
-    public AdvertDto update(AdvertDto dto){
-        Advert existing = repository.findById(dto.getId()).orElseThrow(() -> new RuntimeException("User not found"));
+    public AdvertDto update(@Valid @RequestBody AdvertDto dto){
+        Advert existing = repository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException("Oglas nije pronađen: " + dto.getId()));
         mapper.updateEntityFromDto(dto, existing);
         Advert saved = repository.save(existing);
         return mapper.toDto(saved);
