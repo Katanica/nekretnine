@@ -22,8 +22,11 @@ public class Picture {
     @JoinColumn(name = "advert_id", nullable = false)
     private Advert advert;
 
-    @Column(nullable = false, length = 500)
-    private String slikaUrl;
+    private String fileName;
+
+    private String filePath;
+
+    private String contentType;
 
     @Column(nullable = false)
     private Boolean isPrimary = false;
