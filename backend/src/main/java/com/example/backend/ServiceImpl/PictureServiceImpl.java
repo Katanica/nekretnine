@@ -2,20 +2,32 @@ package com.example.backend.ServiceImpl;
 
 import com.example.backend.Entity.Advert;
 import com.example.backend.Entity.Picture;
+import com.example.backend.Exception.ResourceNotFoundException;
+import com.example.backend.Repository.AdvertRepository;
 import com.example.backend.Repository.PictureRepository;
 import com.example.backend.Service.PictureService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Value;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
+import java.nio.file.StandardCopyOption;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PictureServiceImpl implements PictureService {
 
     private final PictureRepository repository;
+    private final AdvertRepository advertRepository;
 
     @Override
     public List<Picture> getAll(Long advertId) {
@@ -62,5 +74,38 @@ public class PictureServiceImpl implements PictureService {
 
         String ownerEmail = repository.findEmailByPictureId(pictureId).orElseThrow(() -> new RuntimeException("Picture is not found"));
         return ownerEmail.equals(email);
+    }
+
+
+    // čita gdje će se slike spremati na disku - iz application properties
+    @Value("${upload.dir:uploads/adverts}") // trazi upload.dir, a ako ga nema uzmi vrijednost uploads/adverts
+    private String uploadDir;
+
+    public List<Picture> uploadImages(Long advertId, List<MultipartFile> files) throws IOException {
+        Advert advert = advertRepository.findById(advertId)
+                .orElseThrow(() -> new ResourceNotFoundException("Oglas nije pronađen: id " + advertId) );
+
+        // kreira folder za svaki advert u kojem se spremaju njegove slike
+        Path uploadPath = Paths.get(uploadDir, advertId.toString());
+        Files.createDirectories(uploadPath);
+
+        List<Picture> savedImages = new ArrayList<>();
+
+        // prođi kroz svaki file
+        for (MultipartFile file : files) {
+            String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename(); // generiranje jedinstvenog imena
+            Path filePath = uploadPath.resolve(fileName); // resolve - dobiva konacčnu putanju foldera i file-a
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            Picture picture = new Picture();
+            picture.setAdvert(advert);
+            picture.setFileName(fileName);
+            picture.setFilePath(filePath.toString());
+            picture.setContentType(file.getContentType());
+
+            savedImages.add(repository.save(picture));
+        }
+
+        return savedImages;
     }
 }
