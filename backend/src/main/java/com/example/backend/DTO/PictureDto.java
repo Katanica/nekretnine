@@ -14,7 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PictureDto {
     private Long id;
-    private AdvertDto advert;
+    private String fileName;
+    private String filePath;
+    private String contentType;
     private String slikaUrl;
     private Boolean isPrimary = false;
     private LocalDateTime uploadedAt;
