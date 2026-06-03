@@ -33,9 +33,13 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain chain)
             throws ServletException, IOException {
 
+
         // 1. UZMI HEADER
         String authHeader = request.getHeader("Authorization");
-
+        System.out.println("=== JWT FILTER ===");
+        System.out.println("URI: " + request.getRequestURI());
+        System.out.println("Method: " + request.getMethod());
+        System.out.println("Auth header: " + authHeader);
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             // IZ HEADERA UZMI SVE POSLIJE 7 indexa tj. poslije "Bearer"
             String token = authHeader.substring(7);

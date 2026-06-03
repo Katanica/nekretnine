@@ -57,9 +57,7 @@ export default function NavBar() {
         <ul className={styles.links}>
           {[
             { to: "/", label: "Home" },
-            { to: "/", label: "Buy" },
-            { to: "/", label: "Sale" },
-            { to: "/", label: "Rent" },
+
             { to: "/", label: "About us" },
             { to: "/", label: "Contact" },
           ].map(({ to, label }) => (

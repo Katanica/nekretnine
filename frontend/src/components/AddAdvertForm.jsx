@@ -1,56 +1,89 @@
 import styles from "./css/AddAdvertForm.module.css";
-import { Form } from "react-router-dom";
+import { useSubmit } from "react-router-dom";
+import { useState, useRef } from "react";
 
 export default function AddAdvertForm() {
+  const [previews, setPreviews] = useState([]);
+  const fileInputRef = useRef(null);
+  const submit = useSubmit();
+
+  const handleImageChange = (e) => {
+    const selected = Array.from(e.target.files);
+    const newPreviews = selected.map((f) => URL.createObjectURL(f));
+    setPreviews((prev) => [...prev, ...newPreviews]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData();
+
+    formData.append("propertyType", form.propertyType.value);
+    formData.append("advertType", form.advertType.value);
+    formData.append("title", form.title.value);
+    formData.append("description", form.description.value);
+    formData.append("price", form.price.value);
+    formData.append("size", form.size.value);
+
+    const files = fileInputRef.current?.files;
+    if (files) {
+      Array.from(files).forEach((file) => {
+        formData.append("images", file);
+      });
+    }
+
+    submit(formData, { method: "post", encType: "multipart/form-data" });
+  };
+
   return (
     <div className={styles.card}>
-      <p className={styles.title}>Dodaj oglas</p>
-      <Form method="post" className={styles.form}>
+      <p className={styles.title}>Add Listing</p>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.row}>
           <div className={styles.group}>
-            <label className={styles.label}>Tip nekretnine</label>
+            <label className={styles.label}>Property Type</label>
             <select name="propertyType" className={styles.input} required>
-              <option value="">Odaberi...</option>
-              <option value="APARTMENT">Stan</option>
-              <option value="HOUSE">Kuća</option>
-              <option value="LAND">Zemljište</option>
-              <option value="OFFICE">Poslovni prostor</option>
+              <option value="">Select...</option>
+              <option value="FLAT">Apartment</option>
+              <option value="HOUSE">House</option>
+              <option value="LAND">Land</option>
+              <option value="BUSINESS_PLACE">Office Space</option>
             </select>
           </div>
           <div className={styles.group}>
-            <label className={styles.label}>Tip oglasa</label>
+            <label className={styles.label}>Listing Type</label>
             <select name="advertType" className={styles.input} required>
-              <option value="">Odaberi...</option>
-              <option value="SALE">Prodaja</option>
-              <option value="RENT">Iznajmljivanje</option>
+              <option value="">Select...</option>
+              <option value="SALE">Sale</option>
+              <option value="RENTING">Rent</option>
             </select>
           </div>
         </div>
 
         <div className={styles.group}>
-          <label className={styles.label}>Naslov</label>
+          <label className={styles.label}>Title</label>
           <input
             name="title"
             type="text"
             className={styles.input}
-            placeholder="npr. Trosoban stan u centru"
+            placeholder="e.g. Spacious 3-bedroom apartment in the city center"
             required
           />
         </div>
 
         <div className={styles.group}>
-          <label className={styles.label}>Opis</label>
+          <label className={styles.label}>Description</label>
           <textarea
             name="description"
             className={styles.textarea}
-            placeholder="Opišite nekretninu..."
+            placeholder="Describe the property..."
             required
           />
         </div>
 
         <div className={styles.row}>
           <div className={styles.group}>
-            <label className={styles.label}>Cijena (KM)</label>
+            <label className={styles.label}>Price (KM)</label>
             <input
               name="price"
               type="number"
@@ -61,7 +94,7 @@ export default function AddAdvertForm() {
             />
           </div>
           <div className={styles.group}>
-            <label className={styles.label}>Površina (m²)</label>
+            <label className={styles.label}>Area (m²)</label>
             <input
               name="size"
               type="number"
@@ -74,10 +107,36 @@ export default function AddAdvertForm() {
           </div>
         </div>
 
+        <div className={styles.group}>
+          <label className={styles.label}>Photos</label>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            multiple
+            className={styles.input}
+            onChange={handleImageChange}
+          />
+        </div>
+
+        {previews.length > 0 && (
+          <div className={styles.previewGrid}>
+            {previews.map((src, i) => (
+              <div key={i} className={styles.previewItem}>
+                <img
+                  src={src}
+                  alt={`preview-${i}`}
+                  className={styles.previewImg}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
         <button type="submit" className={styles.btn}>
-          Objavi oglas
+          Publish Listing
         </button>
-      </Form>
+      </form>
     </div>
   );
 }

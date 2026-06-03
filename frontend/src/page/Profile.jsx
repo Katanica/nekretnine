@@ -28,7 +28,14 @@ export default function Profile() {
       const userData = await resProfil.json();
       setUser(userData);
 
-      const resAdvert = await fetch("http://localhost:8080/api/advert");
+      const resAdvert = await fetch(
+        "http://localhost:8080/api/advert/myAdverts",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
       if (!resAdvert.ok) {
         setError("Could not fetch adverts");
@@ -80,7 +87,7 @@ export default function Profile() {
       </header>
       <div>
         <h2>My adverts</h2>
-        <Property />
+        <Property adverts={adverts} />
       </div>
     </>
   );

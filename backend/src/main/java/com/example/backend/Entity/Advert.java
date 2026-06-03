@@ -64,7 +64,6 @@ public class Advert{
     private StatusType status;
 
     @OneToMany(mappedBy="advert", cascade=CascadeType.ALL)
-    @JsonIgnore
     private List<Picture> pictures = new ArrayList<>();
 
     @PrePersist

@@ -12,6 +12,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,4 +40,6 @@ public class AdvertDto {
     private String cityName;
 
     private Float size;
+    
+    private List<PictureDto> pictures;
 }

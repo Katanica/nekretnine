@@ -8,7 +8,7 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses={CityMapper.class})
+@Mapper(componentModel = "spring", uses={CityMapper.class, PictureMapper.class})
 public interface AdvertMapper {
 
     @Mapping(source = "city.id", target = "cityId")
