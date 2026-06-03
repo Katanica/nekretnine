@@ -13,6 +13,8 @@ public interface AdvertService {
 
     List<AdvertDto> searchAdverts(AdvertFilterRequest filter);
 
+    List<AdvertDto> getMyAdverts(Long profileId);
+
     Page<AdvertDto> getAll(int page, int size);
 
     AdvertDto getById(Long id);

@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/city/**").permitAll()
 
                         // Oglasi: GET je javan, sve ostalo (POST/PUT/DELETE) zahtijeva login
+                        .requestMatchers(HttpMethod.GET, "/api/advert/myAdverts").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/advert/**").permitAll()
                         .requestMatchers("/api/advert/**").authenticated()
 

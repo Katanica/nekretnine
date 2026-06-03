@@ -2,11 +2,13 @@ package com.example.backend.ServiceImpl;
 
 import com.example.backend.DTO.AdvertDto;
 import com.example.backend.Entity.Advert;
+import com.example.backend.Entity.City;
 import com.example.backend.Entity.Profile;
 import com.example.backend.Enums.PropertyType;
 import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Mapper.AdvertMapper;
 import com.example.backend.Repository.AdvertRepository;
+import com.example.backend.Repository.CityRepository;
 import com.example.backend.Repository.ProfileRepository;
 import com.example.backend.Service.AdvertService;
 import com.example.backend.Specification.AdvertFilterRequest;
@@ -29,6 +31,7 @@ import java.util.List;
 public class AdvertServiceImpl implements AdvertService {
     private final AdvertRepository repository;
     private final ProfileRepository profileRepository;
+    private final CityRepository cityRepository;
 
     @Qualifier("advertMapper")
     private final AdvertMapper mapper;
@@ -76,6 +79,12 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
+    public List<AdvertDto> getMyAdverts(Long profileId){
+        List<Advert> adverts = repository.findByProfileId(profileId);
+        return mapper.toDtoList(adverts);
+    }
+
+    @Override
     public Page<AdvertDto> getAll(int page, int size){
         Pageable pageable = PageRequest.of(page, size);
         Page<Advert> adverts = repository.findAll(pageable);
@@ -93,6 +102,10 @@ public class AdvertServiceImpl implements AdvertService {
         Profile profile = profileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Oglas nije pronađen: " + id));
         Advert advert = mapper.toEntity(dto);
         advert.setProfile(profile);
+        if(dto.getCityId()!=null){
+            City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));
+            advert.setCity(city);
+        }
         advert.setPostedAt(LocalDateTime.now());
         Advert saved = repository.save(advert);
         return mapper.toDto(saved);
@@ -103,6 +116,10 @@ public class AdvertServiceImpl implements AdvertService {
     public AdvertDto update(@Valid @RequestBody AdvertDto dto){
         Advert existing = repository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException("Oglas nije pronađen: " + dto.getId()));
         mapper.updateEntityFromDto(dto, existing);
+        if(dto.getCityId()!=null){
+            City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));
+            existing.setCity(city);
+        }
         Advert saved = repository.save(existing);
         return mapper.toDto(saved);
     }
