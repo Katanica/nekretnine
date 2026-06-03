@@ -7,6 +7,7 @@ import com.example.backend.DTO.UserProfileDto;
 import com.example.backend.Service.AgencyProfileService;
 import com.example.backend.Service.UserProfileService;
 import com.example.backend.ServiceImpl.AuthService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,12 +31,12 @@ public class AuthController {
     }
 
     @PostMapping("/register/user")
-    public ResponseEntity<UserProfileDto> registerUser(@RequestBody UserProfileDto dto){
+    public ResponseEntity<UserProfileDto> registerUser(@Valid @RequestBody UserProfileDto dto){
         return ResponseEntity.status(201).body(userProfileService.create(dto));
     }
 
     @PostMapping("/register/agency")
-    public ResponseEntity<AgencyProfileDto> registerAgency(@RequestBody AgencyProfileDto dto){
+    public ResponseEntity<AgencyProfileDto> registerAgency(@Valid @RequestBody AgencyProfileDto dto){
         return ResponseEntity.status(201).body(agencyProfileService.create(dto));
     }
 }

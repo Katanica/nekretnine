@@ -2,6 +2,7 @@ package com.example.backend.Controller;
 
 import com.example.backend.DTO.UserProfileDto;
 import com.example.backend.Service.UserProfileService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +27,12 @@ public class UserProfileController {
     }
 
     @PostMapping
-    public ResponseEntity<UserProfileDto> create(@RequestBody UserProfileDto dto){
+    public ResponseEntity<UserProfileDto> create(@Valid @RequestBody UserProfileDto dto){
         return ResponseEntity.status(201).body(service.create(dto));
     }
 
     @PutMapping
-    public ResponseEntity<UserProfileDto> update(@RequestBody UserProfileDto dto){
+    public ResponseEntity<UserProfileDto> update(@Valid @RequestBody UserProfileDto dto){
         return ResponseEntity.ok(service.update(dto));
     }
 
