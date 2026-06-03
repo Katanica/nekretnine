@@ -1,11 +1,13 @@
 package com.example.backend.ServiceImpl;
 
 import com.example.backend.DTO.UserProfileDto;
+import com.example.backend.Entity.City;
 import com.example.backend.Entity.Profile;
 import com.example.backend.Entity.UserProfile;
 import com.example.backend.Enums.Role;
 import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Mapper.UserProfileMapper;
+import com.example.backend.Repository.CityRepository;
 import com.example.backend.Repository.ProfileRepository;
 import com.example.backend.Repository.UserProfileRepository;
 import com.example.backend.Service.UserProfileService;
@@ -34,6 +36,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     private final UserProfileMapper mapper;
     private final PasswordEncoder passwordEncoder;
     private final ProfileRepository profileRepository;
+    private final CityRepository cityRepository;
 
     @Override
     public List<UserProfileDto> getAll(){
@@ -53,6 +56,10 @@ public class UserProfileServiceImpl implements UserProfileService {
         UserProfile userProfile = mapper.toEntity(dto);
         userProfile.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
         userProfile.setRole(Role.USER);  // <-- DODAJ
+        if(dto.getCityId()!=null){
+            City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));
+            userProfile.setCity(city);
+        }
         UserProfile saved = repository.save(userProfile);
         return mapper.toDto(saved);
     }
@@ -68,6 +75,10 @@ public class UserProfileServiceImpl implements UserProfileService {
         existing.setName(dto.getName());
         existing.setSurname(dto.getSurname());
         existing.setAvatar(dto.getAvatar());
+        if(dto.getCityId()!=null){
+            City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));
+            existing.setCity(city);
+        }
         UserProfile saved = repository.save(existing);
         return mapper.toDto(saved);
     }
