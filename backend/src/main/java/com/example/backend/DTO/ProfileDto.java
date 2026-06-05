@@ -3,12 +3,14 @@ package com.example.backend.DTO;
 import com.example.backend.Entity.Advert;
 import com.example.backend.Entity.City;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -36,4 +38,7 @@ public class ProfileDto {
         private String phone;
 
         private List<Advert> adverts;
+
+        @Column(name = "createdAt")
+        private LocalDateTime createdAt;
 }

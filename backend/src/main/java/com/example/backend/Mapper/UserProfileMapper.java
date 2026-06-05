@@ -12,11 +12,9 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
 
-   @Mapping(source = "city.id", target = "cityId")
-   @Mapping(source = "city.name", target = "cityName")
    UserProfileDto toDto(UserProfile userProfile);
 
-   @Mapping(target = "city", ignore = true)
+
    UserProfile toEntity(UserProfileDto userProfileDto);
 
    List<UserProfileDto> toDtoList(List<UserProfile> userProfiles);

@@ -57,5 +57,4 @@ public class Profile{
 
     @Column(name = "phone")
     private String phone;
-
 }
