@@ -26,6 +26,8 @@ export default function Profile() {
         return;
       }
       const userData = await resProfil.json();
+      console.log(userData);
+
       setUser(userData);
 
       const resAdvert = await fetch(
@@ -60,7 +62,7 @@ export default function Profile() {
             className={styles.profileImg}
           ></img>
           <div className={styles.profileInfo}>
-            <h3>{`${user.name} ${user.surname}`}</h3>
+            <h3>{`${user.first_name} ${user.last_name}`}</h3>
             <p className={styles.email}>{user.email}</p>
             <div className={styles.meta}>
               <span>

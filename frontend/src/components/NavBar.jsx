@@ -8,7 +8,7 @@ export default function NavBar() {
   const navigate = useNavigate();
   const id = getUserID();
   function handleProfil() {
-    if (token) {
+    if (token !== "EXPIRED") {
       navigate(`profile/${id}`);
     } else {
       navigate("/login");

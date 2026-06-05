@@ -2,14 +2,12 @@ package com.example.backend.DTO;
 
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-
+@Data
 @NoArgsConstructor
 @ToString(callSuper = true)
 public class UserProfileDto extends ProfileDto {
@@ -20,6 +18,4 @@ public class UserProfileDto extends ProfileDto {
         private String surname;
 
         private String avatar;
-
-
 }
