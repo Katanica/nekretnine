@@ -6,7 +6,8 @@ export default function Register() {
 
 export async function action({ request }) {
   const data = await request.formData();
-  const registerData = {
+
+  const payload = {
     name: data.get("firstName"),
     surname: data.get("lastName"),
     userName: data.get("userName"),
@@ -16,14 +17,11 @@ export async function action({ request }) {
     dateOfBirth: data.get("dateOfBirth"),
     city: data.get("city"),
   };
-  console.log(registerData);
 
   const response = await fetch("http://localhost:8080/api/auth/register/user", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(registerData),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
   });
 
   if (response.status === 422 || response.status === 401) {

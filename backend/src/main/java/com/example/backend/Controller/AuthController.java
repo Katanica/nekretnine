@@ -5,15 +5,15 @@ import com.example.backend.DTO.AuthResponse;
 import com.example.backend.DTO.LoginRequest;
 import com.example.backend.DTO.UserProfileDto;
 import com.example.backend.Service.AgencyProfileService;
-import com.example.backend.Service.UserProfileService;
 import com.example.backend.ServiceImpl.AuthService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
-    private final UserProfileService userProfileService;
     private final AgencyProfileService agencyProfileService;
 
     @PostMapping("/login")
@@ -31,8 +30,9 @@ public class AuthController {
     }
 
     @PostMapping("/register/user")
-    public ResponseEntity<UserProfileDto> registerUser(@Valid @RequestBody UserProfileDto dto){
-        return ResponseEntity.status(201).body(userProfileService.create(dto));
+    public ResponseEntity<UserProfileDto> registerUser(
+            @Valid @RequestBody UserProfileDto dto) throws IOException {
+        return ResponseEntity.status(201).body(authService.registerUser(dto));
     }
 
     @PostMapping("/register/agency")
