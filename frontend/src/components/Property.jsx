@@ -15,9 +15,11 @@ title: "aadadadadad"
 updatedAt: "2026-05-28T22:06:27.397998"
 */
 export default function Property({ adverts }) {
-  console.log(adverts);
   const getImageUrl = (filePath) => {
-    if (!filePath) { console.log("nema slike"); return null; }
+    if (!filePath) {
+      console.log("nema slike");
+      return null;
+    }
     return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
   };
   return (

@@ -7,6 +7,7 @@ import AddAdvert, { action as addAdvertAction } from "./page/AddAdvert";
 import Profile from "./page/Profile";
 import { action as logoutAction } from "./components/Logout";
 import { checkAuthLoader, tokenLoader } from "./api";
+import EditProfile from "./page/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
       { path: "register", element: <Register />, action: registerAction },
       { path: "login", element: <Login />, action: loginAction },
       { path: "add-advert", element: <AddAdvert />, action: addAdvertAction },
-      { path: "profile/:id", element: <Profile /> },
+      {
+        path: "profile/:id",
+        element: <Profile />,
+        children: [{ path: "edit", element: <EditProfile /> }],
+      },
       { path: "logout", action: logoutAction },
     ],
   },

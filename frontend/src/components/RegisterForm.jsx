@@ -1,7 +1,10 @@
-import { useState } from "react";
+// RegisterForm.jsx
+import { useState, useRef } from "react";
 import styles from "./css/RegisterForm.module.css";
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
+
 export default function RegisterForm() {
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
   const [error, setError] = useState("");
@@ -9,13 +12,19 @@ export default function RegisterForm() {
   function handleSubmit(e) {
     if (password !== confPassword) {
       e.preventDefault();
-      setError("Passwords must be same");
+      setError("Lozinke se ne podudaraju.");
     }
+    navigate("/login");
   }
 
   return (
     <div className={styles.signup}>
-      <Form className={styles.form} onSubmit={handleSubmit} method="post">
+      <Form
+        className={styles.form}
+        onSubmit={handleSubmit}
+        method="post"
+        encType="multipart/form-data"
+      >
         <p className={styles.title}>Register</p>
         <p className={styles.message}>
           Signup now and get full access to our app.
@@ -121,6 +130,7 @@ export default function RegisterForm() {
           />
           <span>City</span>
         </label>
+
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         <button className={styles.submit} type="submit">

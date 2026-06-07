@@ -17,5 +17,5 @@ public class UserProfileDto extends ProfileDto {
         @NotBlank(message="Morate unijeti prezime")
         private String surname;
 
-        private String avatar;
+        private AvatarDto avatar;
 }
