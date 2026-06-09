@@ -62,10 +62,9 @@ export default function Profile() {
     }
     return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
   };
-
-  console.log(user);
   if (error) return <div>{error}</div>;
   if (!user) return <div>Loading...</div>;
+
   return (
     <>
       <header className={styles.header}>

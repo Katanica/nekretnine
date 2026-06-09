@@ -9,6 +9,23 @@
   background-position: center;
 }
 
+.radio {
+  align-self: flex-start;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid #ffffff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  user-select: none;
+}
+
+.radioText {
+  display: inline-block;
+  margin-right: .75em;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -103,7 +120,7 @@
   border-color: royalblue;
 }
 
-.form label .input + span {
+.form label .input+span {
   position: absolute;
   left: 10px;
   top: 50%;
@@ -115,8 +132,8 @@
   pointer-events: none;
 }
 
-.form label .input:focus + span,
-.form label .input:valid + span {
+.form label .input:focus+span,
+.form label .input:valid+span {
   top: 8px;
   transform: none;
   font-size: 0.7em;
@@ -124,12 +141,12 @@
   color: royalblue;
 }
 
-.form label .input:valid + span {
+.form label .input:valid+span {
   color: green;
 }
 
 /* Date input — span uvijek gore jer ima vrijednost */
-.form label .input[type="date"] + span {
+.form label .input[type="date"]+span {
   top: 8px;
   transform: none;
   font-size: 0.7em;
@@ -159,6 +176,7 @@
     transform: scale(0.9);
     opacity: 1;
   }
+
   to {
     transform: scale(1.8);
     opacity: 0;
