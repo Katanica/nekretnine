@@ -2,16 +2,19 @@ import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./css/NavBar.module.css";
 import { Heart, User, Plus } from "lucide-react";
 import { getToken, getUserID } from "../api";
+
 export default function NavBar() {
   const token = getToken();
 
   const navigate = useNavigate();
   const id = getUserID();
   function handleProfil() {
-    if (token !== "EXPIRED") {
-      navigate(`profile/${id}`);
-    } else {
+    const token = getToken();
+
+    if (token === null) {
       navigate("/login");
+    } else {
+      navigate(`profile/${id}`);
     }
   }
 
@@ -56,10 +59,10 @@ export default function NavBar() {
         </a>
         <ul className={styles.links}>
           {[
-            { to: "/", label: "Home" },
+            { to: "/Home", label: "Home" },
 
-            { to: "/", label: "About us" },
-            { to: "/", label: "Contact" },
+            { to: "/About us", label: "About us" },
+            { to: "/Contact", label: "Contact" },
           ].map(({ to, label }) => (
             <li key={label}>
               <NavLink

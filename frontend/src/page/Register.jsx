@@ -6,11 +6,17 @@ export default function Register() {
 
 export async function action({ request }) {
   const data = await request.formData();
+  const url = "http://localhost:8080/api/auth/register"
+
+  const profileType = data.get("FirstName") ? "user" : "agency";
+  console.log(profileType);
 
   const payload = {
     name: data.get("firstName"),
     surname: data.get("lastName"),
     userName: data.get("userName"),
+    oib: data.get("oib"),
+    agencyName: data.get("agencyName"),
     email: data.get("email"),
     password: data.get("password"),
     phone: data.get("phone"),
@@ -18,7 +24,7 @@ export async function action({ request }) {
     city: data.get("city"),
   };
 
-  const response = await fetch("http://localhost:8080/api/auth/register/user", {
+  const response = await fetch(url + "/" + profileType, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),

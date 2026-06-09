@@ -3,8 +3,75 @@ import { useState, useRef } from "react";
 import styles from "./css/RegisterForm.module.css";
 import { Form, useNavigate } from "react-router-dom";
 
+function UserForms() {
+  return (
+    <div>
+      <div className={styles.flex}>
+        <label htmlFor="firstName">
+          <input
+            required
+            name="firstName"
+            placeholder=""
+            type="text"
+            className={styles.input}
+          />
+          <span>First Name</span>
+        </label>
+        <label htmlFor="lastName">
+          <input
+            required
+            name="lastName"
+            placeholder=""
+            type="text"
+            className={styles.input}
+          />
+          <span>Last Name</span>
+        </label>
+        <label htmlFor="dateOfBirth">
+          <input
+            name="dateOfBirth"
+            required
+            placeholder=""
+            type="date"
+            className={styles.input}
+          />
+          <span>Date of Birth</span>
+        </label>
+      </div>
+    </div>
+  )
+}
+
+function AgencyForms() {
+  return (
+    <div className={styles.flex}>
+      <label htmlFor="agencyName">
+        <input
+          required
+          name="agencyName"
+          placeholder=""
+          type="text"
+          className={styles.input}
+        />
+        <span>Agency name</span>
+      </label>
+      <label htmlFor="oib">
+        <input
+          required
+          name="oib"
+          placeholder=""
+          type="number"
+          className={styles.input}
+        />
+        <span>OIB</span>
+      </label>
+    </div>
+  )
+}
+
 export default function RegisterForm() {
   const navigate = useNavigate();
+  const [profileType, setProfileType] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,6 +87,7 @@ export default function RegisterForm() {
   return (
     <div className={styles.signup}>
       <Form
+        profiletype={profileType}
         className={styles.form}
         onSubmit={handleSubmit}
         method="post"
@@ -27,31 +95,40 @@ export default function RegisterForm() {
       >
         <p className={styles.title}>Register</p>
         <p className={styles.message}>
-          Signup now and get full access to our app.
+          Registruj se i ostvari puni pristup
         </p>
 
-        <div className={styles.flex}>
-          <label htmlFor="firstName">
-            <input
-              required
-              name="firstName"
-              placeholder=""
-              type="text"
-              className={styles.input}
-            />
-            <span>First Name</span>
-          </label>
-          <label htmlFor="lastName">
-            <input
-              required
-              name="lastName"
-              placeholder=""
-              type="text"
-              className={styles.input}
-            />
-            <span>Last Name</span>
-          </label>
+        <p style={{ margin: 0 }}>Odaberi željeni tip profila</p>
+        <div id="radio-holder">
+          <input
+            type="radio"
+            htmlFor="profileType"
+            onChange={() => setProfileType("OSOBNI")}
+            checked={profileType === "OSOBNI"}
+            value="OSOBNI"
+            className={styles.radio}
+            required
+            name="profile-type">
+          </input><p className={styles.radioText}>Osobni</p>
+          <input
+            htmlFor="profileType"
+            type="radio"
+            value="AGENCIJA"
+            checked={profileType === "AGENCIJA"}
+            className={styles.radio}
+            required
+            onChange={() => setProfileType("AGENCIJA")}
+            name="profile-type">
+
+          </input><p className={styles.radioText}>Agencija</p>
         </div>
+
+        {profileType === "OSOBNI" && (
+          <UserForms />
+        )}
+        {profileType === "AGENCIJA" && (
+          <AgencyForms />
+        )}
 
         <label htmlFor="userName">
           <input
@@ -74,7 +151,6 @@ export default function RegisterForm() {
           />
           <span>Email</span>
         </label>
-
         <div className={styles.flex}>
           <label htmlFor="password">
             <input
@@ -98,7 +174,6 @@ export default function RegisterForm() {
             <span>Confirm Password</span>
           </label>
         </div>
-
         <label htmlFor="phone">
           <input
             name="phone"
@@ -108,17 +183,6 @@ export default function RegisterForm() {
             className={styles.input}
           />
           <span>Phone Number</span>
-        </label>
-
-        <label htmlFor="dateOfBirth">
-          <input
-            name="dateOfBirth"
-            required
-            placeholder=""
-            type="date"
-            className={styles.input}
-          />
-          <span>Date of Birth</span>
         </label>
 
         <label htmlFor="city">
@@ -137,9 +201,9 @@ export default function RegisterForm() {
           Submit
         </button>
         <p className={styles.signin}>
-          Already have an account? <a href="#">Signin</a>
+          Already have an account? <a href="/login">Sign in</a>
         </p>
-      </Form>
-    </div>
+      </Form >
+    </div >
   );
 }

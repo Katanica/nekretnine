@@ -37,8 +37,13 @@ public class Profile{
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "createdAt")
+    @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;

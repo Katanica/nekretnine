@@ -2,6 +2,8 @@ import Register, { action as registerAction } from "./page/Register";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./page/Home";
 import RootPage from "./page/Root";
+import About from "./page/About";
+import Contact from "./page/Contact";
 import Login, { action as loginAction } from "./page/Login";
 import AddAdvert, { action as addAdvertAction } from "./page/AddAdvert";
 import Profile from "./page/Profile";
@@ -18,6 +20,10 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "register", element: <Register />, action: registerAction },
       { path: "login", element: <Login />, action: loginAction },
+      { path: "about us", element: <About /> },
+      { path: "contact", element: <Contact /> },
+      { path: "home", element: <HomePage /> },
+
       { path: "add-advert", element: <AddAdvert />, action: addAdvertAction },
       {
         path: "profile/:id",
