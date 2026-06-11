@@ -88,7 +88,7 @@ export default function NavBar() {
           >
             <User size={20} />
           </button>
-          {token !== "EXPIRED" && (
+          {token !== null && (
             <button className={styles.cta} onClick={handleAddAdvert}>
               <Plus size={16} />
               Add Advert

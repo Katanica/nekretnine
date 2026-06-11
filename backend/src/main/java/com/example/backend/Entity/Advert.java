@@ -63,8 +63,10 @@ public class Advert{
     @Enumerated(EnumType.STRING)
     private StatusType status;
 
-    @OneToMany(mappedBy="advert", cascade=CascadeType.ALL)
-    private List<Picture> pictures = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "advert_images", joinColumns = @JoinColumn(name = "advert_id"))
+    @Column(name = "image_url")
+    private List<String> imageUrls = new ArrayList<>();
 
     @PrePersist
     protected void onCreate(){

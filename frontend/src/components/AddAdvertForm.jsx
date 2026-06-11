@@ -1,38 +1,52 @@
 import styles from "./css/AddAdvertForm.module.css";
 import { useSubmit } from "react-router-dom";
 import { useState, useRef } from "react";
+import { uploadImage } from "../uploadImage";
 
 export default function AddAdvertForm() {
   const [previews, setPreviews] = useState([]);
+  const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
   const submit = useSubmit();
 
   const handleImageChange = (e) => {
     const selected = Array.from(e.target.files);
     const newPreviews = selected.map((f) => URL.createObjectURL(f));
-    setPreviews((prev) => [...prev, ...newPreviews]);
+    setPreviews(newPreviews);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const formData = new FormData();
+    setUploading(true);
 
-    formData.append("propertyType", form.propertyType.value);
-    formData.append("advertType", form.advertType.value);
-    formData.append("title", form.title.value);
-    formData.append("description", form.description.value);
-    formData.append("price", form.price.value);
-    formData.append("size", form.size.value);
+    try {
+      // 1. Uploadaj slike na Supabase
+      const files = Array.from(fileInputRef.current?.files || []);
+      const imageUrls = await Promise.all(files.map(uploadImage));
 
-    const files = fileInputRef.current?.files;
-    if (files) {
-      Array.from(files).forEach((file) => {
-        formData.append("images", file);
+      console.log("ADD ADVERT FORM " + imageUrls);
+
+      // 2. Pošalji JSON na action
+      const body = {
+        propertyType: form.propertyType.value,
+        advertType: form.advertType.value,
+        title: form.title.value,
+        description: form.description.value,
+        price: form.price.value,
+        size: form.size.value,
+        imageUrls: imageUrls,
+      };
+
+      submit(JSON.stringify(body), {
+        method: "post",
+        encType: "application/json",
       });
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setUploading(false);
     }
-
-    submit(formData, { method: "post", encType: "multipart/form-data" });
   };
 
   return (
@@ -42,7 +56,7 @@ export default function AddAdvertForm() {
         <div className={styles.row}>
           <div className={styles.group}>
             <label className={styles.label}>Property Type</label>
-            <select name="propertyType" className={styles.input} required>
+            <select name="propertyType" className={styles.input}>
               <option value="">Select...</option>
               <option value="FLAT">Apartment</option>
               <option value="HOUSE">House</option>
@@ -52,7 +66,7 @@ export default function AddAdvertForm() {
           </div>
           <div className={styles.group}>
             <label className={styles.label}>Listing Type</label>
-            <select name="advertType" className={styles.input} required>
+            <select name="advertType" className={styles.input}>
               <option value="">Select...</option>
               <option value="SALE">Sale</option>
               <option value="RENTING">Rent</option>
@@ -62,48 +76,24 @@ export default function AddAdvertForm() {
 
         <div className={styles.group}>
           <label className={styles.label}>Title</label>
-          <input
-            name="title"
-            type="text"
-            className={styles.input}
-            placeholder="e.g. Spacious 3-bedroom apartment in the city center"
-            required
-          />
+          <input name="title" type="text" className={styles.input}
+            placeholder="e.g. Spacious 3-bedroom apartment in the city center" />
         </div>
 
         <div className={styles.group}>
           <label className={styles.label}>Description</label>
-          <textarea
-            name="description"
-            className={styles.textarea}
-            placeholder="Describe the property..."
-            required
-          />
+          <textarea name="description" className={styles.textarea}
+            placeholder="Describe the property..." />
         </div>
 
         <div className={styles.row}>
           <div className={styles.group}>
             <label className={styles.label}>Price (KM)</label>
-            <input
-              name="price"
-              type="number"
-              className={styles.input}
-              placeholder="0"
-              min="0"
-              required
-            />
+            <input name="price" type="number" className={styles.input} placeholder="0" min="0" />
           </div>
           <div className={styles.group}>
             <label className={styles.label}>Area (m²)</label>
-            <input
-              name="size"
-              type="number"
-              className={styles.input}
-              placeholder="0"
-              min="0"
-              step="0.1"
-              required
-            />
+            <input name="size" type="number" className={styles.input} placeholder="0" min="0" step="0.1" />
           </div>
         </div>
 
@@ -112,7 +102,7 @@ export default function AddAdvertForm() {
           <input
             ref={fileInputRef}
             type="file"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/webp"
             multiple
             className={styles.input}
             onChange={handleImageChange}
@@ -123,18 +113,14 @@ export default function AddAdvertForm() {
           <div className={styles.previewGrid}>
             {previews.map((src, i) => (
               <div key={i} className={styles.previewItem}>
-                <img
-                  src={src}
-                  alt={`preview-${i}`}
-                  className={styles.previewImg}
-                />
+                <img src={src} alt={`preview-${i}`} className={styles.previewImg} />
               </div>
             ))}
           </div>
         )}
 
-        <button type="submit" className={styles.btn}>
-          Publish Listing
+        <button type="submit" className={styles.btn} disabled={uploading}>
+          {uploading ? "Uploading..." : "Publish Listing"}
         </button>
       </form>
     </div>
