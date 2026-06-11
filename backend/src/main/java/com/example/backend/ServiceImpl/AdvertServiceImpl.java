@@ -108,6 +108,7 @@ public class AdvertServiceImpl implements AdvertService {
         }
         advert.setPostedAt(LocalDateTime.now());
         Advert saved = repository.save(advert);
+        System.out.println("!!!!!DTO!!! " + dto.getImageUrls());
         return mapper.toDto(saved);
     }
 

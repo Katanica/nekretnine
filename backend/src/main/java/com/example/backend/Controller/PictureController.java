@@ -1,5 +1,6 @@
 package com.example.backend.Controller;
 
+import com.example.backend.DTO.PictureDto;
 import com.example.backend.Entity.Advert;
 import com.example.backend.Entity.Picture;
 import com.example.backend.Exception.ResourceNotFoundException;
@@ -42,8 +43,8 @@ public class PictureController {
     }
 
     @PostMapping
-    public Picture addPicture(@RequestBody Picture picture) {
-        return pictureService.createPicture(picture);
+    public ResponseEntity<List<Picture>> addPicture(@RequestBody PictureDto dto) {
+        return ResponseEntity.ok(pictureService.savePictures(dto));
     }
 
     @PostMapping(value = "/upload/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) // consumes govori serveru da mora primiti neki file

@@ -59,7 +59,7 @@ public class AdvertController {
     public ResponseEntity<AdvertDto> create(@PathVariable Long id, @Valid @RequestBody AdvertDto dto){
         return ResponseEntity.status(201).body(service.create(id, dto));
     }
-    @PostMapping(value = "/{id}/with-pictures", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AdvertDto> createWithPictures(
             @PathVariable Long id,
             @RequestParam("propertyType") String propertyType,

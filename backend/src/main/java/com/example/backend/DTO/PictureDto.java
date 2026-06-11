@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 import java.time.LocalDateTime;
 
@@ -13,12 +14,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PictureDto {
-    private Long id;
-    private String fileName;
-    private String filePath;
-    private String contentType;
-    private String slikaUrl;
-    private Boolean isPrimary = false;
-    private LocalDateTime uploadedAt;
-
+    private List<String> urls; // public Supabase URL-ovi
+    private Long advertId;
 }

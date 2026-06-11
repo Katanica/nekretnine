@@ -1,5 +1,6 @@
 package com.example.backend.ServiceImpl;
 
+import com.example.backend.DTO.PictureDto;
 import com.example.backend.Entity.Advert;
 import com.example.backend.Entity.Picture;
 import com.example.backend.Exception.ResourceNotFoundException;
@@ -40,8 +41,32 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public Picture createPicture(Picture picture) {
-        return repository.save(picture);
+    public List<Picture> savePictures(PictureDto dto) {
+        Advert advert = advertRepository.findById(dto.getAdvertId())
+                .orElseThrow(() -> new RuntimeException("Oglas nije pronađen"));
+
+        List<Picture> pictures = new ArrayList<>();
+        boolean first = true;
+
+        for (String url : dto.getUrls()) {
+            Picture picture = new Picture();
+            picture.setAdvert(advert);
+            picture.setFilePath(url);
+            picture.setFileName(url.substring(url.lastIndexOf('/') + 1));
+            picture.setContentType(detectContentType(url));
+            picture.setIsPrimary(first);
+            first = false;
+            pictures.add(picture);
+        }
+
+        return repository.saveAll(pictures);
+    }
+
+    @Override
+    public String detectContentType(String url) {
+        if (url.endsWith(".png")) return "image/png";
+        if (url.endsWith(".webp")) return "image/webp";
+        return "image/jpeg";
     }
 
     @Override

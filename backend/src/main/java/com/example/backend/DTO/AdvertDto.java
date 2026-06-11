@@ -41,5 +41,5 @@ public class AdvertDto {
 
     private Float size;
     
-    private List<PictureDto> pictures;
+    private List<String> imageUrls;
 }
