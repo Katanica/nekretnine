@@ -1,6 +1,6 @@
 package com.example.backend.DTO;
 
-import com.example.backend.Entity.Advert;
+import com.example.backend.DTO.AdvertDto;
 import com.example.backend.Entity.City;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
@@ -37,7 +37,7 @@ public class ProfileDto {
         @NotBlank(message="Morate unijeti broj telefona")
         private String phone;
 
-        private List<Advert> adverts;
+        private List<AdvertDto> adverts;
 
         @Column(name = "createdAt")
         private LocalDateTime createdAt;

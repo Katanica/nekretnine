@@ -10,8 +10,9 @@ export default function NavBar() {
   const id = getUserID();
   function handleProfil() {
     const token = getToken();
+    console.log(token);
 
-    if (token === null) {
+    if (token === null || token === "EXPIRED") {
       navigate("/login");
     } else {
       navigate(`profile/${id}`);
@@ -61,7 +62,7 @@ export default function NavBar() {
           {[
             { to: "/Home", label: "Home" },
 
-            { to: "/About us", label: "About us" },
+            { to: "/About-us", label: "About us" },
             { to: "/Contact", label: "Contact" },
           ].map(({ to, label }) => (
             <li key={label}>
@@ -88,7 +89,7 @@ export default function NavBar() {
           >
             <User size={20} />
           </button>
-          {token !== "EXPIRED" && (
+          {token !== "EXPIRED" && token !== null && (
             <button className={styles.cta} onClick={handleAddAdvert}>
               <Plus size={16} />
               Add Advert

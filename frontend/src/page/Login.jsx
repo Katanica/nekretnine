@@ -26,10 +26,10 @@ export async function action({ request }) {
   }
 
   if (!response.ok) {
-    throw new Response(
-      JSON.stringify({ message: "Something went wrong. Try again" }),
-      { status: 500 },
-    );
+    throw {
+      message: "Try to remember email and password. Try again",
+      status: 500,
+    };
   }
 
   const resData = await response.json();

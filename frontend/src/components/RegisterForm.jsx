@@ -39,7 +39,7 @@ function UserForms() {
         </label>
       </div>
     </div>
-  )
+  );
 }
 
 function AgencyForms() {
@@ -66,7 +66,7 @@ function AgencyForms() {
         <span>OIB</span>
       </label>
     </div>
-  )
+  );
 }
 
 export default function RegisterForm() {
@@ -94,41 +94,32 @@ export default function RegisterForm() {
         encType="multipart/form-data"
       >
         <p className={styles.title}>Register</p>
-        <p className={styles.message}>
-          Registruj se i ostvari puni pristup
-        </p>
+        <p className={styles.message}>Registruj se i ostvari puni pristup</p>
 
         <p style={{ margin: 0 }}>Odaberi željeni tip profila</p>
         <div id="radio-holder">
           <input
             type="radio"
-            htmlFor="profileType"
-            onChange={() => setProfileType("OSOBNI")}
-            checked={profileType === "OSOBNI"}
-            value="OSOBNI"
+            name="profileType"
+            value="user"
+            checked={profileType === "user"}
             className={styles.radio}
-            required
-            name="profile-type">
-          </input><p className={styles.radioText}>Osobni</p>
+            onChange={() => setProfileType("user")}
+          ></input>
+          <p className={styles.radioText}>Osobni</p>
           <input
-            htmlFor="profileType"
+            name="profileType"
             type="radio"
-            value="AGENCIJA"
-            checked={profileType === "AGENCIJA"}
+            value="agency"
+            checked={profileType === "agency"}
             className={styles.radio}
-            required
-            onChange={() => setProfileType("AGENCIJA")}
-            name="profile-type">
-
-          </input><p className={styles.radioText}>Agencija</p>
+            onChange={() => setProfileType("agency")}
+          ></input>
+          <p className={styles.radioText}>Agencija</p>
         </div>
 
-        {profileType === "OSOBNI" && (
-          <UserForms />
-        )}
-        {profileType === "AGENCIJA" && (
-          <AgencyForms />
-        )}
+        {profileType === "user" && <UserForms />}
+        {profileType === "agency" && <AgencyForms />}
 
         <label htmlFor="userName">
           <input
@@ -203,7 +194,7 @@ export default function RegisterForm() {
         <p className={styles.signin}>
           Already have an account? <a href="/login">Sign in</a>
         </p>
-      </Form >
-    </div >
+      </Form>
+    </div>
   );
 }

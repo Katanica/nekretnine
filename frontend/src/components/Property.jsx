@@ -1,20 +1,8 @@
 import styles from "./css/Property.module.css";
 import podrum from "../assets/podrum.jpg";
 import { Heart, MapPin, Maximize2, BedDouble, Bath, Car } from "lucide-react";
-/*
-advertType: "SALE"
-cityId: null
-cityName: null
-description: "yfaffafaaf"
-id: 1
-postedAt: "2026-05-28T22:06:27.397998"
-price: 1212
-propertyType: null
-size: 131313
-title: "aadadadadad"
-updatedAt: "2026-05-28T22:06:27.397998"
-*/
-export default function Property({ adverts }) {
+
+export default function Property({ adverts, handleDetails }) {
   const getImageUrl = (filePath) => {
     if (!filePath) {
       console.log("nema slike");
@@ -28,7 +16,11 @@ export default function Property({ adverts }) {
         <h2 className={styles.title}>Izdvojene nekretnine</h2>
         <ul className={styles.grid}>
           {adverts.map((advert) => (
-            <li key={advert.id} className={styles.card}>
+            <li
+              key={advert.id}
+              className={styles.card}
+              onClick={() => handleDetails(advert)}
+            >
               <div className={styles.imageWrap}>
                 <img
                   src={getImageUrl(advert.pictures[0]?.filePath)}
@@ -40,6 +32,7 @@ export default function Property({ adverts }) {
                 >
                   {advert.advertType}
                 </span>
+
                 <button className={styles.heart} aria-label="Spremi advert">
                   <Heart size={16} />
                 </button>

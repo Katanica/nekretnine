@@ -5,7 +5,7 @@ import { Form, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getToken } from "../api";
 import Property from "../components/Property";
-import EditProfile from "./EditProfile";
+
 import EditProfileModal from "../components/EditProfileModal";
 export default function Profile() {
   const { id } = useParams();
@@ -62,6 +62,7 @@ export default function Profile() {
     }
     return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
   };
+
   if (error) return <div>{error}</div>;
   if (!user) return <div>Loading...</div>;
 
