@@ -9,7 +9,11 @@ export function getTokenDuration() {
   const duration = expirationDate.getTime() - now.getTime();
   return duration;
 }
+export function getRole() {
+  const role = localStorage.getItem("role");
 
+  return role;
+}
 export function getToken() {
   const token = localStorage.getItem("token");
 

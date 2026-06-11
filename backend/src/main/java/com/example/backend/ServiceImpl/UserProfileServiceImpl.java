@@ -72,6 +72,9 @@ public class UserProfileServiceImpl implements UserProfileService {
         existing.setPhone(dto.getPhone());
         existing.setName(dto.getName());
         existing.setSurname(dto.getSurname());
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            existing.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
+        }
         // Note: Avatar should be updated through a separate endpoint for file uploads
         if(dto.getCityId()!=null){
             City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));

@@ -9,7 +9,7 @@ import AddAdvert, { action as addAdvertAction } from "./page/AddAdvert";
 import Profile from "./page/Profile";
 import { action as logoutAction } from "./components/Logout";
 import { checkAuthLoader, tokenLoader } from "./api";
-import EditProfile from "./page/EditProfile";
+import ErrorPage from "./page/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -18,19 +18,34 @@ const router = createBrowserRouter([
     loader: tokenLoader,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "register", element: <Register />, action: registerAction },
-      { path: "login", element: <Login />, action: loginAction },
-      { path: "about us", element: <About /> },
+      {
+        path: "register",
+        element: <Register />,
+        action: registerAction,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+        action: loginAction,
+        errorElement: <ErrorPage />,
+      },
+      { path: "about-us", element: <About /> },
       { path: "contact", element: <Contact /> },
       { path: "home", element: <HomePage /> },
 
-      { path: "add-advert", element: <AddAdvert />, action: addAdvertAction },
+      {
+        path: "add-advert",
+        element: <AddAdvert />,
+        action: addAdvertAction,
+        errorElement: <ErrorPage />,
+      },
       {
         path: "profile/:id",
         element: <Profile />,
-        children: [{ path: "edit", element: <EditProfile /> }],
       },
       { path: "logout", action: logoutAction },
+      { path: "*", element: <ErrorPage /> },
     ],
   },
 ]);

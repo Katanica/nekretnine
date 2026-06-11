@@ -6,9 +6,8 @@ export default function Register() {
 
 export async function action({ request }) {
   const data = await request.formData();
-  const url = "http://localhost:8080/api/auth/register"
 
-  const profileType = data.get("FirstName") ? "user" : "agency";
+  const profileType = data.get("profileType");
   console.log(profileType);
 
   const payload = {
@@ -23,21 +22,25 @@ export async function action({ request }) {
     dateOfBirth: data.get("dateOfBirth"),
     city: data.get("city"),
   };
+  console.log(payload);
 
-  const response = await fetch(url + "/" + profileType, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+  const response = await fetch(
+    `http://localhost:8080/api/auth/register/${profileType}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify(payload),
+    },
+  );
 
   if (response.status === 422 || response.status === 401) {
     return response;
   }
   if (!response.ok) {
-    throw new Response(
-      JSON.stringify({ message: "Something went wrong. Try again" }),
-      { status: 500 },
-    );
+    throw { message: "Something went wrong. Try again.", status: 500 };
   }
   const resData = await response.json();
   const token = resData.token;
@@ -47,5 +50,5 @@ export async function action({ request }) {
   expiration.setHours(expiration.getHours() + 24);
   localStorage.setItem("expiration", expiration.toString());
 
-  return redirect("/");
+  return redirect("/login");
 }

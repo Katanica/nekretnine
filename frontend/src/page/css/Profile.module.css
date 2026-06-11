@@ -8,6 +8,7 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   align-items: flex-start;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .profile {
   display: flex;
@@ -22,12 +23,20 @@ header {
   border: 2px solid #ddd;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+@media (max-width: 900px) {
+  .profile img {
+    margin-bottom: 10px;
+    width: 180px;
+    height: 160px;
+  }
+}
 
 .profileInfo {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin-left: 20px;
+  flex-wrap: wrap;
 }
 
 .profilInfo h3 {
@@ -47,6 +56,7 @@ header {
   display: flex;
   gap: 20px;
   margin-top: 4px;
+  flex-wrap: wrap;
 }
 
 .profileInfo .meta span {
@@ -62,6 +72,11 @@ header {
   flex-direction: column;
   align-self: flex-start;
   gap: 8px;
+}
+@media (max-width: 1000px) {
+  .buttons {
+    flex-direction: row;
+  }
 }
 
 .add {

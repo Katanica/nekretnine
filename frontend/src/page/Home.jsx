@@ -3,10 +3,16 @@ import Property from "../components/Property";
 import CategoryFilter from "../components/CategoryFilter";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
-
+import AdvertDetailsModal from "../components/AdvertDetailsModal";
 export default function HomePage() {
   const [adverts, setAdverts] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedAdvert, setSelectedAdvert] = useState(null);
+
+  function openDetails(advert) {
+    setSelectedAdvert(advert);
+  }
+
   useEffect(() => {
     async function fetchingData() {
       const resAdverts = await fetch("http://localhost:8080/api/advert");
@@ -27,10 +33,14 @@ export default function HomePage() {
     <div className={styles.content}>
       <Header />
 
-      <CategoryFilter />
-
       <div className={styles.listings}>
-        <Property adverts={adverts} />
+        <Property adverts={adverts} handleDetails={openDetails} />
+        {selectedAdvert && (
+          <AdvertDetailsModal
+            advert={selectedAdvert}
+            onClose={() => setSelectedAdvert(null)}
+          />
+        )}
       </div>
     </div>
   );

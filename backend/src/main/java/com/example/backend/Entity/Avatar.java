@@ -1,5 +1,6 @@
 package com.example.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class Avatar {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_profile_id", nullable = false, unique = true)
+    @JsonIgnore
     private UserProfile userProfile;
 
     private String fileName;

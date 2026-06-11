@@ -1,0 +1,21 @@
+.errorPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.btns {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.btns button {
+  width: 100px;
+  padding: 10px;
+  border-radius: 5px;
+}
+button:hover {
+  background-color: aliceblue;
+}
