@@ -3,12 +3,13 @@ import konj from "../assets/konj.jpg";
 import { FiPhone, FiMapPin, FiCalendar } from "react-icons/fi";
 import { Form, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getToken } from "../api";
+import { getToken, getUserID, getRole } from "../api";
 import Property from "../components/Property";
 
 import EditProfileModal from "../components/EditProfileModal";
 export default function Profile() {
-  const { id } = useParams();
+  const userID = getUserID();
+  const role = getRole();
   const token = getToken();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -16,10 +17,11 @@ export default function Profile() {
   const [adverts, setAdverts] = useState([]);
   const [editOpen, setEditOpen] = useState(false);
 
+  const profileType = role === "ROLE_USER" ? "userProfile" : "agencyProfile";
   useEffect(() => {
     async function fetchData() {
       const resProfil = await fetch(
-        `http://localhost:8080/api/userProfile/${id}`,
+        `http://localhost:8080/api/${profileType}/${userID}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -32,7 +34,6 @@ export default function Profile() {
       }
       const userData = await resProfil.json();
       console.log(userData);
-
       setUser(userData);
 
       const resAdvert = await fetch(
@@ -53,11 +54,10 @@ export default function Profile() {
     }
 
     fetchData();
-  }, [id]);
+  }, [userID]);
 
   const getImageUrl = (filePath) => {
     if (!filePath) {
-      console.log("nema slike");
       return null;
     }
     return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
@@ -76,7 +76,7 @@ export default function Profile() {
             className={styles.profileImg}
           ></img>
           <div className={styles.profileInfo}>
-            <h3>{`${user.name} ${user.surname}`}</h3>
+            <h3>{`${user.userName}`}</h3>
             <p className={styles.email}>{user.email}</p>
             <div className={styles.meta}>
               <span>
@@ -99,13 +99,7 @@ export default function Profile() {
             Edit profile
           </button>
           {editOpen && (
-            <EditProfileModal
-              onClose={() => setEditOpen(false)}
-              email={user.email}
-              userName={user.userName}
-              name={user.name}
-              surname={user.surname}
-            />
+            <EditProfileModal onClose={() => setEditOpen(false)} user={user} />
           )}
           <Form action="/logout" method="post">
             <button className={styles.logout}>Log out</button>

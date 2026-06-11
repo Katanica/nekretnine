@@ -40,9 +40,8 @@ export async function action({ request }) {
   // dekodiranje tokena
   const payload = JSON.parse(atob(token.split(".")[1]));
   localStorage.setItem("id", payload.id);
+  localStorage.setItem("role", payload.role);
   console.log(payload);
-  console.log(token);
-  console.log(payload.id);
 
   const expiration = new Date();
   expiration.setHours(expiration.getHours() + 1);

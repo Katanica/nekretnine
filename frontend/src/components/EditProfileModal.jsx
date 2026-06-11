@@ -2,13 +2,7 @@ import { createPortal } from "react-dom";
 import styles from "./css/EditProfile.module.css";
 import { useState } from "react";
 import { getToken, getUserID } from "../api";
-export default function EditProfileModal({
-  onClose,
-  email,
-  userName,
-  name,
-  surname,
-}) {
+export default function EditProfileModal({ onClose, user }) {
   const token = getToken();
   const userID = getUserID();
   const [avatar, setAvatar] = useState(null);
@@ -16,9 +10,9 @@ export default function EditProfileModal({
   const [error, setError] = useState(null);
   const [passwordError, setPasswordError] = useState("");
   const [form, setForm] = useState({
-    name: "",
-    surname: "",
-    phone: "",
+    name: user?.name || "",
+    surname: user?.surname || "",
+    phone: user?.phone || "",
     password: "",
     confirmPassword: "",
   });
@@ -49,10 +43,10 @@ export default function EditProfileModal({
       id: userID,
       name: form.name,
       surname: form.surname,
-      userName: userName,
-      email: email,
+      userName: user?.userName || "",
+      email: user?.email || "",
       phone: form.phone,
-      passwordHash: form.password,
+      password: form.password,
     };
     formData.append(
       "userProfile",
@@ -108,13 +102,17 @@ export default function EditProfileModal({
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label>First name</label>
-              <input name="name" value={form.name} onChange={handleChange} />
+              <input
+                name="name"
+                value={form.name || ""}
+                onChange={handleChange}
+              />
             </div>
             <div className={styles.formGroup}>
               <label>Surname</label>
               <input
                 name="surname"
-                value={form.surname}
+                value={form.surname || ""}
                 onChange={handleChange}
               />
             </div>
@@ -123,11 +121,11 @@ export default function EditProfileModal({
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label>Username</label>
-              <input name="username" value={userName} readOnly />
+              <input name="username" value={user.userName || ""} readOnly />
             </div>
             <div className={styles.formGroup}>
               <label>Email</label>
-              <input name="email" value={email} readOnly />
+              <input name="email" value={user.email || ""} readOnly />
             </div>
           </div>
 
@@ -136,7 +134,7 @@ export default function EditProfileModal({
             <input
               name="phone"
               type="tel"
-              value={form.phone}
+              value={form.phone || ""}
               onChange={handleChange}
             />
           </div>
