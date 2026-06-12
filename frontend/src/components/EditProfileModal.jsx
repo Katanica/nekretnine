@@ -86,7 +86,7 @@ export default function EditProfileModal({ onClose, user }) {
             {avatarPreview ? (
               <img src={avatarPreview} alt="avatar" />
             ) : (
-              <span>MK</span>
+              <span>{form.name[0]}{form.surname[0]}</span>
             )}
           </div>
           <label htmlFor="avatar-input" className={styles.avatarUploadBtn}>

@@ -4,16 +4,23 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 
 export default function AdvertDetailsModal({ onClose, advert }) {
-  const [currentImg, setCurrentImg] = useState(0);
-  const total = advert.pictures?.length || 0;
+  const total = advert.imageUrls?.length || 0;
+  const [currentImg, setCurrentImg] = useState(total === 0 ? 0 : 1);
 
-  const slide = (dir) => {
-    setCurrentImg((prev) => (prev + dir + total) % total);
+  const slide = (x) => {
+    if (total != 0) {
+      if (currentImg == 0 && x == -1)
+        setCurrentImg(total - 1);
+      else if (currentImg == total - 1 && x == 1) {
+        setCurrentImg(0);
+      }
+      else setCurrentImg(currentImg + x);
+    }
   };
   const formatDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString("hr-HR");
   };
-  const getImageUrl = (filePath) => {
+  const getImageUrl = () => {
     if (!filePath) return "/placeholder.jpg";
     return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
   };
@@ -26,7 +33,7 @@ export default function AdvertDetailsModal({ onClose, advert }) {
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.sliderWrap}>
           <img
-            src={getImageUrl(advert.pictures?.[currentImg]?.filePath)}
+            src={advert.imageUrls[currentImg]}
             alt={advert.title}
             className={styles.sliderImg}
           />
@@ -45,7 +52,7 @@ export default function AdvertDetailsModal({ onClose, advert }) {
             <ChevronRight size={18} />
           </button>
           <span className={styles.counter}>
-            {currentImg + 1} / {total}
+            {total === 0 ? `0 / 0` : `${currentImg + 1} / ${total}`}
           </span>
           <span className={styles.badge}>
             {advertTypeMap[advert.advertType]}
@@ -61,7 +68,7 @@ export default function AdvertDetailsModal({ onClose, advert }) {
             </div>
             <div>
               <p className={styles.price}>
-                {advert.price.toLocaleString("hr-HR")} €
+                {advert.price.toLocaleString("hr-HR")} KM
               </p>
             </div>
           </div>
@@ -81,8 +88,7 @@ export default function AdvertDetailsModal({ onClose, advert }) {
             </div>
           </div>
 
-          <p className={styles.description}>{advert.description}</p>
-
+          {advert.description.length == 0 ? <p className={styles.description}>Nema opisa</p> : <p className={styles.description}>Opis:<br />{advert.description}</p>}
           <div className={styles.actions}>
             <button>Spremi</button>
             <button>Kontaktiraj</button>

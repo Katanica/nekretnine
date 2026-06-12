@@ -10,6 +10,7 @@ header {
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
 .profile {
   display: flex;
   justify-content: flex-start;
@@ -18,11 +19,12 @@ header {
 
 .profile img {
   width: 200px;
-  height: 180px;
+  height: 200px;
   border-radius: 50%;
   border: 2px solid #ddd;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 @media (max-width: 900px) {
   .profile img {
     margin-bottom: 10px;
@@ -73,6 +75,7 @@ header {
   align-self: flex-start;
   gap: 8px;
 }
+
 @media (max-width: 1000px) {
   .buttons {
     flex-direction: row;
@@ -96,9 +99,11 @@ header {
   white-space: nowrap;
   transition: background 0.15s;
 }
+
 .add:hover {
   background: #b08930;
 }
+
 .edit {
   display: flex;
   border: none;

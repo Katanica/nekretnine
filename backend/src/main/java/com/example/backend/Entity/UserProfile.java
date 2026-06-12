@@ -18,7 +18,4 @@ public class UserProfile extends Profile{
 
     @Column(name = "last_name")
     private String surname;
-
-    @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Avatar avatar;
 }

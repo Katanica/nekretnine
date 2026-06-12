@@ -23,7 +23,7 @@ export default function Property({ adverts, handleDetails }) {
             >
               <div className={styles.imageWrap}>
                 <img
-                  src={getImageUrl(advert.pictures[0]?.filePath)}
+                  src={advert.imageUrls[0]}
                   alt={advert.title}
                   className={styles.image}
                 />
@@ -39,11 +39,11 @@ export default function Property({ adverts, handleDetails }) {
               </div>
               <div className={styles.body}>
                 <p className={styles.cijena}>
-                  {advert.price.toLocaleString("hr-HR")} {advert.valuta}
+                  {advert.price.toLocaleString("hr-HR")} KM
                 </p>
                 <div className={styles.meta}>
                   <span>
-                    <MapPin size={13} /> {advert.cityName}, {advert.cityName}
+                    <MapPin size={13} /> {advert.cityName}
                   </span>
                   <span>
                     <Maximize2 size={13} /> {advert.size} m²

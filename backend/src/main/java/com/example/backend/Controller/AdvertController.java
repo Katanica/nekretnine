@@ -1,27 +1,16 @@
 package com.example.backend.Controller;
 
 import com.example.backend.DTO.AdvertDto;
-import com.example.backend.Entity.Advert;
-import com.example.backend.Entity.City;
-import com.example.backend.Entity.Picture;
-import com.example.backend.Enums.AdvertType;
-import com.example.backend.Enums.PropertyType;
 import com.example.backend.Security.CustomUserDetails;
 import com.example.backend.Service.AdvertService;
-import com.example.backend.Service.PictureService;
 import com.example.backend.Specification.AdvertFilterRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -30,7 +19,6 @@ import java.util.List;
 public class AdvertController {
 
     private final AdvertService service;
-    private final PictureService pictureService;
 
     @GetMapping
     public ResponseEntity<Page<AdvertDto>>  getAll(@RequestParam(defaultValue="0") int page,
@@ -59,7 +47,7 @@ public class AdvertController {
     public ResponseEntity<AdvertDto> create(@PathVariable Long id, @Valid @RequestBody AdvertDto dto){
         return ResponseEntity.status(201).body(service.create(id, dto));
     }
-    @PostMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    /*@PostMapping(value = "/{id}")
     public ResponseEntity<AdvertDto> createWithPictures(
             @PathVariable Long id,
             @RequestParam("propertyType") String propertyType,
@@ -86,7 +74,7 @@ public class AdvertController {
         }
 
         return ResponseEntity.status(201).body(service.getById(created.getId()));
-    }
+    }*/
 
     @PutMapping
     public ResponseEntity<AdvertDto> update(@Valid @RequestBody AdvertDto dto){

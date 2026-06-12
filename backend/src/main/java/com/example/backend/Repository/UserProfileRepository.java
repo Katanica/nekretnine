@@ -10,9 +10,4 @@ import java.util.Optional;
 
 @Repository
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
-
-    @Query("SELECT DISTINCT u FROM UserProfile u " +
-           "LEFT JOIN FETCH u.avatar " +
-           "WHERE u.id = :id")
-    Optional<UserProfile> findByIdWithAvatar(@Param("id") Long id);
 }

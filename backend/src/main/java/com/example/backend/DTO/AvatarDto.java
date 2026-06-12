@@ -15,5 +15,6 @@ public class AvatarDto {
     private String filePath;
     private String contentType;
     private LocalDateTime uploadedAt;
+    private String avatarUrl;
 }
 
