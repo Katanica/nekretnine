@@ -5,6 +5,8 @@ import { Form, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getToken, getUserID, getRole } from "../api";
 import Property from "../components/Property";
+import { formatDate } from "../formatDate";
+import AdvertDetailsModal from "../components/AdvertDetailsModal";
 
 import EditProfileModal from "../components/EditProfileModal";
 export default function Profile() {
@@ -16,8 +18,15 @@ export default function Profile() {
   const [user, setUser] = useState(null);
   const [adverts, setAdverts] = useState([]);
   const [editOpen, setEditOpen] = useState(false);
+  const [selectedAdvert, setSelectedAdvert] = useState(null);
 
-  const profileType = role === "ROLE_USER" ? "userProfile" : "agencyProfile";
+  const profileType = role !== "ROLE_USER" ? "userProfile" : "agencyProfile";
+
+  // za otvaranje info o advertu
+  function openDetails(advert) {
+    setSelectedAdvert(advert);
+  }
+
   useEffect(() => {
     async function fetchData() {
       const resProfil = await fetch(
@@ -28,7 +37,7 @@ export default function Profile() {
           },
         },
       );
-      if (!resProfil.ok) {
+      if (!resProfil) {
         setError("User not found");
         return;
       }
@@ -65,18 +74,18 @@ export default function Profile() {
 
   if (error) return <div>{error}</div>;
   if (!user) return <div>Loading...</div>;
-
   return (
     <>
       <header className={styles.header}>
         <div className={styles.profile}>
           <img
-            src={getImageUrl(user.avatar?.filePath)}
+            src={user.avatarUrl}
             alt="Profile Picture"
             className={styles.profileImg}
           ></img>
           <div className={styles.profileInfo}>
             <h3>{`${user.userName}`}</h3>
+            <h4 style={{ margin: 0 }}>{profileType === "userProfile" ? `${user.name} ${user.surname}` : user.agencyName}</h4>
             <p className={styles.email}>{user.email}</p>
             <div className={styles.meta}>
               <span>
@@ -85,10 +94,10 @@ export default function Profile() {
               </span>
               <span>
                 <FiMapPin />
-                Jablanica
+                {user.cityName}
               </span>
               <span>
-                <FiCalendar /> Profile since {user.createdAt}
+                <FiCalendar /> Profile since {formatDate(user.createdAt)}
               </span>
             </div>
           </div>
@@ -108,7 +117,13 @@ export default function Profile() {
       </header>
       <div>
         <h2>My adverts</h2>
-        <Property adverts={adverts} />
+        <Property adverts={adverts} handleDetails={openDetails} />
+        {selectedAdvert && (
+          <AdvertDetailsModal
+            advert={selectedAdvert}
+            onClose={() => setSelectedAdvert(null)}
+          />
+        )}
       </div>
     </>
   );

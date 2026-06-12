@@ -41,4 +41,6 @@ public class ProfileDto {
 
         @Column(name = "createdAt")
         private LocalDateTime createdAt;
+
+        private String avatarUrl;
 }

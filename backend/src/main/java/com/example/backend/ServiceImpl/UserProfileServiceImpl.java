@@ -45,7 +45,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
     @Override
     public UserProfileDto getById(Long id){
-        UserProfile userProfile = repository.findByIdWithAvatar(id).orElseThrow(() -> new ResourceNotFoundException("UserProfile nije pronađen: " + id));
+        UserProfile userProfile = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("UserProfile nije pronađen: " + id));
         return mapper.toDto(userProfile);
     }
 
@@ -65,7 +65,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     // @PreAuthorize("hasRole('ADMIN') or @userProfileServiceImpl.isOwner(#dto.id, authentication.name)") // Disabled for testing
     public UserProfileDto update(@Valid @RequestBody UserProfileDto dto){
-        UserProfile existing = repository.findByIdWithAvatar(dto.getId()).orElseThrow(() -> new ResourceNotFoundException("UserProfile nije pronađen: " + dto.getId()));
+        UserProfile existing = repository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException("UserProfile nije pronađen: " + dto.getId()));
         existing.setUserName(dto.getUserName());
         existing.setEmail(dto.getEmail());
         existing.setStatus(dto.getStatus());

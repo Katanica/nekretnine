@@ -64,8 +64,9 @@ public class Advert{
     private StatusType status;
 
     @ElementCollection
-    @CollectionTable(name = "advert_images", joinColumns = @JoinColumn(name = "advert_id"))
+    @CollectionTable(name = "advert_pictures", joinColumns = @JoinColumn(name = "advert_id"))
     @Column(name = "image_url")
+    @OrderColumn(name = "id")
     private List<String> imageUrls = new ArrayList<>();
 
     @PrePersist

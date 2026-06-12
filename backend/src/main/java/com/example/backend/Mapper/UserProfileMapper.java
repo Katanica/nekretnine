@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = AvatarMapper.class)
+@Mapper(componentModel = "spring")
 public interface UserProfileMapper {
 
    @Mapping(target = "cityId", source = "city.id")
@@ -19,7 +19,7 @@ public interface UserProfileMapper {
    @Mapping(target = "status", source = "status")
    @Mapping(target = "name", source = "name")
    @Mapping(target = "surname", source = "surname")
-   @Mapping(target = "avatar", source = "avatar")
+   @Mapping(target="avatarUrl", source = "avatarUrl")
    UserProfileDto toDto(UserProfile userProfile);
 
    @Mapping(target = "city", ignore = true)

@@ -1,6 +1,5 @@
 package com.example.backend.DTO;
 
-import com.example.backend.Entity.City;
 import com.example.backend.Enums.AdvertType;
 import com.example.backend.Enums.PropertyType;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 

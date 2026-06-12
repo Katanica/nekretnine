@@ -62,4 +62,7 @@ public class Profile{
 
     @Column(name = "phone")
     private String phone;
+
+    @Column(name = "avatar_url")
+    private String avatarUrl;
 }
