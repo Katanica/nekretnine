@@ -20,8 +20,8 @@ export default function Profile() {
   const [editOpen, setEditOpen] = useState(false);
   const [selectedAdvert, setSelectedAdvert] = useState(null);
 
-  const profileType = role !== "ROLE_USER" ? "userProfile" : "agencyProfile";
-
+  const profileType = role === "ROLE_USER" ? "userProfile" : "agencyProfile";
+  console.log(profileType);
   // za otvaranje info o advertu
   function openDetails(advert) {
     setSelectedAdvert(advert);
@@ -85,7 +85,11 @@ export default function Profile() {
           ></img>
           <div className={styles.profileInfo}>
             <h3>{`${user.userName}`}</h3>
-            <h4 style={{ margin: 0 }}>{profileType === "userProfile" ? `${user.name} ${user.surname}` : user.agencyName}</h4>
+            <h4 style={{ margin: 0 }}>
+              {profileType === "userProfile"
+                ? `${user.name} ${user.surname}`
+                : user.agencyName}
+            </h4>
             <p className={styles.email}>{user.email}</p>
             <div className={styles.meta}>
               <span>
