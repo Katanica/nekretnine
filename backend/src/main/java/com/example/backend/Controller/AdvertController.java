@@ -1,6 +1,7 @@
 package com.example.backend.Controller;
 
 import com.example.backend.DTO.AdvertDto;
+import com.example.backend.DTO.CreateAdvertDto;
 import com.example.backend.Security.CustomUserDetails;
 import com.example.backend.Service.AdvertService;
 import com.example.backend.Specification.AdvertFilterRequest;
@@ -44,7 +45,7 @@ public class AdvertController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<AdvertDto> create(@PathVariable Long id, @Valid @RequestBody AdvertDto dto){
+    public ResponseEntity<AdvertDto> create(@PathVariable Long id, @Valid @RequestBody CreateAdvertDto dto){
         return ResponseEntity.status(201).body(service.create(id, dto));
     }
     /*@PostMapping(value = "/{id}")

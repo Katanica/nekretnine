@@ -9,7 +9,7 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {AdvertMapper.class})
+@Mapper(componentModel = "spring")
 public interface CityMapper {
     CityDto toDto(City city);
 

@@ -1,9 +1,6 @@
 package com.example.backend.Controller;
 
-import com.example.backend.DTO.AgencyProfileDto;
-import com.example.backend.DTO.AuthResponse;
-import com.example.backend.DTO.LoginRequest;
-import com.example.backend.DTO.UserProfileDto;
+import com.example.backend.DTO.*;
 import com.example.backend.Service.AgencyProfileService;
 import com.example.backend.ServiceImpl.AuthService;
 import jakarta.validation.Valid;
@@ -31,12 +28,12 @@ public class AuthController {
 
     @PostMapping("/register/user")
     public ResponseEntity<UserProfileDto> registerUser(
-            @Valid @RequestBody UserProfileDto dto) throws IOException {
+             @RequestBody CreateUserProfileDto dto) throws IOException {
         return ResponseEntity.status(201).body(authService.registerUser(dto));
     }
 
     @PostMapping("/register/agency")
-    public ResponseEntity<AgencyProfileDto> registerAgency(@Valid @RequestBody AgencyProfileDto dto){
+    public ResponseEntity<AgencyProfileDto> registerAgency(@Valid @RequestBody CreateAgencyProfileDto dto){
         return ResponseEntity.status(201).body(agencyProfileService.create(dto));
     }
 }

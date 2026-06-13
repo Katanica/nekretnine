@@ -3,6 +3,7 @@ import podrum from "../assets/podrum.jpg";
 import { Heart, MapPin, Maximize2, BedDouble, Bath, Car } from "lucide-react";
 
 export default function Property({ adverts, handleDetails }) {
+  console.log(adverts[0]);
   const getImageUrl = (filePath) => {
     if (!filePath) {
       console.log("nema slike");
@@ -43,7 +44,7 @@ export default function Property({ adverts, handleDetails }) {
                 </p>
                 <div className={styles.meta}>
                   <span>
-                    <MapPin size={13} /> {advert.cityName}
+                    <MapPin size={13} /> {advert.city?.name}
                   </span>
                   <span>
                     <Maximize2 size={13} /> {advert.size} m²

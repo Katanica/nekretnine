@@ -4,6 +4,7 @@ import com.example.backend.Enums.AdvertType;
 import com.example.backend.Enums.PropertyType;
 import com.example.backend.Enums.StatusType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -48,11 +49,12 @@ public class Advert{
     @Column(name="advert_type")
     private AdvertType advertType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="city_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private City city;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="profile_id")
     private Profile profile;
 

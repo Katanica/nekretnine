@@ -7,11 +7,9 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses={CityMapper.class})
 public interface UserProfileMapper {
 
-   @Mapping(target = "cityId", source = "city.id")
-   @Mapping(target = "cityName", source = "city.name")
    @Mapping(target = "id", source = "id")
    @Mapping(target = "userName", source = "userName")
    @Mapping(target = "email", source = "email")
@@ -22,7 +20,7 @@ public interface UserProfileMapper {
    @Mapping(target="avatarUrl", source = "avatarUrl")
    UserProfileDto toDto(UserProfile userProfile);
 
-   @Mapping(target = "city", ignore = true)
+
    @Mapping(target = "adverts", ignore = true)
    UserProfile toEntity(UserProfileDto userProfileDto);
 

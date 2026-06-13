@@ -1,5 +1,6 @@
 package com.example.backend.Mapper;
 
+import com.example.backend.DTO.CreateProfileDto;
 import com.example.backend.DTO.ProfileDto;
 import com.example.backend.Entity.Profile;
 import org.mapstruct.Mapper;
@@ -7,11 +8,9 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses={CityMapper.class})
 public interface ProfileMapper {
 
-    @Mapping(target = "cityId", source = "city.id")
-    @Mapping(target = "cityName", source = "city.name")
     ProfileDto toDto(Profile profile);
 
     @Mapping(target = "city", ignore = true)

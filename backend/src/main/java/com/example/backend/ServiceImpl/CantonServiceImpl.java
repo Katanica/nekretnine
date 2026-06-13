@@ -1,8 +1,6 @@
 package com.example.backend.ServiceImpl;
 
-import com.example.backend.DTO.AdvertDto;
 import com.example.backend.DTO.CantonDto;
-import com.example.backend.Entity.Advert;
 import com.example.backend.Entity.Canton;
 import com.example.backend.Mapper.CantonMapper;
 import com.example.backend.Repository.CantonRepository;
@@ -31,6 +29,14 @@ public class CantonServiceImpl implements CantonService {
 
     @Override
     public List<CantonDto> getAll() {
+        return repository.findAll()
+                .stream()
+                .map(cantonMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CantonDto> getAllWithCities() {
         return repository.findAll()
                 .stream()
                 .map(cantonMapper::toDto)
