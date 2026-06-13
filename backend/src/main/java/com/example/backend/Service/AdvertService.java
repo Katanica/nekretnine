@@ -1,6 +1,7 @@
 package com.example.backend.Service;
 
 import com.example.backend.DTO.AdvertDto;
+import com.example.backend.DTO.CreateAdvertDto;
 import com.example.backend.Entity.Advert;
 import com.example.backend.Repository.AdvertRepository;
 import com.example.backend.Specification.AdvertFilterRequest;
@@ -20,6 +21,8 @@ public interface AdvertService {
     AdvertDto getById(Long id);
 
     AdvertDto create(Long id, AdvertDto dto);
+
+    AdvertDto create(Long id, CreateAdvertDto dto);
 
     AdvertDto update(AdvertDto dto);
 

@@ -18,7 +18,7 @@ import lombok.Setter;
 public class CityDto {
     private Long id;
     private String name;
-    private Canton canton;
-    private List<AdvertDto> adverts = new ArrayList<>();
-    private List<ProfileDto> profiles = new ArrayList<>();
+    private CantonDto canton;
+    //private List<AdvertDto> adverts = new ArrayList<>();
+    //private List<ProfileDto> profiles = new ArrayList<>();
 }

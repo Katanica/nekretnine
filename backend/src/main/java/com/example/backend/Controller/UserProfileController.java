@@ -1,6 +1,7 @@
 package com.example.backend.Controller;
 
 import com.example.backend.DTO.AvatarDto;
+import com.example.backend.DTO.CreateUserProfileDto;
 import com.example.backend.DTO.UserProfileDto;
 import com.example.backend.Mapper.AvatarMapper;
 import com.example.backend.Service.AvatarService;
@@ -35,11 +36,12 @@ public class UserProfileController {
     }
 
     @PostMapping
-    public ResponseEntity<UserProfileDto> create(@Valid @RequestBody UserProfileDto dto){
+    public ResponseEntity<UserProfileDto> create( @RequestBody CreateUserProfileDto dto){
+        System.out.println("DTO!!!!!!!!!!!!!"+ dto);
         return ResponseEntity.status(201).body(service.create(dto));
     }
 
-    @PostMapping(value = "/with-avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    /*@PostMapping(value = "/with-avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<UserProfileDto> createWithAvatar(
             @RequestPart("userProfile") @Valid UserProfileDto dto,
             @RequestPart(value = "avatar", required = false) MultipartFile avatarFile) throws IOException {
@@ -54,7 +56,7 @@ public class UserProfileController {
 
         // Return the profile with avatar using eager loading
         return ResponseEntity.status(201).body(service.getById(createdProfile.getId()));
-    }
+    }*/
 
     @PutMapping
     public ResponseEntity<UserProfileDto> update(@Valid @RequestBody UserProfileDto dto){

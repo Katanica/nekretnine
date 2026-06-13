@@ -21,6 +21,11 @@ public class CantonController {
         return ResponseEntity.ok(service.getAll());
     }
 
+    @GetMapping("/register")
+    public ResponseEntity<List<CantonDto>> getAllMin() {
+        return ResponseEntity.ok(service.getAllWithCities());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<CantonDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));

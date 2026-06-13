@@ -20,7 +20,7 @@ export async function action({ request }) {
     password: data.get("password"),
     phone: data.get("phone"),
     dateOfBirth: data.get("dateOfBirth"),
-    city: data.get("city"),
+    cityId: data.get("cityId"),
   };
   console.log(payload);
 

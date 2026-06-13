@@ -1,6 +1,7 @@
 package com.example.backend.Service;
 
 import com.example.backend.DTO.AgencyProfileDto;
+import com.example.backend.DTO.CreateAgencyProfileDto;
 import com.example.backend.Repository.AgencyProfileRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ public interface AgencyProfileService {
     AgencyProfileDto getById(Long id);
 
     AgencyProfileDto create(AgencyProfileDto dto);
+    AgencyProfileDto create(CreateAgencyProfileDto dto);
 
     AgencyProfileDto update(AgencyProfileDto dto);
 
