@@ -48,34 +48,6 @@ public class AdvertController {
     public ResponseEntity<AdvertDto> create(@PathVariable Long id, @Valid @RequestBody CreateAdvertDto dto){
         return ResponseEntity.status(201).body(service.create(id, dto));
     }
-    /*@PostMapping(value = "/{id}")
-    public ResponseEntity<AdvertDto> createWithPictures(
-            @PathVariable Long id,
-            @RequestParam("propertyType") String propertyType,
-            @RequestParam("advertType") String advertType,
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
-            @RequestParam("price") Double price,
-            @RequestParam("size") Double size,
-            @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
-
-        AdvertDto dto = new AdvertDto();
-        dto.setPropertyType(PropertyType.valueOf(propertyType));
-        dto.setAdvertType(AdvertType.valueOf(advertType));
-        dto.setTitle(title);
-        dto.setDescription(description);
-        dto.setPrice(price);
-        dto.setSize(size.floatValue());
-
-        AdvertDto created = service.create(id, dto);
-
-        if (files != null && !files.isEmpty()) {
-            List<Picture> uploaded = pictureService.uploadImages(created.getId(), files);
-            if (!uploaded.isEmpty()) pictureService.setPrimary(uploaded.get(0).getId());
-        }
-
-        return ResponseEntity.status(201).body(service.getById(created.getId()));
-    }*/
 
     @PutMapping
     public ResponseEntity<AdvertDto> update(@Valid @RequestBody AdvertDto dto){

@@ -54,7 +54,7 @@ public class AdvertServiceImpl implements AdvertService {
             spec = spec.and((root, query, cb) -> cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
         }
         if(propertyType!=null){
-            spec = spec.and((root, query, cb) -> cb.like(cb.lower(root.get("propertyType")), String.valueOf(propertyType)));
+            spec = spec.and((root, query, cb) -> cb.equal(root.get("propertyType"), propertyType));
         }
         if(maxPrice!=null){
             spec = spec.and((root, query, cb) -> cb.lessThanOrEqualTo(root.get("price"), maxPrice));
@@ -111,12 +111,8 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public AdvertDto create(Long id, @Valid @RequestBody CreateAdvertDto createDto){
-        System.out.println("GABRIJEL: " + createDto.getCityId() + "!!!!!!!!!!!!!!" + createDto);
-
         Profile profile = profileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Korisnik nije pronađen: " + id));
         City city = cityRepository.findById(createDto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + createDto.getCityId()));
-
-        System.out.println("GRAD!!!!!!!!!!!!!" + city);
 
         Advert advert = new Advert();
 
@@ -151,10 +147,7 @@ public class AdvertServiceImpl implements AdvertService {
 
     public boolean isOwner(Long advertId, String email) {
         return repository.findById(advertId)
-                .map(ad -> {
-                    System.out.println(ad.getProfile());
-                    return ad.getProfile().getEmail().equals(email);
-                })
+                .map(ad -> ad.getProfile().getEmail().equals(email))
                 .orElse(false);
     }
 

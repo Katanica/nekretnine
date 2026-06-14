@@ -37,26 +37,8 @@ public class UserProfileController {
 
     @PostMapping
     public ResponseEntity<UserProfileDto> create( @RequestBody CreateUserProfileDto dto){
-        System.out.println("DTO!!!!!!!!!!!!!"+ dto);
         return ResponseEntity.status(201).body(service.create(dto));
     }
-
-    /*@PostMapping(value = "/with-avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<UserProfileDto> createWithAvatar(
-            @RequestPart("userProfile") @Valid UserProfileDto dto,
-            @RequestPart(value = "avatar", required = false) MultipartFile avatarFile) throws IOException {
-
-        // Create the user profile first
-        UserProfileDto createdProfile = service.create(dto);
-
-        // Upload avatar if provided
-        if (avatarFile != null && !avatarFile.isEmpty()) {
-            avatarService.uploadAvatar(createdProfile.getId(), avatarFile);
-        }
-
-        // Return the profile with avatar using eager loading
-        return ResponseEntity.status(201).body(service.getById(createdProfile.getId()));
-    }*/
 
     @PutMapping
     public ResponseEntity<UserProfileDto> update(@Valid @RequestBody UserProfileDto dto){
