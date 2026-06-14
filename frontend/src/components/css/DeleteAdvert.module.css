@@ -1,0 +1,45 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  display: flex;
+  background: #fff;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  padding: 2rem;
+}
+.modal h3 {
+  color: rgb(82, 82, 82);
+}
+.btn {
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+button {
+  height: 50px;
+  width: 80px;
+  border-radius: 16px;
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.btnDelete:hover {
+  background: red;
+}

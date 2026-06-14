@@ -120,6 +120,11 @@ public class AdvertServiceImpl implements AdvertService {
             City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));
             existing.setCity(city);
         }
+        if(dto.getImageUrls() != null){
+            existing.getImageUrls().clear();
+            existing.getImageUrls().addAll(dto.getImageUrls());
+        }
+
         Advert saved = repository.save(existing);
         return mapper.toDto(saved);
     }
