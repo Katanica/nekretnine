@@ -1,8 +1,9 @@
 package com.example.backend.Controller;
 
-import com.example.backend.Entity.Bookmark;
+import com.example.backend.DTO.BookmarkDto;
 import com.example.backend.Service.BookmarkService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,30 +13,31 @@ import java.util.List;
 @AllArgsConstructor
 public class BookmarkController {
 
-    private BookmarkService bookmarkService;
+    private final BookmarkService bookmarkService;
 
     @GetMapping("/profile/{profileId}")
-    public List<Bookmark> getAllBookmarksForUser(@PathVariable Long profileId) {
-        return bookmarkService.getAll(profileId);
+    public ResponseEntity<List<BookmarkDto>> getAllBookmarksForUser(@PathVariable Long profileId) {
+        return ResponseEntity.ok(bookmarkService.getAll(profileId));
     }
 
     @GetMapping("/{bookmarkId}")
-    public Bookmark getBookmarkById(@PathVariable Long bookmarkId) {
-        return bookmarkService.getById(bookmarkId);
+    public ResponseEntity<BookmarkDto> getBookmarkById(@PathVariable Long bookmarkId) {
+        return ResponseEntity.ok(bookmarkService.getById(bookmarkId));
     }
 
     @PostMapping
-    public Bookmark createBookmark(@RequestBody Bookmark bookmark) {
-        return bookmarkService.createBookmark(bookmark);
+    public ResponseEntity<BookmarkDto> createBookmark(@RequestParam Long advertId, @RequestParam Long profileId) {
+        return ResponseEntity.status(201).body(bookmarkService.createBookmark(advertId, profileId));
     }
 
     @DeleteMapping
-    public void removeBookmark(@RequestParam Long advertId, @RequestParam Long profileId) {
+    public ResponseEntity<Void> removeBookmark(@RequestParam Long advertId, @RequestParam Long profileId) {
         bookmarkService.removeBookmark(advertId, profileId);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/check")
-    public boolean isBookmarked(@RequestParam Long advertId, @RequestParam Long profileId) {
-        return bookmarkService.isBookmarked(advertId, profileId);
+    public ResponseEntity<Boolean> isBookmarked(@RequestParam Long advertId, @RequestParam Long profileId) {
+        return ResponseEntity.ok(bookmarkService.isBookmarked(advertId, profileId));
     }
 }

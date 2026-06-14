@@ -13,7 +13,7 @@ public interface BookmarkMapper {
 
     Bookmark toEntity(BookmarkDto bookmarkDto);
 
-    List<Bookmark> toDtoList(List<Bookmark> bookmark);
+    List<BookmarkDto> toDtoList(List<Bookmark> bookmarks);
 
     void updateEntityFromDto(BookmarkDto dto, @MappingTarget Bookmark bookmark);
 }
