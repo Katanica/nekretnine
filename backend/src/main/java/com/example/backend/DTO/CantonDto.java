@@ -1,14 +1,10 @@
 package com.example.backend.DTO;
 
-import com.example.backend.Entity.City;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CantonDto {
     private Long id;
+
+    @NotBlank(message = "Morate unijeti naziv kantona")
     private String name;
-    //private List<CityDto> cities = new ArrayList<>();
 }

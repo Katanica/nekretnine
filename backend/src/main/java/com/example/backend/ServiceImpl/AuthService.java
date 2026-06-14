@@ -3,6 +3,7 @@ package com.example.backend.ServiceImpl;
 import com.example.backend.DTO.CreateUserProfileDto;
 import com.example.backend.DTO.UserProfileDto;
 import com.example.backend.Entity.Profile;
+import com.example.backend.Exception.InvalidCredentialsException;
 import com.example.backend.Repository.ProfileRepository;
 import com.example.backend.Security.CustomUserDetails;
 import com.example.backend.Security.JwtUtil;
@@ -36,9 +37,9 @@ public class AuthService  implements UserDetailsService {
     }
 
     public String login(String email, String password){
-        Profile profile = profileRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Incorrect Email or Password"));
+        Profile profile = profileRepository.findByEmail(email).orElseThrow(() -> new InvalidCredentialsException("Pogrešan email ili lozinka"));
         if(!passwordEncoder.matches(password, profile.getPasswordHash())){
-            throw new RuntimeException("Incorrect email or password");
+            throw new InvalidCredentialsException("Pogrešan email ili lozinka");
         }
         return jwtUtil.generateToken(new CustomUserDetails(profile));
     }

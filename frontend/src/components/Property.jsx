@@ -1,8 +1,27 @@
 import styles from "./css/Property.module.css";
 import podrum from "../assets/podrum.jpg";
-import { Heart, MapPin, Maximize2, BedDouble, Bath, Car } from "lucide-react";
+import {
+  Heart,
+  MapPin,
+  Maximize2,
+  BedDouble,
+  Bath,
+  Car,
+  FileEditIcon,
+  Trash2,
+} from "lucide-react";
+import { getToken } from "../api.js";
 
 export default function Property({ adverts, handleDetails, title }) {
+export default function Property({
+  adverts,
+  handleDetails,
+  edit = false,
+  onEdit,
+  editingAdvert,
+  onDeleteOpen,
+}) {
+  const token = getToken();
   const getImageUrl = (filePath) => {
     if (!filePath) {
       console.log("nema slike");
@@ -10,6 +29,17 @@ export default function Property({ adverts, handleDetails, title }) {
     }
     return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
   };
+
+  function handleEdit(e, advert) {
+    e.stopPropagation();
+    editingAdvert(advert);
+  }
+
+  function handleDelete(e, id) {
+    e.stopPropagation();
+    console.log("delete");
+    onDeleteOpen(id);
+  }
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -27,15 +57,34 @@ export default function Property({ adverts, handleDetails, title }) {
                   alt={advert.title}
                   className={styles.image}
                 />
+
                 <span
                   className={`${styles.badge} ${advert.advertType === "RENT" ? styles.badgeNajam : styles.badgeProdaja}`}
                 >
                   {advert.advertType}
                 </span>
 
-                <button className={styles.heart} aria-label="Spremi advert">
-                  <Heart size={16} />
-                </button>
+                {edit === false ? (
+                  <button className={styles.heart} aria-label="Spremi advert">
+                    <Heart size={16} />
+                  </button>
+                ) : (
+                  <>
+                    <button
+                      onClick={(e) => handleEdit(e, advert)}
+                      className={styles.edit}
+                      aria-label="Uredi advert"
+                    >
+                      <FileEditIcon size={16} />
+                    </button>
+                    <button
+                      onClick={(e) => handleDelete(e, advert.id)}
+                      className={styles.deleteBtn}
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </>
+                )}
               </div>
               <div className={styles.body}>
                 <h3 style={{ margin: "0" }}>

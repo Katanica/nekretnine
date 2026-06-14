@@ -118,12 +118,8 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public AdvertDto create(Long id, @Valid @RequestBody CreateAdvertDto createDto){
-        System.out.println("GABRIJEL: " + createDto.getCityId() + "!!!!!!!!!!!!!!" + createDto);
-
         Profile profile = profileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Korisnik nije pronađen: " + id));
         City city = cityRepository.findById(createDto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + createDto.getCityId()));
-
-        System.out.println("GRAD!!!!!!!!!!!!!" + city);
 
         Advert advert = new Advert();
 
@@ -148,20 +144,17 @@ public class AdvertServiceImpl implements AdvertService {
     public AdvertDto update(@Valid @RequestBody AdvertDto dto){
         Advert existing = repository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException("Oglas nije pronađen: " + dto.getId()));
         mapper.updateEntityFromDto(dto, existing);
-        /*if(dto.getCityId()!=null){
+        if(dto.getCityId()!=null){
             City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));
             existing.setCity(city);
-        }*/
+        }
         Advert saved = repository.save(existing);
         return mapper.toDto(saved);
     }
 
     public boolean isOwner(Long advertId, String email) {
         return repository.findById(advertId)
-                .map(ad -> {
-                    System.out.println(ad.getProfile());
-                    return ad.getProfile().getEmail().equals(email);
-                })
+                .map(ad -> ad.getProfile().getEmail().equals(email))
                 .orElse(false);
     }
 
