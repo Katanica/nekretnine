@@ -13,11 +13,6 @@ import lombok.*;
 @DiscriminatorValue("AGENCY")
 public class AgencyProfile extends Profile{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
     @Column(name = "agencyName")
     private String agencyName;
 
