@@ -63,7 +63,7 @@ export default function AdvertDetailsModal({ onClose, advert }) {
             <div>
               <h2>{advert.title}</h2>
               <p>
-                <MapPin size={13} /> {advert.cityName}
+                <MapPin size={13} /> {advert.city?.name}
               </p>
             </div>
             <div>

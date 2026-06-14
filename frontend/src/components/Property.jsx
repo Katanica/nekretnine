@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { getToken } from "../api.js";
 
+export default function Property({ adverts, handleDetails, title }) {
 export default function Property({
   adverts,
   handleDetails,
@@ -42,9 +43,9 @@ export default function Property({
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Izdvojene nekretnine</h2>
+        <h2 className={styles.title}>{title}</h2>
         <ul className={styles.grid}>
-          {adverts.map((advert) => (
+          {adverts?.map((advert) => (
             <li
               key={advert.id}
               className={styles.card}
@@ -86,6 +87,9 @@ export default function Property({
                 )}
               </div>
               <div className={styles.body}>
+                <h3 style={{ margin: "0" }}>
+                  {advert.title}
+                </h3>
                 <p className={styles.cijena}>
                   {advert.price.toLocaleString("hr-HR")} KM
                 </p>
