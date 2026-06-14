@@ -4,6 +4,7 @@ import HomePage from "./page/Home";
 import RootPage from "./page/Root";
 import About from "./page/About";
 import Contact from "./page/Contact";
+import Search from "./page/Search";
 import Login, { action as loginAction } from "./page/Login";
 import AddAdvert, { action as addAdvertAction } from "./page/AddAdvert";
 import Profile from "./page/Profile";
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
       { path: "about-us", element: <About /> },
       { path: "contact", element: <Contact /> },
       { path: "home", element: <HomePage /> },
+      { path: "search", element: <Search /> },
 
       {
         path: "add-advert",

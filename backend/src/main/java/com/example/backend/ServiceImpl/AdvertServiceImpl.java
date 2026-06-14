@@ -5,6 +5,7 @@ import com.example.backend.DTO.CreateAdvertDto;
 import com.example.backend.Entity.Advert;
 import com.example.backend.Entity.City;
 import com.example.backend.Entity.Profile;
+import com.example.backend.Enums.AdvertType;
 import com.example.backend.Enums.PropertyType;
 import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Mapper.AdvertMapper;
@@ -40,6 +41,7 @@ public class AdvertServiceImpl implements AdvertService {
     public List<AdvertDto> searchAdverts(AdvertFilterRequest filter){
         String title = filter.getTitle();
         PropertyType propertyType = filter.getPropertyType();
+        AdvertType advertType = filter.getAdvertType();
         Double maxPrice = filter.getMaxPrice();
         Double minPrice = filter.getMinPrice();
         Long cityId = filter.getCityId();
@@ -49,12 +51,17 @@ public class AdvertServiceImpl implements AdvertService {
 
         Specification<Advert> spec = Specification
                 .where((root, query, cb) -> cb.conjunction());
+        System.out.println("ADVERTTYPE " + advertType);
+
 
         if (title != null) {
             spec = spec.and((root, query, cb) -> cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
         }
         if(propertyType!=null){
-            spec = spec.and((root, query, cb) -> cb.like(cb.lower(root.get("propertyType")), String.valueOf(propertyType)));
+            spec = spec.and((root, query, cb) -> cb.like(cb.upper(root.get("propertyType")), String.valueOf(propertyType)));
+        }
+        if(advertType!=null){
+            spec = spec.and((root, query, cb) -> cb.like(cb.upper(root.get("advertType")), String.valueOf(advertType)));
         }
         if(maxPrice!=null){
             spec = spec.and((root, query, cb) -> cb.lessThanOrEqualTo(root.get("price"), maxPrice));

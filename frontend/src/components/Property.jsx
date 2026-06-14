@@ -2,8 +2,7 @@ import styles from "./css/Property.module.css";
 import podrum from "../assets/podrum.jpg";
 import { Heart, MapPin, Maximize2, BedDouble, Bath, Car } from "lucide-react";
 
-export default function Property({ adverts, handleDetails }) {
-  console.log(adverts[0]);
+export default function Property({ adverts, handleDetails, title }) {
   const getImageUrl = (filePath) => {
     if (!filePath) {
       console.log("nema slike");
@@ -14,9 +13,9 @@ export default function Property({ adverts, handleDetails }) {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Izdvojene nekretnine</h2>
+        <h2 className={styles.title}>{title}</h2>
         <ul className={styles.grid}>
-          {adverts.map((advert) => (
+          {adverts?.map((advert) => (
             <li
               key={advert.id}
               className={styles.card}
@@ -39,6 +38,9 @@ export default function Property({ adverts, handleDetails }) {
                 </button>
               </div>
               <div className={styles.body}>
+                <h3 style={{ margin: "0" }}>
+                  {advert.title}
+                </h3>
                 <p className={styles.cijena}>
                   {advert.price.toLocaleString("hr-HR")} KM
                 </p>

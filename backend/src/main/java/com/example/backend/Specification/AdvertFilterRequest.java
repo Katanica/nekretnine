@@ -1,6 +1,7 @@
 package com.example.backend.Specification;
 
 import com.example.backend.Entity.City;
+import com.example.backend.Enums.AdvertType;
 import com.example.backend.Enums.PropertyType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Getter
 @Setter
 public class AdvertFilterRequest {
-    String title;
-    PropertyType propertyType;
-    Double maxPrice;
-    Double minPrice;
-    Long cityId;
-    Long cantonId;
-    Float maxSize;
-    Float minSize;
+    private String title;
+    private PropertyType propertyType;
+    private AdvertType advertType;
+    private Double maxPrice;
+    private Double minPrice;
+    private Long cityId;
+    private Long cantonId;
+    private Float maxSize;
+    private Float minSize;
 }
