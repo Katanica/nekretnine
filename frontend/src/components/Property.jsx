@@ -12,11 +12,11 @@ import {
 } from "lucide-react";
 import { getToken } from "../api.js";
 
-export default function Property({ adverts, handleDetails, title }) {
 export default function Property({
   adverts,
   handleDetails,
   edit = false,
+  title,
   onEdit,
   editingAdvert,
   onDeleteOpen,
