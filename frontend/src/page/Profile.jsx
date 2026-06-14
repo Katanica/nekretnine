@@ -105,7 +105,7 @@ export default function Profile() {
               </span>
               <span>
                 <FiMapPin />
-                {user.cityName}
+                {user.city.name}
               </span>
               <span>
                 <FiCalendar /> Profile since {formatDate(user.createdAt)}

@@ -1,6 +1,6 @@
 import styles from "./css/AddAdvertForm.module.css";
 import { useSubmit } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { uploadImage } from "../uploadImage";
 
 export default function AddAdvertForm() {
@@ -8,12 +8,56 @@ export default function AddAdvertForm() {
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
   const submit = useSubmit();
+  const [cantons, setCantons] = useState([]);
+  const [canton, setCanton] = useState(null);
+  const [cities, setCities] = useState([]);
+  const [city, setCity] = useState(null);
 
   const handleImageChange = (e) => {
     const selected = Array.from(e.target.files);
     const newPreviews = selected.map((f) => URL.createObjectURL(f));
     setPreviews(newPreviews);
   };
+
+  const handleCantonChange = (event) => {
+    const value = event.target.value;
+    setCanton(value);
+    if (value) loadCities(value);
+  }
+
+  const handleCityChange = (event) => {
+    const value = event.target.value;
+    setCity(value);
+  }
+
+  const loadCities = (id) => {
+    async function fetchingData() {
+      const resCities = await fetch(`http://localhost:8080/api/city/byCanton/${id}`);
+
+      if (!resCities.ok) {
+        setError("Could not fetch data...");
+      }
+
+      const citiesData = await resCities.json();
+      setCities(citiesData);
+    }
+    fetchingData();
+  }
+
+  // UCITAVANJE KANTONA
+  useEffect(() => {
+    async function fetchingData() {
+      const resCantons = await fetch("http://localhost:8080/api/canton");
+
+      if (!resCantons.ok) {
+        setError("Could not fetch data...");
+      }
+
+      const cantonsData = await resCantons.json();
+      setCantons(cantonsData);
+    }
+    fetchingData();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +80,7 @@ export default function AddAdvertForm() {
         price: form.price.value,
         size: form.size.value,
         imageUrls: imageUrls,
+        cityId: city
       };
 
       submit(JSON.stringify(body), {
@@ -96,7 +141,42 @@ export default function AddAdvertForm() {
             <input name="size" type="number" className={styles.input} placeholder="0" min="0" step="0.1" />
           </div>
         </div>
+        <div className={styles.row}>
+          <label htmlFor="canton" >
+            <select
+              name="canton"
+              placeholder="Canton"
+              className={styles.input}
+              onChange={handleCantonChange}>
+              <option className={styles.option} value="" disabled selected>Canton</option>‚
+              {
+                cantons?.map((canton) =>
+                (<option style={{ color: 'black' }} value={canton.id} key={canton.id}>
+                  {canton.name}
+                </option>))
 
+              }
+            </select>
+          </label>
+          {canton && (
+            <label htmlFor="cityId">
+              <select
+                className={styles.input}
+                name="cityId"
+                placeholder="City"
+                onChange={handleCityChange}>
+                <option className={styles.option} value="" disabled selected>City</option>
+                {
+                  Object.values(cities).map((city) =>
+                  (<option style={{ color: 'black' }} value={city.id} key={city.id}>
+                    {city.name}
+                  </option>))
+
+                }
+              </select>
+            </label>
+          )}
+        </div>
         <div className={styles.group}>
           <label className={styles.label}>Photos</label>
           <input

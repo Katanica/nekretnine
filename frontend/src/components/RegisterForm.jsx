@@ -1,5 +1,5 @@
 // RegisterForm.jsx
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "./css/RegisterForm.module.css";
 import { Form, useNavigate } from "react-router-dom";
 
@@ -69,12 +69,18 @@ function AgencyForms() {
   );
 }
 
+
+
 export default function RegisterForm() {
   const navigate = useNavigate();
   const [profileType, setProfileType] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
   const [error, setError] = useState("");
+  const [cantons, setCantons] = useState([]);
+  const [canton, setCanton] = useState(null);
+  const [cities, setCities] = useState([]);
+  const [city, setCity] = useState(null);
 
   function handleSubmit(e) {
     if (password !== confPassword) {
@@ -83,6 +89,46 @@ export default function RegisterForm() {
     }
     navigate("/login");
   }
+
+  const handleCantonChange = (event) => {
+    const value = event.target.value;
+    setCanton(value);
+    if (value) loadCities(value);
+  }
+
+  const handleCityChange = (event) => {
+    const value = event.target.value;
+    setCity(value);
+  }
+
+  const loadCities = (id) => {
+    async function fetchingData() {
+      const resCities = await fetch(`http://localhost:8080/api/city/byCanton/${id}`);
+
+      if (!resCities.ok) {
+        setError("Could not fetch data...");
+      }
+
+      const citiesData = await resCities.json();
+      setCities(citiesData);
+      console.log("Mrk", citiesData);
+    }
+    fetchingData();
+  }
+
+  useEffect(() => {
+    async function fetchingData() {
+      const resCantons = await fetch("http://localhost:8080/api/canton");
+
+      if (!resCantons.ok) {
+        setError("Could not fetch data...");
+      }
+
+      const cantonsData = await resCantons.json();
+      setCantons(cantonsData);
+    }
+    fetchingData();
+  }, []);
 
   return (
     <div className={styles.signup}>
@@ -176,15 +222,40 @@ export default function RegisterForm() {
           <span>Phone Number</span>
         </label>
 
-        <label htmlFor="city">
-          <input
-            name="city"
-            placeholder=""
-            type="text"
-            className={styles.input}
-          />
-          <span>City</span>
+        <label htmlFor="canton">
+          <select
+            name="canton"
+            placeholder="Canton"
+            className={styles.select}
+            onChange={handleCantonChange}>
+            <option className={styles.option} value="" disabled selected>Canton</option>‚
+            {
+              cantons?.map((canton) =>
+              (<option style={{ color: 'black' }} value={canton.id} key={canton.id}>
+                {canton.name}
+              </option>))
+
+            }
+          </select>
         </label>
+        {canton && (
+          <label htmlFor="cityId">
+            <select
+              name="cityId"
+              placeholder="City"
+              className={styles.select}
+              onChange={handleCityChange}>
+              <option className={styles.option} value="" disabled selected>City</option>
+              {
+                Object.values(cities).map((city) =>
+                (<option style={{ color: 'black' }} value={city.id} key={city.id}>
+                  {city.name}
+                </option>))
+
+              }
+            </select>
+          </label>
+        )}
 
         {error && <p style={{ color: "red" }}>{error}</p>}
 
@@ -195,6 +266,6 @@ export default function RegisterForm() {
           Already have an account? <a href="/login">Sign in</a>
         </p>
       </Form>
-    </div>
+    </div >
   );
 }

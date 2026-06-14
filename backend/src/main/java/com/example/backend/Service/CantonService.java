@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface CantonService {
     List<CantonDto> getAll();
+
+    List<CantonDto> getAllWithCities();
+
     CantonDto getById(Long id);
 
     CantonDto create(CantonDto dto);

@@ -17,5 +17,5 @@ import java.util.List;
 public class CantonDto {
     private Long id;
     private String name;
-    private List<CityDto> cities = new ArrayList<>();
+    //private List<CityDto> cities = new ArrayList<>();
 }

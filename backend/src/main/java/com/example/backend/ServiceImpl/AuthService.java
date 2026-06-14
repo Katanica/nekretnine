@@ -1,5 +1,6 @@
 package com.example.backend.ServiceImpl;
 
+import com.example.backend.DTO.CreateUserProfileDto;
 import com.example.backend.DTO.UserProfileDto;
 import com.example.backend.Entity.Profile;
 import com.example.backend.Repository.ProfileRepository;
@@ -42,7 +43,7 @@ public class AuthService  implements UserDetailsService {
         return jwtUtil.generateToken(new CustomUserDetails(profile));
     }
 
-    public UserProfileDto registerUser(UserProfileDto dto) throws IOException {
+    public UserProfileDto registerUser(CreateUserProfileDto dto) throws IOException {
         UserProfileDto created = userProfileService.create(dto);
 
         return userProfileService.getById(created.getId());

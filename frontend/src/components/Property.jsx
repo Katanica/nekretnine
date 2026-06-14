@@ -91,7 +91,7 @@ export default function Property({
                 </p>
                 <div className={styles.meta}>
                   <span>
-                    <MapPin size={13} /> {advert.cityName}
+                    <MapPin size={13} /> {advert.city?.name}
                   </span>
                   <span>
                     <Maximize2 size={13} /> {advert.size} m²

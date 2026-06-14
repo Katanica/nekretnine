@@ -3,6 +3,10 @@ package com.example.backend.DTO;
 import com.example.backend.Entity.City;
 import com.example.backend.Enums.AdvertType;
 import com.example.backend.Enums.PropertyType;
+import com.example.backend.Enums.StatusType;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,7 +21,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdvertDto {
+public class CreateAdvertDto {
     private Long id;
     @NotNull(message="Moraš unijeti tip nekretnine")
     private PropertyType propertyType;
@@ -32,12 +36,16 @@ public class AdvertDto {
     private LocalDateTime postedAt;
     private LocalDateTime updatedAt;
 
+    @Column(name="status")
+    @Enumerated(EnumType.STRING)
+    private StatusType status;
+
     @NotNull(message="Moraš unijeti tip oglasa")
     private AdvertType advertType;
 
-    private CityDto city;
+    private Long cityId;
 
     private Float size;
-    
+
     private List<String> imageUrls;
 }

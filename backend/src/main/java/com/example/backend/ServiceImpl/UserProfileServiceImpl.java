@@ -1,5 +1,6 @@
 package com.example.backend.ServiceImpl;
 
+import com.example.backend.DTO.CreateUserProfileDto;
 import com.example.backend.DTO.UserProfileDto;
 import com.example.backend.Entity.City;
 import com.example.backend.Entity.Profile;
@@ -50,14 +51,36 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
+    public UserProfileDto create(@Valid CreateUserProfileDto createDto){
+        City city = cityRepository.findById(createDto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + createDto.getCityId()));
+
+        UserProfileDto dto = new UserProfileDto();
+
+        dto.setName(createDto.getName());
+        dto.setSurname(createDto.getSurname());
+        dto.setEmail(createDto.getEmail());
+        dto.setStatus(createDto.getStatus());
+        dto.setPassword(createDto.getPassword());
+        dto.setPhone(createDto.getPhone());
+        dto.setAdverts(createDto.getAdverts());
+        dto.setCreatedAt(createDto.getCreatedAt());
+        dto.setAvatarUrl(createDto.getAvatarUrl());
+
+        UserProfile userProfile = mapper.toEntity(dto);
+        userProfile.setCity(city);
+        userProfile.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
+        userProfile.setRole(Role.USER);
+
+        UserProfile saved = repository.save(userProfile);
+        return mapper.toDto(saved);
+    }
+
+    @Override
     public UserProfileDto create(@Valid UserProfileDto dto){
         UserProfile userProfile = mapper.toEntity(dto);
         userProfile.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
         userProfile.setRole(Role.USER);
-        if(dto.getCityId()!=null){
-            City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));
-            userProfile.setCity(city);
-        }
+
         UserProfile saved = repository.save(userProfile);
         return mapper.toDto(saved);
     }
@@ -74,11 +97,6 @@ public class UserProfileServiceImpl implements UserProfileService {
         existing.setSurname(dto.getSurname());
         if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
             existing.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
-        }
-        // Note: Avatar should be updated through a separate endpoint for file uploads
-        if(dto.getCityId()!=null){
-            City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));
-            existing.setCity(city);
         }
         UserProfile saved = repository.save(existing);
         return mapper.toDto(saved);
