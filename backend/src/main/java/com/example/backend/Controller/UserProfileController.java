@@ -36,7 +36,7 @@ public class UserProfileController {
     }
 
     @PostMapping
-    public ResponseEntity<UserProfileDto> create( @RequestBody CreateUserProfileDto dto){
+    public ResponseEntity<UserProfileDto> create( @Valid @RequestBody CreateUserProfileDto dto){
         return ResponseEntity.status(201).body(service.create(dto));
     }
 
@@ -50,15 +50,12 @@ public class UserProfileController {
             @RequestPart("userProfile") @Valid UserProfileDto dto,
             @RequestPart(value = "avatar", required = false) MultipartFile avatarFile) throws IOException {
 
-        // Update the user profile first
         UserProfileDto updatedProfile = service.update(dto);
 
-        // Upload/replace avatar if provided
         if (avatarFile != null && !avatarFile.isEmpty()) {
             avatarService.uploadAvatar(updatedProfile.getId(), avatarFile);
         }
 
-        // Return the profile with avatar
         return ResponseEntity.ok(service.getById(updatedProfile.getId()));
     }
 

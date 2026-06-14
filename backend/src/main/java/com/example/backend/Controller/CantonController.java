@@ -1,8 +1,8 @@
 package com.example.backend.Controller;
 
-import com.example.backend.DTO.AdvertDto;
 import com.example.backend.DTO.CantonDto;
 import com.example.backend.Service.CantonService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +30,14 @@ public class CantonController {
     public ResponseEntity<CantonDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
+
     @PostMapping
-    public ResponseEntity<CantonDto> create(@RequestBody CantonDto dto){
+    public ResponseEntity<CantonDto> create(@Valid @RequestBody CantonDto dto){
         return ResponseEntity.status(201).body(service.create(dto));
     }
 
     @PutMapping
-    public ResponseEntity<CantonDto> update(@RequestBody CantonDto dto){
+    public ResponseEntity<CantonDto> update(@Valid @RequestBody CantonDto dto){
         return ResponseEntity.ok(service.update(dto));
     }
 

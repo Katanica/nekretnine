@@ -21,14 +21,14 @@ public class AuthController {
     private final AgencyProfileService agencyProfileService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request){
         String token = authService.login(request.getEmail(), request.getPassword());
         return ResponseEntity.ok(new AuthResponse(token));
     }
 
     @PostMapping("/register/user")
     public ResponseEntity<UserProfileDto> registerUser(
-             @RequestBody CreateUserProfileDto dto) throws IOException {
+            @Valid @RequestBody CreateUserProfileDto dto) throws IOException {
         return ResponseEntity.status(201).body(authService.registerUser(dto));
     }
 
