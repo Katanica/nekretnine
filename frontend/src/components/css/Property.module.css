@@ -112,7 +112,38 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
   transition: color 0.2s;
 }
-
+.edit {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #888;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+.deleteBtn {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #db0808;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
 .heart:hover {
   color: #e74c3c;
 }
