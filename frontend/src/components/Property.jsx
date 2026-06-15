@@ -1,16 +1,12 @@
 import styles from "./css/Property.module.css";
-import podrum from "../assets/podrum.jpg";
 import {
   Heart,
   MapPin,
   Maximize2,
-  BedDouble,
-  Bath,
-  Car,
   FileEditIcon,
   Trash2,
 } from "lucide-react";
-import { getToken } from "../api.js";
+import { useBookmarksContext } from "../context/BookmarksContext";
 
 export default function Property({
   adverts,
@@ -21,14 +17,7 @@ export default function Property({
   editingAdvert,
   onDeleteOpen,
 }) {
-  const token = getToken();
-  const getImageUrl = (filePath) => {
-    if (!filePath) {
-      console.log("nema slike");
-      return null;
-    }
-    return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
-  };
+  const { isBookmarked, addBookmark, removeBookmark } = useBookmarksContext();
 
   function handleEdit(e, advert) {
     e.stopPropagation();
@@ -37,9 +26,18 @@ export default function Property({
 
   function handleDelete(e, id) {
     e.stopPropagation();
-    console.log("delete");
     onDeleteOpen(id);
   }
+
+  function handleBookmarkToggle(e, advertId) {
+    e.stopPropagation();
+    if (isBookmarked(advertId)) {
+      removeBookmark(advertId);
+    } else {
+      addBookmark(advertId);
+    }
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -65,8 +63,16 @@ export default function Property({
                 </span>
 
                 {edit === false ? (
-                  <button className={styles.heart} aria-label="Spremi advert">
-                    <Heart size={16} />
+                  <button
+                    className={`${styles.heart} ${isBookmarked(advert.id) ? styles.heartActive : ""}`}
+                    aria-label="Spremi advert"
+                    onClick={(e) => handleBookmarkToggle(e, advert.id)}
+                  >
+                    <Heart
+                      size={16}
+                      fill={isBookmarked(advert.id) ? "#c49a3c" : "none"}
+                      color={isBookmarked(advert.id) ? "#c49a3c" : "currentColor"}
+                    />
                   </button>
                 ) : (
                   <>
@@ -87,9 +93,7 @@ export default function Property({
                 )}
               </div>
               <div className={styles.body}>
-                <h3 style={{ margin: "0" }}>
-                  {advert.title}
-                </h3>
+                <h3 style={{ margin: "0" }}>{advert.title}</h3>
                 <p className={styles.cijena}>
                   {advert.price.toLocaleString("hr-HR")} KM
                 </p>

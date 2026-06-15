@@ -1,6 +1,5 @@
 .hero {
   position: relative;
-  margin-bottom: 60px;
 }
 
 .heroImage {
@@ -15,15 +14,17 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right,
-      rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0.1) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
 }
 
 .heroText {
   position: relative;
   z-index: 1;
-  padding: 60px 48px;
+  padding: 30px 48px;
   color: white;
   max-width: 520px;
 }
@@ -50,7 +51,7 @@
   background: #1a2e44;
   color: white;
   border: none;
-  padding: 28px 70px;
+  padding: 35px 80px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
@@ -60,9 +61,10 @@
   background: transparent;
   color: white;
   border: 2px solid white;
-  padding: 24px 64px;
+  padding: 35px 80px;
   border-radius: 8px;
   cursor: pointer;
+
   font-weight: 600;
 }
 
