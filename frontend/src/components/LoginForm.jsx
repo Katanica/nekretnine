@@ -1,7 +1,8 @@
-import { Form } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import styles from "./css/LoginForm.module.css";
 
 export default function LoginForm() {
+  const data = useActionData();
   return (
     <div className={styles.signup}>
       <Form className={styles.form} method="post">
@@ -31,7 +32,7 @@ export default function LoginForm() {
           />
           <span>Password</span>
         </label>
-
+        {data?.error && <p className={styles.error}>{data.error}</p>}
         <a href="#" className={styles.forgot}>
           Forgot password?
         </a>
