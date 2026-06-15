@@ -144,10 +144,7 @@ public class AdvertServiceImpl implements AdvertService {
     public AdvertDto update(@Valid @RequestBody AdvertDto dto){
         Advert existing = repository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException("Oglas nije pronađen: " + dto.getId()));
         mapper.updateEntityFromDto(dto, existing);
-        if(dto.getCityId()!=null){
-            City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));
-            existing.setCity(city);
-        }
+
         Advert saved = repository.save(existing);
         return mapper.toDto(saved);
     }

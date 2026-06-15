@@ -22,7 +22,9 @@ export default function Profile() {
   const [selectedAdvert, setSelectedAdvert] = useState(null);
   const [editingAdvert, setEditingAdvert] = useState(null);
   const [deleteAdvert, setDeleteAdvert] = useState(null);
-  const profileType = role === "ROLE_USER" ? "userProfile" : "agencyProfile";
+  const profileType = role === "ROLE_USER" ? "userProfile" : role === "ROLE_ADMIN" ? "userProfile" : "agencyProfile";
+
+  console.log("ROLE " + role);
 
   function openDetails(advert) {
     setSelectedAdvert(advert);
@@ -105,7 +107,7 @@ export default function Profile() {
               </span>
               <span>
                 <FiMapPin />
-                {user.city.name}
+                {user.city?.name}
               </span>
               <span>
                 <FiCalendar /> Profile since {formatDate(user.createdAt)}
@@ -114,7 +116,6 @@ export default function Profile() {
           </div>
         </div>
         <div className={styles.buttons}>
-          <button className={styles.add}>Add Advert</button>
           <button onClick={() => setEditOpen(true)} className={styles.edit}>
             Edit profile
           </button>

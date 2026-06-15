@@ -101,17 +101,6 @@ export default function Property({
                     <Maximize2 size={13} /> {advert.size} m²
                   </span>
                 </div>
-                <div className={styles.description}>
-                  <span>
-                    <BedDouble size={15} /> 3
-                  </span>
-                  <span>
-                    <Bath size={15} /> 2
-                  </span>
-                  <span>
-                    <Car size={15} /> 1
-                  </span>
-                </div>
               </div>
             </li>
           ))}
