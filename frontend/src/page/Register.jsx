@@ -21,7 +21,7 @@ export async function action({ request }) {
     dateOfBirth: data.get("dateOfBirth"),
     cityId: data.get("cityId"),
     avatarUrl: data.get("avatarUrl") === "" ? "https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/no-image-user.png" : data.get("avatarUrl"),
-    profileType: profileType.toUpperCase()
+    profileType: profileType?.toUpperCase()
   };
 
   const response = await fetch(

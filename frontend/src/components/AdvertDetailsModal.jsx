@@ -4,7 +4,12 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { getToken } from "../api";
 
-const BASE_URL = "http://localhost:8080";
+export default function AdvertDetailsModal({ onClose, advert }) {
+  let imageUrls = advert.imageUrls.length > 0 ? advert.imageUrls : ["https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/images%20not%20uploaded.png"];
+  const total = imageUrls?.length || 0;
+  const [currentImg, setCurrentImg] = useState(total === 0 ? 0 : 1);
+
+  const BASE_URL = "http://localhost:8080";
 
   const slide = (x) => {
     if (total != 0) {
@@ -22,35 +27,16 @@ const BASE_URL = "http://localhost:8080";
   const getImageUrl = () => {
     if (!filePath) return "/placeholder.jpg";
     return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
-  };
-
-  const formatDate = (dateStr) =>
-    new Date(dateStr).toLocaleDateString("hr-HR");
-
-  if (loading) {
-    return createPortal(
-      <div className={styles.overlay} onClick={onClose}>
-        <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-          <div className={styles.loadingWrap}>
-            <div className={styles.spinner} />
-          </div>
-          <button className={styles.closeBtn} onClick={onClose}>
-            ✕
-          </button>
-        </div>
-      </div>,
-      document.body
-    );
   }
-
-  if (!advertData) return null;
+  const propertyTypeMap = { FLAT: "Stan", HOUSE: "Kuća", LAND: "Zemljište" };
+  const advertTypeMap = { SALE: "Prodaja", RENT: "Najam" };
 
   return createPortal(
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.sliderWrap}>
           <img
-            src={advert.imageUrls[currentImg - 1]}
+            src={imageUrls[currentImg - 1]}
             alt={advert.title}
             className={styles.sliderImg}
           />
@@ -72,20 +58,20 @@ const BASE_URL = "http://localhost:8080";
             {total === 0 ? `0 / 0` : `${currentImg} / ${total}`}
           </span>
           <span className={styles.badge}>
-            {advertTypeMap[advertData.advertType]}
+            {advertTypeMap[advert.advertType]}
           </span>
         </div>
         <div className={styles.content}>
           <div className={styles.titleRow}>
             <div>
-              <h2>{advertData.title}</h2>
+              <h2>{advert.title}</h2>
               <p>
-                <MapPin size={13} /> {advertData.city?.name}
+                <MapPin size={13} /> {advert.city?.name}
               </p>
             </div>
             <div>
               <p className={styles.price}>
-                {advertData.price.toLocaleString("hr-HR")} KM
+                {advert.price.toLocaleString("hr-HR")} KM
               </p>
             </div>
           </div>
@@ -93,25 +79,25 @@ const BASE_URL = "http://localhost:8080";
           <div className={styles.stats}>
             <div>
               <span>Površina</span>
-              <strong>{advertData.size} m²</strong>
+              <strong>{advert.size} m²</strong>
             </div>
             <div>
               <span>Tip</span>
-              <strong>{propertyTypeMap[advertData.propertyType]}</strong>
+              <strong>{propertyTypeMap[advert.propertyType]}</strong>
             </div>
             <div>
               <span>Objavljeno</span>
-              <strong>{formatDate(advertData.postedAt)}</strong>
+              <strong>{formatDate(advert.postedAt)}</strong>
             </div>
           </div>
 
-          {advertData.description?.length === 0 ? (
+          {advert.description?.length === 0 ? (
             <p className={styles.description}>Nema opisa</p>
           ) : (
             <p className={styles.description}>
               Opis:
               <br />
-              {advertData.description}
+              {advert.description}
             </p>
           )}
           <div className={styles.actions}>

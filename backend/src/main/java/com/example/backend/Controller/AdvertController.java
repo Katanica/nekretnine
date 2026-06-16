@@ -2,6 +2,7 @@ package com.example.backend.Controller;
 
 import com.example.backend.DTO.AdvertDto;
 import com.example.backend.DTO.CreateAdvertDto;
+import com.example.backend.Repository.AdvertRepository;
 import com.example.backend.Security.CustomUserDetails;
 import com.example.backend.Service.AdvertService;
 import com.example.backend.Specification.AdvertFilterRequest;
@@ -20,11 +21,18 @@ import java.util.List;
 public class AdvertController {
 
     private final AdvertService service;
+    private final AdvertRepository repository;
+
+    @GetMapping("/countAdverts")
+    public ResponseEntity<Long> countAdverts(){
+        return ResponseEntity.ok(repository.count());
+    }
 
     @GetMapping
-    public ResponseEntity<Page<AdvertDto>>  getAll(@RequestParam(defaultValue="0") int page,
-                                                   @RequestParam(defaultValue="10") int size){
-        return ResponseEntity.ok(service.getAll(page, size));
+    public ResponseEntity<Page<AdvertDto>>  getAll(@RequestParam(defaultValue="0") String page,
+                                                   @RequestParam(defaultValue="10") String size){
+
+        return ResponseEntity.ok(service.getAll(Integer.parseInt(page), Integer.parseInt(size)));
     }
 
     // SPECIFICATION

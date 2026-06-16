@@ -127,3 +127,22 @@ header {
   text-align: center;
   border-color: rgb(165, 47, 47);
 }
+
+.delete {
+  display: flex;
+
+  height: 50px;
+  font-size: 14px;
+  align-items: center;
+  width: 80px;
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: rgb(255, 181, 181);
+  text-align: center;
+  border-color: rgb(165, 47, 47);
+}
+
+.delete:hover {
+  cursor: pointer;
+  background-color: rgb(255, 157, 157);
+}

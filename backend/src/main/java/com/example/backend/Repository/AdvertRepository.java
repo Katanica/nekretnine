@@ -15,4 +15,5 @@ import java.util.List;
 public interface AdvertRepository extends JpaRepository<Advert, Long>, JpaSpecificationExecutor<Advert>{
 
     List<Advert> findByProfileId(Long profileId);
+
 }

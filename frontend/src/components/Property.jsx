@@ -51,7 +51,7 @@ export default function Property({
             >
               <div className={styles.imageWrap}>
                 <img
-                  src={advert.imageUrls[0]}
+                  src={advert.imageUrls.length > 0 ? advert.imageUrls[0] : "https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/images%20not%20uploaded.png"}
                   alt={advert.title}
                   className={styles.image}
                 />

@@ -66,10 +66,9 @@ export default function AddAdvertForm() {
 
     try {
       // 1. Uploadaj slike na Supabase
+      let imageUrls = [];
       const files = Array.from(fileInputRef.current?.files || []);
-      const imageUrls = await Promise.all(files.map(uploadImage));
-
-      console.log("ADD ADVERT FORM " + imageUrls);
+      imageUrls = await Promise.all(files.map(uploadImage));
 
       // 2. Pošalji JSON na action
       const body = {
