@@ -17,7 +17,7 @@ public class AgencyProfile extends Profile{
     private String agencyName;
 
     @Column(name = "oib", unique = true)
-    private String oib;
+    private Integer oib;
 
 
 }

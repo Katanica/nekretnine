@@ -10,14 +10,6 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses={CityMapper.class})
 public interface UserProfileMapper {
 
-   @Mapping(target = "id", source = "id")
-   @Mapping(target = "userName", source = "userName")
-   @Mapping(target = "email", source = "email")
-   @Mapping(target = "phone", source = "phone")
-   @Mapping(target = "status", source = "status")
-   @Mapping(target = "name", source = "name")
-   @Mapping(target = "surname", source = "surname")
-   @Mapping(target="avatarUrl", source = "avatarUrl")
    UserProfileDto toDto(UserProfile userProfile);
 
 

@@ -1,6 +1,6 @@
 import { supabase } from './supabase'
 
-const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg']
 const MAX_SIZE = 5 * 1024 * 1024
 
 const MIME_TO_EXT = {

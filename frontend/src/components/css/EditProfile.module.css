@@ -7,6 +7,7 @@
   justify-content: center;
   z-index: 1000;
 }
+
 .modal {
   background: #fff;
   border-radius: 12px;
@@ -15,6 +16,7 @@
   max-width: 440px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
+
 .header {
   display: flex;
   align-items: center;
@@ -99,8 +101,9 @@
   color: #666;
 }
 
-.formGroup input {
-  width: 100%;
+.formGroup input,
+.formGroup select {
+  width: 15em;
   box-sizing: border-box;
   padding: 8px 12px;
   border: 1px solid #ddd;
@@ -110,7 +113,8 @@
   transition: border-color 0.2s;
 }
 
-.formGroup input:focus {
+.formGroup input:focus,
+.formGroup select:focus {
   border-color: #3d6fd4;
 }
 
@@ -128,6 +132,7 @@
   border-top: 1px solid #eee;
   padding-top: 1rem;
 }
+
 .btnCancel {
   background: none;
   border: 1px solid #ddd;

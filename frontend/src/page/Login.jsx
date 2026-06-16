@@ -39,8 +39,10 @@ export async function action({ request }) {
 
   // dekodiranje tokena
   const payload = JSON.parse(atob(token.split(".")[1]));
+
+  console.log(payload);
   localStorage.setItem("id", payload.id);
-  localStorage.setItem("role", payload.role);
+  localStorage.setItem("profileType", payload.profileType);
   console.log(payload);
 
   const expiration = new Date();

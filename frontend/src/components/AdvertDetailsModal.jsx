@@ -6,45 +6,22 @@ import { getToken } from "../api";
 
 const BASE_URL = "http://localhost:8080";
 
-const propertyTypeMap = { FLAT: "Stan", HOUSE: "Kuća", LAND: "Zemljište" };
-const advertTypeMap = { SALE: "Prodaja", RENT: "Najam" };
-
-export default function AdvertDetailsModal({ onClose, advert, advertId }) {
-  const [advertData, setAdvertData] = useState(advert ?? null);
-  const [loading, setLoading] = useState(!advert && !!advertId);
-  const [currentImg, setCurrentImg] = useState(0);
-
-  useEffect(() => {
-    if (!advertId || advert) return;
-    const token = getToken();
-    fetch(`${BASE_URL}/api/advert/${advertId}`, {
-      headers:
-        token && token !== "EXPIRED" ? { Authorization: `Bearer ${token}` } : {},
-    })
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        setAdvertData(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, [advertId, advert]);
-
-  useEffect(() => {
-    const handleKey = (e) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [onClose]);
-
-  const total = advertData?.imageUrls?.length ?? 0;
-
-  const slide = (dir) => {
-    setCurrentImg((prev) => {
-      if (prev === 0 && dir === -1) return total - 1;
-      if (prev === total - 1 && dir === 1) return 0;
-      return prev + dir;
-    });
+  const slide = (x) => {
+    if (total != 0) {
+      if (currentImg == 1 && x == -1)
+        setCurrentImg(total);
+      else if (currentImg == total && x == 1) {
+        setCurrentImg(1);
+      }
+      else setCurrentImg(currentImg + x);
+    }
+  };
+  const formatDate = (dateStr) => {
+    return new Date(dateStr).toLocaleDateString("hr-HR");
+  };
+  const getImageUrl = () => {
+    if (!filePath) return "/placeholder.jpg";
+    return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
   };
 
   const formatDate = (dateStr) =>
@@ -73,8 +50,8 @@ export default function AdvertDetailsModal({ onClose, advert, advertId }) {
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.sliderWrap}>
           <img
-            src={advertData.imageUrls[currentImg]}
-            alt={advertData.title}
+            src={advert.imageUrls[currentImg - 1]}
+            alt={advert.title}
             className={styles.sliderImg}
           />
           <button
@@ -92,7 +69,7 @@ export default function AdvertDetailsModal({ onClose, advert, advertId }) {
             <ChevronRight size={18} />
           </button>
           <span className={styles.counter}>
-            {total === 0 ? "0 / 0" : `${currentImg + 1} / ${total}`}
+            {total === 0 ? `0 / 0` : `${currentImg} / ${total}`}
           </span>
           <span className={styles.badge}>
             {advertTypeMap[advertData.advertType]}

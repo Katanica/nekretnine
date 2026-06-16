@@ -57,10 +57,12 @@ public class UserProfileServiceImpl implements UserProfileService {
         UserProfileDto dto = new UserProfileDto();
 
         dto.setName(createDto.getName());
+        dto.setUserName(createDto.getUserName());
         dto.setSurname(createDto.getSurname());
         dto.setEmail(createDto.getEmail());
         dto.setStatus(createDto.getStatus());
         dto.setPassword(createDto.getPassword());
+        dto.setProfileType(createDto.getProfileType());
         dto.setPhone(createDto.getPhone());
         dto.setAdverts(createDto.getAdverts());
         dto.setCreatedAt(createDto.getCreatedAt());
@@ -87,14 +89,18 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     // @PreAuthorize("hasRole('ADMIN') or @userProfileServiceImpl.isOwner(#dto.id, authentication.name)") // Disabled for testing
-    public UserProfileDto update(@Valid @RequestBody UserProfileDto dto){
+    public UserProfileDto update(@Valid @RequestBody CreateUserProfileDto dto){
         UserProfile existing = repository.findById(dto.getId()).orElseThrow(() -> new ResourceNotFoundException("UserProfile nije pronađen: " + dto.getId()));
+        City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));
+
+        existing.setId(dto.getId());
+        existing.setCity(city);
         existing.setUserName(dto.getUserName());
         existing.setEmail(dto.getEmail());
-        existing.setStatus(dto.getStatus());
         existing.setPhone(dto.getPhone());
         existing.setName(dto.getName());
         existing.setSurname(dto.getSurname());
+        existing.setAvatarUrl(dto.getAvatarUrl());
         if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
             existing.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
         }

@@ -53,6 +53,11 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
+    if (canton)
+      loadCities(canton);
+  }, [canton]);
+
+  useEffect(() => {
     // ZA SELECT I INPUT
     setMinPrice(searchParams.get("minPrice") || "");
     setMaxPrice(searchParams.get("maxPrice") || "");

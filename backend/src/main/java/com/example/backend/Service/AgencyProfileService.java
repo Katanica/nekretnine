@@ -16,7 +16,7 @@ public interface AgencyProfileService {
     AgencyProfileDto create(AgencyProfileDto dto);
     AgencyProfileDto create(CreateAgencyProfileDto dto);
 
-    AgencyProfileDto update(AgencyProfileDto dto);
+    AgencyProfileDto update(CreateAgencyProfileDto dto);
 
     void delete(Long id);
 }
