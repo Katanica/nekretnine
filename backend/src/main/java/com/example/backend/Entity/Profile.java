@@ -28,7 +28,7 @@ public class Profile{
     @Column(name = "userName", unique = true)
     private String userName;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "passwordHash")

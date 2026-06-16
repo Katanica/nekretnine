@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -82,7 +83,7 @@ public class AdvertServiceImpl implements AdvertService {
             spec = spec.and((root, query, cb) -> cb.equal(root.get("city").get("canton").get("id"), cantonId));
         }
 
-        List<Advert> adverts = repository.findAll(spec);
+        List<Advert> adverts = repository.findAll(spec, Sort.by(Sort.Direction.DESC, "postedAt"));
         return mapper.toDtoList(adverts);
     }
 
@@ -94,7 +95,7 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public Page<AdvertDto> getAll(int page, int size){
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "postedAt"));
         Page<Advert> adverts = repository.findAll(pageable);
         return adverts.map(mapper::toDto);
     }
@@ -132,7 +133,6 @@ public class AdvertServiceImpl implements AdvertService {
         advert.setProfile(profile);
         advert.setSize(createDto.getSize());
         advert.setStatus(createDto.getStatus());
-        advert.setPostedAt(LocalDateTime.now());
         advert.setImageUrls(createDto.getImageUrls());
 
         Advert saved = repository.save(advert);

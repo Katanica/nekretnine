@@ -59,7 +59,7 @@ export default function Search() {
     return (
         <div className={styles.content}>
             <HeaderSearch />
-            <div className={styles.listings} style={{ marginTop: "50px" }}>
+            <div className={styles.listings} style={{ marginTop: "100px" }}>
                 <Property adverts={adverts} handleDetails={openDetails} title="Nekretnine po filterima" />
                 {selectedAdvert && (
                     <AdvertDetailsModal

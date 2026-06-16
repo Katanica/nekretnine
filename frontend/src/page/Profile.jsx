@@ -10,6 +10,7 @@ import AdvertDetailsModal from "../components/AdvertDetailsModal";
 import EditAdvertModal from "../components/EditAdvertModal";
 import EditProfileModal from "../components/EditProfileModal";
 import DeleteAdvertModal from "../components/DeleteAdvertModal";
+import DeleteUserModal from "../components/DeleteUserModal";
 export default function Profile() {
   const userID = getUserID();
   const role = getRole();
@@ -19,6 +20,7 @@ export default function Profile() {
   const [user, setUser] = useState(null);
   const [adverts, setAdverts] = useState([]);
   const [editOpen, setEditOpen] = useState(false);
+  const [deleteUser, setDeleteUser] = useState(false);
   const [selectedAdvert, setSelectedAdvert] = useState(null);
   const [editingAdvert, setEditingAdvert] = useState(null);
   const [deleteAdvert, setDeleteAdvert] = useState(null);
@@ -128,8 +130,11 @@ export default function Profile() {
               <LogOut size={16} />
             </button>
           </Form>
+          <button className={styles.delete} onClick={() => setDeleteUser(true)}>
+            Delete profile
+          </button>
         </div>
-      </header>
+      </header >
       <div>
         <h2 style={{ marginLeft: "50px", marginTop: "50px" }}>My adverts</h2>
         <Property
@@ -139,6 +144,15 @@ export default function Profile() {
           editingAdvert={handleEditAdvert}
           onDeleteOpen={setDeleteAdvert}
         />
+        {deleteUser && (
+          <DeleteUserModal
+            onClose={() => {
+              setDeleteUser(false);
+            }}
+            id={user.id}
+            profileType={user.profileType}
+          />
+        )}
         {selectedAdvert && (
           <AdvertDetailsModal
             advert={selectedAdvert}

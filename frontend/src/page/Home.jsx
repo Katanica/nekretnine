@@ -2,16 +2,21 @@ import styles from "./css/Home.module.css";
 import Property from "../components/Property";
 import CategoryFilter from "../components/CategoryFilter";
 import Header from "../components/Header";
+import PageBar from "../components/PageBar";
 import { useEffect, useState } from "react";
 import AdvertDetailsModal from "../components/AdvertDetailsModal";
 
 import RegisterForm from "../components/RegisterForm";
 import { redirect } from "react-router-dom";
+import { MdOutlineAirlineSeatIndividualSuite } from "react-icons/md";
 
 export default function HomePage() {
   const [adverts, setAdverts] = useState([]);
   const [error, setError] = useState(null);
   const [selectedAdvert, setSelectedAdvert] = useState(null);
+  const [advertNumber, setAdvertNumber] = useState(0);
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(3);
 
   function openDetails(advert) {
     setSelectedAdvert(advert);
@@ -19,7 +24,11 @@ export default function HomePage() {
 
   useEffect(() => {
     async function fetchingData() {
-      const resAdverts = await fetch("http://localhost:8080/api/advert");
+      const resAdverts = await fetch(`http://localhost:8080/api/advert?page=${page}&size=${pageSize}`);
+
+      const countData = await fetch("http://localhost:8080/api/advert/countAdverts");
+      const count = await countData.json();
+      setAdvertNumber(count);
 
       if (!resAdverts.ok) {
         setError("Could not fetch data...");
@@ -28,9 +37,11 @@ export default function HomePage() {
       const advertsData = await resAdverts.json();
 
       setAdverts(advertsData.content);
+
+      console.log("HOME: ", advertsData.content);
     }
     fetchingData();
-  }, []);
+  }, [page]);
 
   if (error) return <div>{error}</div>;
   return (
@@ -50,6 +61,7 @@ export default function HomePage() {
           />
         )}
       </div>
+      <PageBar adverts={adverts} advertNumber={advertNumber} page={page} pageSize={pageSize} onPageChange={setPage} />
     </div>
   );
 }
