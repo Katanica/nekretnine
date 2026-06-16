@@ -107,7 +107,7 @@ export default function Header() {
               <select value={advertType} onChange={e => setAdvertType(e.target.value)}>
                 <option className={styles.searchField} value="">All advert types</option>
                 <option value="SALE">Sale</option>
-                <option value="RENT">Rent</option>
+                <option value="RENTING">Renting</option>
               </select>
             </label>
             <label className={styles.searchField} htmlFor="propertyType"><label>Property type</label>

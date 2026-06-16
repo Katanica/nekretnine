@@ -78,7 +78,7 @@ export default function Header() {
 
   function handleSale(e) {
     e.stopPropagation();
-    if (token) navigate("add-advert");
+    if (token) navigate("/add-advert");
     else navigate("login");
   }
   return (
@@ -157,7 +157,7 @@ export default function Header() {
                     All advert types
                   </option>
                   <option value="SALE">Sale</option>
-                  <option value="RENT">Rent</option>
+                  <option value="RENTING">Renting</option>
                 </select>
               </label>
               <label className={styles.searchField} htmlFor="propertyType">
