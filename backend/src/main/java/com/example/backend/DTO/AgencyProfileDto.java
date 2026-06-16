@@ -12,5 +12,5 @@ public class AgencyProfileDto extends ProfileDto{
     @NotBlank(message="Morate unijeti ime agencije")
     private String agencyName;
     @NotBlank(message="Morate unijeti oib")
-    private String oib;
+    private Integer oib;
 }

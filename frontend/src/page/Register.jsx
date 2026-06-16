@@ -1,5 +1,5 @@
 import RegisterForm from "../components/RegisterForm";
-import { redirect } from "react-router-dom";
+import { redirect, useLocation } from "react-router-dom";
 export default function Register() {
   return <RegisterForm />;
 }
@@ -8,7 +8,6 @@ export async function action({ request }) {
   const data = await request.formData();
 
   const profileType = data.get("profileType");
-  console.log(profileType);
 
   const payload = {
     name: data.get("firstName"),
@@ -21,8 +20,9 @@ export async function action({ request }) {
     phone: data.get("phone"),
     dateOfBirth: data.get("dateOfBirth"),
     cityId: data.get("cityId"),
+    avatarUrl: data.get("avatarUrl") === "" ? "https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/no-image-user.png" : data.get("avatarUrl"),
+    profileType: profileType.toUpperCase()
   };
-  console.log(payload);
 
   const response = await fetch(
     `http://localhost:8080/api/auth/register/${profileType}`,
@@ -42,13 +42,14 @@ export async function action({ request }) {
   if (!response.ok) {
     throw { message: "Something went wrong. Try again.", status: 500 };
   }
+  /*
   const resData = await response.json();
   const token = resData.token;
 
   localStorage.setItem("token", token);
   const expiration = new Date();
   expiration.setHours(expiration.getHours() + 24);
-  localStorage.setItem("expiration", expiration.toString());
+  localStorage.setItem("expiration", expiration.toString());*/
 
   return redirect("/login");
 }

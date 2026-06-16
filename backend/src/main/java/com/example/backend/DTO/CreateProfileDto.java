@@ -3,6 +3,7 @@ package com.example.backend.DTO;
 import com.example.backend.DTO.AdvertDto;
 import com.example.backend.Entity.Canton;
 import com.example.backend.Entity.City;
+import com.example.backend.Enums.ProfileType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -38,6 +39,9 @@ public class CreateProfileDto {
 
     @NotBlank(message="Morate unijeti broj telefona")
     private String phone;
+
+    @Column(name="profile_type")
+    private ProfileType profileType;
 
     private List<AdvertDto> adverts;
 

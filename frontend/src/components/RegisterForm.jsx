@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "./css/RegisterForm.module.css";
 import { Form, useNavigate } from "react-router-dom";
+import { uploadImage } from "../uploadImage";
 
 function UserForms() {
   return (
@@ -81,13 +82,26 @@ export default function RegisterForm() {
   const [canton, setCanton] = useState(null);
   const [cities, setCities] = useState([]);
   const [city, setCity] = useState(null);
+  const noImageUserPath = "https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/no-image-user.png";
+  const [avatarPreview, setAvatarPreview] = useState(noImageUserPath); // blob, samo za prikaz
+  const [avatarUrl, setAvatarUrl] = useState("");  // pravi URL sa servera
+  const fileInputRef = useRef(null);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     if (password !== confPassword) {
       e.preventDefault();
       setError("Lozinke se ne podudaraju.");
     }
-    navigate("/login");
+  }
+
+  async function handleAvatarChange(e) {
+    const file = e.target.files[0];
+    if (file) {
+      setAvatarPreview(URL.createObjectURL(file)); // blob za preview
+      const url = await uploadImage(file);
+      console.log("RegisterForm url: " + url);       // pravi URL
+      setAvatarUrl(url);                           // spremi pravi URL
+    }
   }
 
   const handleCantonChange = (event) => {
@@ -142,26 +156,59 @@ export default function RegisterForm() {
         <p className={styles.title}>Register</p>
         <p className={styles.message}>Registruj se i ostvari puni pristup</p>
 
-        <p style={{ margin: 0 }}>Odaberi željeni tip profila</p>
-        <div id="radio-holder">
-          <input
-            type="radio"
-            name="profileType"
-            value="user"
-            checked={profileType === "user"}
-            className={styles.radio}
-            onChange={() => setProfileType("user")}
-          ></input>
-          <p className={styles.radioText}>Osobni</p>
-          <input
-            name="profileType"
-            type="radio"
-            value="agency"
-            checked={profileType === "agency"}
-            className={styles.radio}
-            onChange={() => setProfileType("agency")}
-          ></input>
-          <p className={styles.radioText}>Agencija</p>
+        <div style={{ display: "flex", flexWrap: "wrap", width: "100%", flexDirection: "row", marginBottom: "20px" }}>
+
+          <div style={{ flexGrow: "1" }}>
+
+          </div>
+          <div style={{ flexGrow: "3", paddingTop: "25px" }}>
+            <p style={{ margin: 0 }}>Odaberi željeni tip profila</p>
+            <div id="radio-holder">
+              <input
+                type="radio"
+                name="profileType"
+                value="user"
+                checked={profileType === "user"}
+                className={styles.radio}
+                onChange={() => setProfileType("user")}
+              ></input>
+              <p className={styles.radioText}>Osobni</p>
+              <input
+                name="profileType"
+                type="radio"
+                value="agency"
+                checked={profileType === "agency"}
+                className={styles.radio}
+                onChange={() => setProfileType("agency")}
+              ></input>
+              <p className={styles.radioText}>Agencija</p>
+            </div>
+          </div>
+          <div style={{ flexGrow: "1" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "5px" }}>
+              <div className={styles.avatarCircle} style={{}}>
+                <img src={avatarPreview} style={{}} />
+              </div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              {avatarPreview !== noImageUserPath ? <button onClick={() => setAvatarPreview(noImageUserPath)} className={styles.avatarUploadBtn} style={{ width: "10%", height: "20%", color: "red" }}>x</button> : <h1></h1>}
+              <label htmlFor="avatar-input" className={styles.avatarUploadBtn} style={{ width: "60%", height: "20%" }}>
+                Change avatar
+              </label>
+            </div>
+            <input type="hidden" name="avatarUrl" value={avatarUrl} />
+            <input
+              ref={fileInputRef}
+              id="avatar-input"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleAvatarChange}
+            />
+          </div>
+          <div style={{ flexGrow: "1" }}>
+
+          </div>
         </div>
 
         {profileType === "user" && <UserForms />}
@@ -238,24 +285,26 @@ export default function RegisterForm() {
             }
           </select>
         </label>
-        {canton && (
-          <label htmlFor="cityId">
-            <select
-              name="cityId"
-              placeholder="City"
-              className={styles.select}
-              onChange={handleCityChange}>
-              <option className={styles.option} value="" disabled selected>City</option>
-              {
-                Object.values(cities).map((city) =>
-                (<option style={{ color: 'black' }} value={city.id} key={city.id}>
-                  {city.name}
-                </option>))
+        {
+          canton && (
+            <label htmlFor="cityId">
+              <select
+                name="cityId"
+                placeholder="City"
+                className={styles.select}
+                onChange={handleCityChange}>
+                <option className={styles.option} value="" disabled selected>City</option>
+                {
+                  Object.values(cities).map((city) =>
+                  (<option style={{ color: 'black' }} value={city.id} key={city.id}>
+                    {city.name}
+                  </option>))
 
-              }
-            </select>
-          </label>
-        )}
+                }
+              </select>
+            </label>
+          )
+        }
 
         {error && <p style={{ color: "red" }}>{error}</p>}
 
@@ -265,7 +314,7 @@ export default function RegisterForm() {
         <p className={styles.signin}>
           Already have an account? <a href="/login">Sign in</a>
         </p>
-      </Form>
+      </Form >
     </div >
   );
 }

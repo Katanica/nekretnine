@@ -33,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/register/agency")
-    public ResponseEntity<AgencyProfileDto> registerAgency(@Valid @RequestBody CreateAgencyProfileDto dto){
-        return ResponseEntity.status(201).body(agencyProfileService.create(dto));
+    public ResponseEntity<AgencyProfileDto> registerAgency(@Valid @RequestBody CreateAgencyProfileDto dto) throws IOException {
+        return ResponseEntity.status(201).body(authService.registerAgency(dto));
     }
 }

@@ -14,6 +14,11 @@ export function getRole() {
 
   return role;
 }
+export function getProfileType() {
+  const profileType = localStorage.getItem("profileType");
+
+  return profileType;
+}
 export function getToken() {
   const token = localStorage.getItem("token");
 

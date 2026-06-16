@@ -1,4 +1,5 @@
 package com.example.backend.Entity;
+import com.example.backend.Enums.ProfileType;
 import com.example.backend.Enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -17,7 +18,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@DiscriminatorColumn(name = "profile_type", discriminatorType = DiscriminatorType.STRING)
 public class Profile{
 
     @Id
@@ -25,7 +25,7 @@ public class Profile{
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "userName")
+    @Column(name = "userName", unique = true)
     private String userName;
 
     @Column(name = "email")
@@ -33,9 +33,6 @@ public class Profile{
 
     @Column(name = "passwordHash")
     private String passwordHash;
-
-    @Column(name = "status")
-    private Integer status;
 
     @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -47,6 +44,10 @@ public class Profile{
 
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="profile_type")
+    private ProfileType profileType;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")

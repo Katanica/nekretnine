@@ -9,10 +9,10 @@ export default function AdvertDetailsModal({ onClose, advert }) {
 
   const slide = (x) => {
     if (total != 0) {
-      if (currentImg == 0 && x == -1)
-        setCurrentImg(total - 1);
-      else if (currentImg == total - 1 && x == 1) {
-        setCurrentImg(0);
+      if (currentImg == 1 && x == -1)
+        setCurrentImg(total);
+      else if (currentImg == total && x == 1) {
+        setCurrentImg(1);
       }
       else setCurrentImg(currentImg + x);
     }
@@ -33,7 +33,7 @@ export default function AdvertDetailsModal({ onClose, advert }) {
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.sliderWrap}>
           <img
-            src={advert.imageUrls[currentImg]}
+            src={advert.imageUrls[currentImg - 1]}
             alt={advert.title}
             className={styles.sliderImg}
           />
@@ -52,7 +52,7 @@ export default function AdvertDetailsModal({ onClose, advert }) {
             <ChevronRight size={18} />
           </button>
           <span className={styles.counter}>
-            {total === 0 ? `0 / 0` : `${currentImg + 1} / ${total}`}
+            {total === 0 ? `0 / 0` : `${currentImg} / ${total}`}
           </span>
           <span className={styles.badge}>
             {advertTypeMap[advert.advertType]}

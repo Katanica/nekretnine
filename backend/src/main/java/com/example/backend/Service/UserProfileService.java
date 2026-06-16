@@ -15,7 +15,7 @@ public interface UserProfileService {
 
     UserProfileDto create(UserProfileDto dto);
 
-    UserProfileDto update(UserProfileDto dto);
+    UserProfileDto update(CreateUserProfileDto dto);
 
     void delete(Long id);
 

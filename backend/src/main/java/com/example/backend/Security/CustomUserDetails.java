@@ -1,5 +1,6 @@
 package com.example.backend.Security;
 import com.example.backend.Entity.Profile;
+import com.example.backend.Enums.ProfileType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,4 +41,7 @@ public class CustomUserDetails implements UserDetails{
     @Override public boolean isAccountNonLocked() { return true; }
     @Override public boolean isCredentialsNonExpired() { return true; }
     @Override public boolean isEnabled() { return true; }
+
+    public ProfileType getProfileType() { return profile.getProfileType();
+    }
 }

@@ -41,22 +41,8 @@ public class UserProfileController {
     }
 
     @PutMapping
-    public ResponseEntity<UserProfileDto> update(@Valid @RequestBody UserProfileDto dto){
+    public ResponseEntity<UserProfileDto> update(@Valid @RequestBody CreateUserProfileDto dto){
         return ResponseEntity.ok(service.update(dto));
-    }
-
-    @PutMapping(value = "/with-avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<UserProfileDto> updateWithAvatar(
-            @RequestPart("userProfile") @Valid UserProfileDto dto,
-            @RequestPart(value = "avatar", required = false) MultipartFile avatarFile) throws IOException {
-
-        UserProfileDto updatedProfile = service.update(dto);
-
-        if (avatarFile != null && !avatarFile.isEmpty()) {
-            avatarService.uploadAvatar(updatedProfile.getId(), avatarFile);
-        }
-
-        return ResponseEntity.ok(service.getById(updatedProfile.getId()));
     }
 
     @DeleteMapping("/{id}")

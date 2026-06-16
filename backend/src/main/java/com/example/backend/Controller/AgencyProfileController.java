@@ -1,6 +1,7 @@
 package com.example.backend.Controller;
 
 import com.example.backend.DTO.AgencyProfileDto;
+import com.example.backend.DTO.CreateAgencyProfileDto;
 import com.example.backend.Service.AgencyProfileService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class AgencyProfileController {
     }
 
     @PutMapping
-    public ResponseEntity<AgencyProfileDto> update(@Valid @RequestBody AgencyProfileDto dto){
+    public ResponseEntity<AgencyProfileDto> update(@Valid @RequestBody CreateAgencyProfileDto dto){
         return ResponseEntity.ok(service.update(dto));
     }
 

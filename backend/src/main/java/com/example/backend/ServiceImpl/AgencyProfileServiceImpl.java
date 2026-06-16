@@ -64,8 +64,9 @@ public class AgencyProfileServiceImpl implements AgencyProfileService {
         dto.setAgencyName(createDto.getAgencyName());
         dto.setOib(createDto.getOib());
         dto.setEmail(createDto.getEmail());
-        dto.setStatus(createDto.getStatus());
+        dto.setUserName(createDto.getUserName());
         dto.setPassword(createDto.getPassword());
+        dto.setProfileType(createDto.getProfileType());
         dto.setPhone(createDto.getPhone());
         dto.setAdverts(createDto.getAdverts());
         dto.setCreatedAt(createDto.getCreatedAt());
@@ -84,7 +85,7 @@ public class AgencyProfileServiceImpl implements AgencyProfileService {
     public AgencyProfileDto create(@Valid @RequestBody AgencyProfileDto dto) {
         AgencyProfile agencyProfile = mapper.toEntity(dto);
         agencyProfile.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
-        agencyProfile.setRole(Role.AGENCY);   // <-- bitno, bez ovoga login puca
+        agencyProfile.setRole(Role.USER);   // <-- bitno, bez ovoga login puca
         AgencyProfile saved = repository.save(agencyProfile);
         return mapper.toDto(saved);
     }
@@ -98,15 +99,26 @@ public class AgencyProfileServiceImpl implements AgencyProfileService {
 
     @Override
     @PreAuthorize("hasRole('ADMIN') or @agencyProfileServiceImpl.isOwner(#dto.id, authentication.name)")
-    public AgencyProfileDto update(@Valid @RequestBody AgencyProfileDto dto) {
+    public AgencyProfileDto update(@Valid @RequestBody CreateAgencyProfileDto dto) {
         AgencyProfile existing = repository.findById(dto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("AgencyProfile nije pronađen: " + dto.getId()));
 
+        City city = cityRepository.findById(dto.getCityId()).orElseThrow(() -> new ResourceNotFoundException("Grad nije pronađen: " + dto.getCityId()));
+
+
+
+        System.out.println("MRNJAU: " + dto.getAvatarUrl());
+
         existing.setUserName(dto.getUserName());
         existing.setAgencyName(dto.getAgencyName());
+        existing.setOib(dto.getOib());
+        existing.setCity(city);
         existing.setEmail(dto.getEmail());
-        existing.setStatus(dto.getStatus());
         existing.setPhone(dto.getPhone());
+        existing.setAvatarUrl(dto.getAvatarUrl());
+
+        existing.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
+
         AgencyProfile saved = repository.save(existing);
         return mapper.toDto(saved);
     }

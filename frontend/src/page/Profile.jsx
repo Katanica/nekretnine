@@ -3,7 +3,7 @@ import konj from "../assets/konj.jpg";
 import { FiPhone, FiMapPin, FiCalendar } from "react-icons/fi";
 import { Form, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getToken, getUserID, getRole } from "../api";
+import { getToken, getUserID, getRole, getProfileType } from "../api";
 import Property from "../components/Property";
 import { formatDate } from "../formatDate";
 import AdvertDetailsModal from "../components/AdvertDetailsModal";
@@ -22,9 +22,8 @@ export default function Profile() {
   const [selectedAdvert, setSelectedAdvert] = useState(null);
   const [editingAdvert, setEditingAdvert] = useState(null);
   const [deleteAdvert, setDeleteAdvert] = useState(null);
-  const profileType = role === "ROLE_USER" ? "userProfile" : role === "ROLE_ADMIN" ? "userProfile" : "agencyProfile";
-
-  console.log("ROLE " + role);
+  //const profileType = role === "ROLE_USER" ? "userProfile" : role === "ROLE_ADMIN" ? "userProfile" : "agencyProfile";
+  const profileType = getProfileType();
 
   function openDetails(advert) {
     setSelectedAdvert(advert);
@@ -37,7 +36,7 @@ export default function Profile() {
   useEffect(() => {
     async function fetchData() {
       const resProfil = await fetch(
-        `http://localhost:8080/api/${profileType}/${userID}`,
+        `http://localhost:8080/api/${profileType.toLowerCase()}Profile/${userID}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -88,7 +87,7 @@ export default function Profile() {
       <header className={styles.header}>
         <div className={styles.profile}>
           <img
-            src={user.avatarUrl}
+            src={user.avatarUrl ? user.avatarUrl : "https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/no-image-user.png"}
             alt="Profile Picture"
             className={styles.profileImg}
           ></img>
@@ -128,7 +127,7 @@ export default function Profile() {
         </div>
       </header>
       <div>
-        <h2>My adverts</h2>
+        <h2 style={{ marginLeft: "50px", marginTop: "50px" }}>My adverts</h2>
         <Property
           adverts={adverts}
           handleDetails={openDetails}
