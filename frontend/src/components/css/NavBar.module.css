@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .logo {
@@ -113,4 +114,138 @@
 
 .cta:hover {
   background: #b08930;
+}
+
+.heartBtn {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background: #c49a3c;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 50%;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  line-height: 1;
+}
+/* Hamburger — sakriven na desktopu */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  color: #555;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.hamburger:hover {
+  background: #f5f5f5;
+}
+
+/* Mobile menu dropdown */
+.mobileMenu {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 8px 16px 16px;
+  background: #fff;
+}
+
+.mobileLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mobileLink {
+  display: block;
+  padding: 12px 4px;
+  font-size: 15px;
+  color: #555;
+  text-decoration: none;
+  font-weight: 400;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: color 0.15s;
+}
+
+.mobileLink:hover {
+  color: #111;
+}
+
+.mobileLinkActive {
+  color: #c49a3c;
+  font-weight: 500;
+}
+
+.mobileDivider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 8px 0;
+}
+
+.mobileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobileActionBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 11px 4px;
+  font-size: 15px;
+  color: #555;
+  text-align: left;
+  border-radius: 8px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  position: relative;
+}
+
+.mobileActionBtn:hover {
+  background: #f5f5f5;
+  color: #111;
+}
+
+.mobileCtaBtn {
+  color: #c49a3c;
+  font-weight: 500;
+}
+
+.mobileBadge {
+  background: #c49a3c;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 1px 6px;
+  margin-left: 2px;
+}
+
+@media (max-width: 700px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .links,
+  .right {
+    display: none;
+  }
 }

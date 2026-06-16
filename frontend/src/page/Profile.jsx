@@ -1,5 +1,5 @@
 import styles from "./css/Profile.module.css";
-import konj from "../assets/konj.jpg";
+import { LogOut, Edit2 } from "lucide-react";
 import { FiPhone, FiMapPin, FiCalendar } from "react-icons/fi";
 import { Form, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -117,12 +117,16 @@ export default function Profile() {
         <div className={styles.buttons}>
           <button onClick={() => setEditOpen(true)} className={styles.edit}>
             Edit profile
+            <Edit2 size={16} />
           </button>
           {editOpen && (
             <EditProfileModal onClose={() => setEditOpen(false)} user={user} />
           )}
           <Form action="/logout" method="post">
-            <button className={styles.logout}>Log out</button>
+            <button className={styles.logout}>
+              Log out
+              <LogOut size={16} />
+            </button>
           </Form>
         </div>
       </header>

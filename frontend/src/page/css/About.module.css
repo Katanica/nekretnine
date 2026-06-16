@@ -1,156 +1,156 @@
 /* About.module.css */
 
 .page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
 }
 
 /* ── Hero ── */
 .hero {
-    padding: 80px 0 64px;
+  padding: 80px 0 64px;
 }
 
 .eyebrow {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #c49a3c;
-    margin: 0 0 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c49a3c;
+  margin: 0 0 16px;
 }
 
 .heroTitle {
-    font-size: clamp(36px, 5vw, 56px);
-    font-weight: 700;
-    color: #111;
-    line-height: 1.1;
-    margin: 0 0 20px;
-    letter-spacing: -0.02em;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  color: #111;
+  line-height: 1.1;
+  margin: 0 0 20px;
+  letter-spacing: -0.02em;
 }
 
 .accent {
-    color: #c49a3c;
+  color: #c49a3c;
 }
 
 .heroSub {
-    font-size: 17px;
-    color: #555;
-    max-width: 520px;
-    line-height: 1.65;
-    margin: 0;
+  font-size: 17px;
+  color: #555;
+  max-width: 520px;
+  line-height: 1.65;
+  margin: 0;
 }
 
 /* ── Divider ── */
 .divider {
-    height: 1px;
-    background: rgba(0, 0, 0, 0.08);
-    margin: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 0;
 }
 
 /* ── Sections ── */
 .section {
-    padding: 64px 0;
+  padding: 64px 0;
 }
 
 .sectionTitle {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #999;
-    margin: 0 0 40px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #999;
+  margin: 0 0 40px;
 }
 
 /* ── Values ── */
 .valuesGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
 }
 
 .valueCard {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .valueDot {
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #c49a3c;
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c49a3c;
 }
 
 .valueLabel {
-    font-size: 16px;
-    font-weight: 600;
-    color: #111;
-    margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
 }
 
 .valueDesc {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.65;
-    margin: 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.65;
+  margin: 0;
 }
 
 /* ── Team ── */
 .teamGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
 }
 
 .teamCard {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
 }
 
 .avatar {
-    flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: #f5f5f5;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 600;
-    color: #555;
-    letter-spacing: 0.03em;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  letter-spacing: 0.03em;
 }
 
 .teamInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .teamName {
-    font-size: 15px;
-    font-weight: 600;
-    color: #111;
-    margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
 }
 
 .teamRole {
-    font-size: 12px;
-    font-weight: 500;
-    color: #c49a3c;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #c49a3c;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0;
 }
 
 .teamBio {
-    font-size: 13px;
-    color: #666;
-    line-height: 1.6;
-    margin: 8px 0 0;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.6;
+  margin: 8px 0 0;
 }

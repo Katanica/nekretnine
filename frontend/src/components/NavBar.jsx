@@ -1,18 +1,22 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./css/NavBar.module.css";
-import { Heart, User, Plus } from "lucide-react";
+import { Heart, User, Plus, Menu, X } from "lucide-react";
 import { getToken, getUserID } from "../api";
+import { useBookmarksContext } from "../context/BookmarksContext";
+import { useState } from "react";
 
 export default function NavBar() {
   const token = getToken();
-
   const navigate = useNavigate();
   const id = getUserID();
-  function handleProfil() {
-    const token = getToken();
-    console.log(token);
+  const { bookmarkCount, sidebarOpen, openSidebar, closeSidebar } =
+    useBookmarksContext();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    if (token === null || token === "EXPIRED") {
+  function handleProfil() {
+    const t = getToken();
+    setMenuOpen(false);
+    if (t === null || t === "EXPIRED") {
       navigate("/login");
     } else {
       navigate(`profile/${id}`);
@@ -20,13 +24,19 @@ export default function NavBar() {
   }
 
   function handleAddAdvert() {
-    console.log(token);
-    console.log(id);
+    setMenuOpen(false);
     navigate("add-advert");
   }
+
+  function handleBookmarks() {
+    setMenuOpen(false);
+    sidebarOpen ? closeSidebar() : openSidebar();
+  }
+
   return (
     <nav className={styles.nav}>
       <div className={styles.inner}>
+        {/* Logo */}
         <a href="/" className={styles.logo}>
           <svg
             viewBox="0 0 32 32"
@@ -58,10 +68,11 @@ export default function NavBar() {
           </svg>
           Nekretnine
         </a>
+
+        {/* Desktop links */}
         <ul className={styles.links}>
           {[
             { to: "/Home", label: "Home" },
-
             { to: "/About-us", label: "About us" },
             { to: "/Contact", label: "Contact" },
           ].map(({ to, label }) => (
@@ -78,10 +89,27 @@ export default function NavBar() {
             </li>
           ))}
         </ul>
+
+        {/* Desktop actions */}
         <div className={styles.right}>
-          <button className={styles.iconBtn} aria-label="Bookmarks">
-            <Heart size={20} />
-          </button>
+          {token && (
+            <button
+              className={`${styles.iconBtn} ${styles.heartBtn}`}
+              onClick={handleBookmarks}
+              aria-label="Bookmarks"
+            >
+              <Heart
+                size={20}
+                fill={sidebarOpen ? "#c49a3c" : "none"}
+                color={sidebarOpen ? "#c49a3c" : "currentColor"}
+              />
+              {bookmarkCount > 0 && (
+                <span className={styles.badge}>
+                  {bookmarkCount > 99 ? "99+" : bookmarkCount}
+                </span>
+              )}
+            </button>
+          )}
           <button
             onClick={handleProfil}
             className={styles.iconBtn}
@@ -96,7 +124,78 @@ export default function NavBar() {
             </button>
           )}
         </div>
+
+        {/* Hamburger button — mobile only */}
+        <button
+          className={styles.hamburger}
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className={styles.mobileMenu}>
+          <ul className={styles.mobileLinks}>
+            {[
+              { to: "/Home", label: "Home" },
+              { to: "/About-us", label: "About us" },
+              { to: "/Contact", label: "Contact" },
+            ].map(({ to, label }) => (
+              <li key={label}>
+                <NavLink
+                  to={to}
+                  end={to === "/"}
+                  onClick={() => setMenuOpen(false)}
+                  className={({ isActive }) =>
+                    isActive
+                      ? `${styles.mobileLink} ${styles.mobileLinkActive}`
+                      : styles.mobileLink
+                  }
+                >
+                  {label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          <div className={styles.mobileDivider} />
+
+          <div className={styles.mobileActions}>
+            {token && (
+              <button
+                className={styles.mobileActionBtn}
+                onClick={handleBookmarks}
+              >
+                <Heart
+                  size={16}
+                  fill={sidebarOpen ? "#c49a3c" : "none"}
+                  color={sidebarOpen ? "#c49a3c" : "currentColor"}
+                />
+                Bookmarks
+                {bookmarkCount > 0 && (
+                  <span className={styles.mobileBadge}>{bookmarkCount}</span>
+                )}
+              </button>
+            )}
+            <button className={styles.mobileActionBtn} onClick={handleProfil}>
+              <User size={16} />
+              Profil
+            </button>
+            {token !== "EXPIRED" && token !== null && (
+              <button
+                className={`${styles.mobileActionBtn} ${styles.mobileCtaBtn}`}
+                onClick={handleAddAdvert}
+              >
+                <Plus size={16} />
+                Add Advert
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

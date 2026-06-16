@@ -1,11 +1,10 @@
 import { createPortal } from "react-dom";
 import styles from "./css/AdvertDetails.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
+import { getToken } from "../api";
 
-export default function AdvertDetailsModal({ onClose, advert }) {
-  const total = advert.imageUrls?.length || 0;
-  const [currentImg, setCurrentImg] = useState(total === 0 ? 0 : 1);
+const BASE_URL = "http://localhost:8080";
 
   const slide = (x) => {
     if (total != 0) {
@@ -24,10 +23,28 @@ export default function AdvertDetailsModal({ onClose, advert }) {
     if (!filePath) return "/placeholder.jpg";
     return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
   };
-  const propertyTypeMap = { FLAT: "Stan", HOUSE: "Kuća", LAND: "Zemljište" };
-  const advertTypeMap = { SALE: "Prodaja", RENT: "Najam" };
 
-  console.log(advert);
+  const formatDate = (dateStr) =>
+    new Date(dateStr).toLocaleDateString("hr-HR");
+
+  if (loading) {
+    return createPortal(
+      <div className={styles.overlay} onClick={onClose}>
+        <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+          <div className={styles.loadingWrap}>
+            <div className={styles.spinner} />
+          </div>
+          <button className={styles.closeBtn} onClick={onClose}>
+            ✕
+          </button>
+        </div>
+      </div>,
+      document.body
+    );
+  }
+
+  if (!advertData) return null;
+
   return createPortal(
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
@@ -55,20 +72,20 @@ export default function AdvertDetailsModal({ onClose, advert }) {
             {total === 0 ? `0 / 0` : `${currentImg} / ${total}`}
           </span>
           <span className={styles.badge}>
-            {advertTypeMap[advert.advertType]}
+            {advertTypeMap[advertData.advertType]}
           </span>
         </div>
         <div className={styles.content}>
           <div className={styles.titleRow}>
             <div>
-              <h2>{advert.title}</h2>
+              <h2>{advertData.title}</h2>
               <p>
-                <MapPin size={13} /> {advert.city?.name}
+                <MapPin size={13} /> {advertData.city?.name}
               </p>
             </div>
             <div>
               <p className={styles.price}>
-                {advert.price.toLocaleString("hr-HR")} KM
+                {advertData.price.toLocaleString("hr-HR")} KM
               </p>
             </div>
           </div>
@@ -76,19 +93,27 @@ export default function AdvertDetailsModal({ onClose, advert }) {
           <div className={styles.stats}>
             <div>
               <span>Površina</span>
-              <strong>{advert.size} m²</strong>
+              <strong>{advertData.size} m²</strong>
             </div>
             <div>
               <span>Tip</span>
-              <strong>{propertyTypeMap[advert.propertyType]}</strong>
+              <strong>{propertyTypeMap[advertData.propertyType]}</strong>
             </div>
             <div>
               <span>Objavljeno</span>
-              <strong>{formatDate(advert.postedAt)}</strong>
+              <strong>{formatDate(advertData.postedAt)}</strong>
             </div>
           </div>
 
-          {advert.description.length == 0 ? <p className={styles.description}>Nema opisa</p> : <p className={styles.description}>Opis:<br />{advert.description}</p>}
+          {advertData.description?.length === 0 ? (
+            <p className={styles.description}>Nema opisa</p>
+          ) : (
+            <p className={styles.description}>
+              Opis:
+              <br />
+              {advertData.description}
+            </p>
+          )}
           <div className={styles.actions}>
             <button>Spremi</button>
             <button>Kontaktiraj</button>
@@ -100,6 +125,6 @@ export default function AdvertDetailsModal({ onClose, advert }) {
         </button>
       </div>
     </div>,
-    document.body,
+    document.body
   );
 }

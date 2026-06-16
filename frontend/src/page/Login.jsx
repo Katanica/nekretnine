@@ -22,7 +22,7 @@ export async function action({ request }) {
   });
 
   if (response.status === 422 || response.status === 401) {
-    return response;
+    return { error: "Invalid email or password!" };
   }
 
   if (!response.ok) {
