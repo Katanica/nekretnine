@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./css/Home.module.css";
 import Property from "../components/Property";
 import HeaderSearch from "../components/HeaderSearch";
+import PageBar from "../components/PageBar";
+import { PAGE_SIZE } from "../constants";
 import Header from "../components/Header";
 import AdvertDetailsModal from "../components/AdvertDetailsModal";
 
@@ -10,6 +12,9 @@ export default function Search() {
     const [searchParams] = useSearchParams();
     const [adverts, setAdverts] = useState([]);
     const [selectedAdvert, setSelectedAdvert] = useState(null);
+    const [advertNumber, setAdvertNumber] = useState(0);
+    const [page, setPage] = useState(0);
+    const [pageSize, setPageSize] = useState(PAGE_SIZE);
 
     const minPrice = searchParams.get("minPrice");
     const maxPrice = searchParams.get("maxPrice");
@@ -39,9 +44,13 @@ export default function Search() {
 
     useEffect(() => {
         async function fetchingData() {
-            const resAdverts = await fetch(`http://localhost:8080/api/advert/find?${request}`, {
+
+            const resAdverts = await fetch(`http://localhost:8080/api/advert?page=${page}&size=${pageSize}`, {
                 method: "GET"
             });
+            const countData = await fetch("http://localhost:8080/api/advert/countAdverts");
+            const count = await countData.json();
+            setAdvertNumber(count);
 
             if (!resAdverts.ok) {
                 setError("Could not fetch data...");
@@ -52,7 +61,7 @@ export default function Search() {
             setAdverts(advertsData);
         }
         fetchingData();
-    }, [request]);
+    }, [request, page]);
 
 
 
@@ -68,6 +77,8 @@ export default function Search() {
                     />
                 )}
             </div>
+            <PageBar adverts={adverts} advertNumber={advertNumber} page={page} pageSize={pageSize} onPageChange={setPage} />
+
         </div>
     );
 }

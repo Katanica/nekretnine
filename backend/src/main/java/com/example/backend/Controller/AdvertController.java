@@ -37,8 +37,9 @@ public class AdvertController {
 
     // SPECIFICATION
     @GetMapping("/find")
-    public List<AdvertDto> getAdverts(@ModelAttribute AdvertFilterRequest filter){
-        return service.searchAdverts(filter);
+    public List<AdvertDto> getAdverts(@ModelAttribute AdvertFilterRequest filter,@RequestParam(defaultValue="0") String page,
+                                      @RequestParam(defaultValue="10") String size){
+        return service.searchAdverts(filter, Integer.parseInt(page), Integer.parseInt(size));
     }
 
     // Oglasi ulogovanog korisnika

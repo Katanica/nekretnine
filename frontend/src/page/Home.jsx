@@ -4,6 +4,7 @@ import CategoryFilter from "../components/CategoryFilter";
 import Header from "../components/Header";
 import PageBar from "../components/PageBar";
 import { useEffect, useState } from "react";
+import { PAGE_SIZE } from "../constants";
 import AdvertDetailsModal from "../components/AdvertDetailsModal";
 
 import RegisterForm from "../components/RegisterForm";
@@ -16,7 +17,7 @@ export default function HomePage() {
   const [selectedAdvert, setSelectedAdvert] = useState(null);
   const [advertNumber, setAdvertNumber] = useState(0);
   const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
 
   function openDetails(advert) {
     setSelectedAdvert(advert);

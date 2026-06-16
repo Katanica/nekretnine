@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface AdvertService {
 
-    List<AdvertDto> searchAdverts(AdvertFilterRequest filter);
+    List<AdvertDto> searchAdverts(AdvertFilterRequest filter, Integer page, Integer size);
 
     List<AdvertDto> getMyAdverts(Long profileId);
 

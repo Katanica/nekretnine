@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -39,7 +40,7 @@ public class AdvertServiceImpl implements AdvertService {
     @Qualifier("advertMapper")
     private final AdvertMapper mapper;
 
-    public List<AdvertDto> searchAdverts(AdvertFilterRequest filter){
+    public List<AdvertDto> searchAdverts(AdvertFilterRequest filter, Integer page, Integer size){
         String title = filter.getTitle();
         PropertyType propertyType = filter.getPropertyType();
         AdvertType advertType = filter.getAdvertType();
@@ -59,10 +60,10 @@ public class AdvertServiceImpl implements AdvertService {
             spec = spec.and((root, query, cb) -> cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
         }
         if(propertyType!=null){
-            spec = spec.and((root, query, cb) -> cb.like(cb.upper(root.get("propertyType")), String.valueOf(propertyType)));
+            spec = spec.and((root, query, cb) -> cb.equal(cb.upper(root.get("propertyType")), String.valueOf(propertyType)));
         }
         if(advertType!=null){
-            spec = spec.and((root, query, cb) -> cb.like(cb.upper(root.get("advertType")), String.valueOf(advertType)));
+            spec = spec.and((root, query, cb) -> cb.equal(cb.upper(root.get("advertType")), String.valueOf(advertType)));
         }
         if(maxPrice!=null){
             spec = spec.and((root, query, cb) -> cb.lessThanOrEqualTo(root.get("price"), maxPrice));
@@ -82,9 +83,11 @@ public class AdvertServiceImpl implements AdvertService {
         if(cantonId!=null){
             spec = spec.and((root, query, cb) -> cb.equal(root.get("city").get("canton").get("id"), cantonId));
         }
-
-        List<Advert> adverts = repository.findAll(spec, Sort.by(Sort.Direction.DESC, "postedAt"));
-        return mapper.toDtoList(adverts);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "postedAt"));
+        Page<Advert> adverts = repository.findAll(spec, pageable);
+        return adverts.getContent().stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override

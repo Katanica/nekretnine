@@ -19,6 +19,9 @@ export default function Property({
 }) {
   const { isBookmarked, addBookmark, removeBookmark } = useBookmarksContext();
 
+  let advertsList = adverts.content;
+  console.log(advertsList);
+
   function handleEdit(e, advert) {
     e.stopPropagation();
     editingAdvert(advert);
@@ -43,7 +46,7 @@ export default function Property({
       <div className={styles.header}>
         <h2 className={styles.title}>{title}</h2>
         <ul className={styles.grid}>
-          {adverts?.map((advert) => (
+          {advertsList?.map((advert) => (
             <li
               key={advert.id}
               className={styles.card}
