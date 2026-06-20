@@ -1,3 +1,7 @@
+* {
+  transition: background-color 0.15s ease
+}
+
 .hero {
   position: relative;
 }
@@ -14,11 +18,9 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0.6) 0%,
-    rgba(0, 0, 0, 0.1) 100%
-  );
+  background: linear-gradient(to right,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.1) 100%);
 }
 
 .heroText {
@@ -44,23 +46,29 @@
 
 .heroButtons {
   display: flex;
-  gap: 12px;
+  gap: 15px;
 }
 
 .btnPrimary {
-  background: #1a2e44;
+  background: #1a2e44d3;
   color: white;
   border: none;
   padding: 35px 80px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
+  border: 1px solid rgb(9, 0, 74);
+}
+
+.btnPrimary:hover,
+.btnSecondary:hover {
+  color: rgb(74, 74, 74)
 }
 
 .btnSecondary {
-  background: transparent;
+  background: #7575756f;
   color: white;
-  border: 2px solid white;
+  border: 1px solid white;
   padding: 35px 80px;
   border-radius: 8px;
   cursor: pointer;
@@ -121,6 +129,23 @@
   white-space: nowrap;
   height: 42px;
 }
+
+.clearFiltersBtn {
+  background: #c2c2c2;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+  height: 42px;
+}
+
+.clearFiltersBtn:hover {
+  background-color: rgb(177, 177, 177);
+}
+
 
 .searchBtn:hover {
   background: #2a4060;

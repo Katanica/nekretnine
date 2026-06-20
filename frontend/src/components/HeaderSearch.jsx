@@ -89,6 +89,18 @@ export default function Header() {
     navigate(`/search?${params}`);
   }
 
+  const handleFilterClear = () => {
+    setMinPrice("");
+    setMaxPrice("");
+    setMinSize("");
+    setMaxSize("");
+    setPropertyType("");
+    setCity("");
+    setCanton("");
+    setTitle("");
+    setAdvertType("");
+  }
+
 
   return (
     <div className={styles.hero}>
@@ -100,6 +112,7 @@ export default function Header() {
           <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", gap: "16px", flexWrap: "wrap", width: "100%" }}>
             <label className={styles.searchField} style={{ flexGrow: "100" }}><label>Title</label><input onChange={e => setTitle(e.target.value)} value={title} placeholder="..." type="text"></input></label>
             <button className={styles.searchBtn} style={{ marginLeft: "auto" }} type="submit">🔍 Search</button>
+            <button className={styles.clearFiltersBtn} onClick={handleFilterClear}>Clear filters</button>
 
           </div>
           <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", gap: "16px", flexWrap: "wrap" }}>

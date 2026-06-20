@@ -62,7 +62,7 @@ export default function HomePage() {
           />
         )}
       </div>
-      <PageBar adverts={adverts} advertNumber={advertNumber} page={page} pageSize={pageSize} onPageChange={setPage} />
+      {adverts.length > 0 && <PageBar adverts={adverts} advertNumber={advertNumber} page={page} pageSize={pageSize} onPageChange={setPage} />}
     </div>
   );
 }

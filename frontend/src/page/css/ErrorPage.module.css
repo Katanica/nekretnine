@@ -1,3 +1,7 @@
+* {
+  transition: background-color 0.1s ease
+}
+
 .errorPage {
   display: flex;
   justify-content: center;
@@ -11,11 +15,13 @@
   flex-direction: row;
   gap: 10px;
 }
+
 .btns button {
   width: 100px;
   padding: 10px;
   border-radius: 5px;
 }
+
 button:hover {
   background-color: aliceblue;
 }

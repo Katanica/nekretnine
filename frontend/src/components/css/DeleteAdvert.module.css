@@ -1,3 +1,7 @@
+* {
+  transition: background-color 0.1s ease
+}
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -19,9 +23,11 @@
   border-radius: 30px;
   padding: 2rem;
 }
+
 .modal h3 {
   color: rgb(82, 82, 82);
 }
+
 .btn {
   display: flex;
   margin-top: 20px;

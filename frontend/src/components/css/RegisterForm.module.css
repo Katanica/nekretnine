@@ -1,5 +1,6 @@
 * {
   font-family: 'Times New Roman', Times, serif;
+  transition: background-color 0.1s ease
 }
 
 .signup {

@@ -1,3 +1,7 @@
+* {
+  transition: background-color 0.1s ease
+}
+
 .signup {
   display: flex;
   justify-content: center;
@@ -78,7 +82,7 @@
   border-color: royalblue;
 }
 
-.form label .input + span {
+.form label .input+span {
   position: absolute;
   left: 10px;
   top: 50%;
@@ -90,8 +94,8 @@
   pointer-events: none;
 }
 
-.form label .input:focus + span,
-.form label .input:valid + span {
+.form label .input:focus+span,
+.form label .input:valid+span {
   top: 8px;
   transform: none;
   font-size: 0.7em;
@@ -99,7 +103,7 @@
   color: royalblue;
 }
 
-.form label .input:valid + span {
+.form label .input:valid+span {
   color: green;
 }
 
@@ -152,6 +156,7 @@
     transform: scale(0.9);
     opacity: 1;
   }
+
   to {
     transform: scale(1.8);
     opacity: 0;
