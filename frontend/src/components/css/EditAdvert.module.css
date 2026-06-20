@@ -1,4 +1,9 @@
 /* EditAdvert.module.css */
+
+* {
+  transition: background-color 0.1s ease
+}
+
 .overlay {
   position: fixed;
   inset: 0;

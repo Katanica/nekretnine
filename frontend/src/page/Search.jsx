@@ -38,6 +38,8 @@ export default function Search() {
         })
         .join("&");
 
+    console.log("SEARCH, request: ", request);
+
     function openDetails(advert) {
         setSelectedAdvert(advert);
     }
@@ -45,9 +47,10 @@ export default function Search() {
     useEffect(() => {
         async function fetchingData() {
 
-            const resAdverts = await fetch(`http://localhost:8080/api/advert?page=${page}&size=${pageSize}`, {
+            const resAdverts = await fetch(`http://localhost:8080/api/advert/find?${request}&page=${page}&size=${pageSize}`, {
                 method: "GET"
             });
+            console.log("SEARCH, resadverts: ", resAdverts);
             const countData = await fetch("http://localhost:8080/api/advert/countAdverts");
             const count = await countData.json();
             setAdvertNumber(count);
@@ -57,6 +60,7 @@ export default function Search() {
             }
 
             const advertsData = await resAdverts.json();
+            console.log("SEARCH: ", advertsData);
 
             setAdverts(advertsData);
         }
@@ -67,8 +71,10 @@ export default function Search() {
 
     return (
         <div className={styles.content}>
-            <HeaderSearch />
+            <HeaderSearch style={{ position: "relative" }} />
+
             <div className={styles.listings} style={{ marginTop: "100px" }}>
+
                 <Property adverts={adverts} handleDetails={openDetails} title="Nekretnine po filterima" />
                 {selectedAdvert && (
                     <AdvertDetailsModal
@@ -76,9 +82,13 @@ export default function Search() {
                         onClose={() => setSelectedAdvert(null)}
                     />
                 )}
-            </div>
-            <PageBar adverts={adverts} advertNumber={advertNumber} page={page} pageSize={pageSize} onPageChange={setPage} />
 
-        </div>
+
+            </div>
+
+            {adverts.length > 0 && (<PageBar adverts={adverts} advertNumber={advertNumber} page={page} pageSize={pageSize} onPageChange={setPage} />)}
+
+
+        </div >
     );
 }

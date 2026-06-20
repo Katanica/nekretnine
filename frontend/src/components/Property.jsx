@@ -19,7 +19,7 @@ export default function Property({
 }) {
   const { isBookmarked, addBookmark, removeBookmark } = useBookmarksContext();
 
-  let advertsList = adverts.content;
+  let advertsList = adverts;
   console.log(advertsList);
 
   function handleEdit(e, advert) {

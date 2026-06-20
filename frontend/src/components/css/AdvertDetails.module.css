@@ -1,3 +1,7 @@
+* {
+  transition: background-color 0.1s ease
+}
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -8,6 +12,7 @@
   z-index: 1100;
   padding: 1rem;
 }
+
 .modal {
   background: #fff;
   border-radius: 16px;
@@ -18,6 +23,7 @@
   position: relative;
   z-index: 1101;
 }
+
 .sliderWrap {
   position: relative;
   height: 280px;
@@ -81,6 +87,7 @@
   background: #0f6e56;
   color: #e1f5ee;
 }
+
 .content {
   padding: 1.25rem;
 }
@@ -114,6 +121,7 @@
   margin: 0;
   text-align: right;
 }
+
 /* Stats */
 .stats {
   display: grid;
@@ -188,7 +196,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Zatvori */

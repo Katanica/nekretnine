@@ -76,6 +76,18 @@ export default function Header() {
     navigate(`/search?${params}`);
   };
 
+  const handleFilterClear = () => {
+    setMinPrice("");
+    setMaxPrice("");
+    setMinSize("");
+    setMaxSize("");
+    setPropertyType("");
+    setCity("");
+    setCanton("");
+    setTitle("");
+    setAdvertType("");
+  }
+
   function handleSale(e) {
     e.stopPropagation();
     if (token) navigate("add-advert");
@@ -85,26 +97,25 @@ export default function Header() {
     <div className={styles.hero}>
       <Form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
         <div className={styles.heroImage}>
-          <div className={styles.overlay}>
-            <div className={styles.heroText}>
-              <h1>
-                Find a perfect
-                <br />
-                property for you
-              </h1>
-              <p>Search over 1000+ property on one place</p>
-              <div className={styles.heroButtons}>
-                <button className={styles.btnPrimary}>
-                  🔍 Search a property
-                </button>
-                <button
-                  type="button"
-                  className={styles.btnSecondary}
-                  onClick={(e) => handleSale(e)}
-                >
-                  👤 Advertise a property
-                </button>
-              </div>
+          <div className={styles.heroText}>
+            <h1>
+              Find a perfect
+              <br />
+              property for you
+            </h1>
+            <p>Search over 1000+ property on one place</p>
+            <div className={styles.heroButtons}>
+              <button className={styles.btnPrimary} style={{ display: "flex", flexDirection: "column" }}>
+                <div>🔍</div> <div style={{ width: "150px" }}>Search a property</div>
+              </button>
+              <button
+                type="button"
+                className={styles.btnSecondary}
+                onClick={(e) => handleSale(e)}
+                style={{ display: "flex", flexDirection: "column" }}
+              >
+                <div>👤</div> <div style={{ width: "150px" }}>Advertise a property</div>
+              </button>
             </div>
           </div>
           <div
@@ -140,6 +151,8 @@ export default function Header() {
               >
                 🔍 Search
               </button>
+              <button className={styles.clearFiltersBtn} onClick={handleFilterClear}>Clear filters</button>
+
             </div>
             <div
               style={{
@@ -250,7 +263,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-      </Form>
-    </div>
+      </Form >
+    </div >
   );
 }

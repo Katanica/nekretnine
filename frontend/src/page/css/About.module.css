@@ -1,4 +1,7 @@
 /* About.module.css */
+* {
+  transition: background-color 0.1s ease
+}
 
 .page {
   max-width: 1200px;
