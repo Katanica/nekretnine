@@ -60,6 +60,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/userProfile/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/agencyProfile/**").hasAnyRole("USER", "ADMIN")
 
+                        .requestMatchers(HttpMethod.GET, "/api/profile").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/profile/**").hasRole("ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

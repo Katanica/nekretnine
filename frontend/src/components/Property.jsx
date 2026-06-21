@@ -1,12 +1,7 @@
 import styles from "./css/Property.module.css";
-import {
-  Heart,
-  MapPin,
-  Maximize2,
-  FileEditIcon,
-  Trash2,
-} from "lucide-react";
+import { Heart, MapPin, Maximize2, FileEditIcon, Trash2 } from "lucide-react";
 import { useBookmarksContext } from "../context/BookmarksContext";
+import { getRole } from "../api";
 
 export default function Property({
   adverts,
@@ -18,6 +13,7 @@ export default function Property({
   onDeleteOpen,
 }) {
   const { isBookmarked, addBookmark, removeBookmark } = useBookmarksContext();
+  const role = getRole();
 
   let advertsList = adverts;
   console.log(advertsList);
@@ -54,7 +50,11 @@ export default function Property({
             >
               <div className={styles.imageWrap}>
                 <img
-                  src={advert.imageUrls.length > 0 ? advert.imageUrls[0] : "https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/images%20not%20uploaded.png"}
+                  src={
+                    advert.imageUrls.length > 0
+                      ? advert.imageUrls[0]
+                      : "https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/images%20not%20uploaded.png"
+                  }
                   alt={advert.title}
                   className={styles.image}
                 />
@@ -74,7 +74,9 @@ export default function Property({
                     <Heart
                       size={16}
                       fill={isBookmarked(advert.id) ? "#c49a3c" : "none"}
-                      color={isBookmarked(advert.id) ? "#c49a3c" : "currentColor"}
+                      color={
+                        isBookmarked(advert.id) ? "#c49a3c" : "currentColor"
+                      }
                     />
                   </button>
                 ) : (

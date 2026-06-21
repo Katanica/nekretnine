@@ -14,9 +14,7 @@ export default function BookmarksSidebar() {
 
   return createPortal(
     <>
-      {sidebarOpen && (
-        <div className={styles.overlay} onClick={closeSidebar} />
-      )}
+      {sidebarOpen && <div className={styles.overlay} onClick={closeSidebar} />}
       <aside
         className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ""}`}
         aria-label="Bookmarks sidebar"
@@ -52,7 +50,7 @@ export default function BookmarksSidebar() {
                   <li
                     key={advertId}
                     className={styles.item}
-                    onClick={() => openAdvertModal(advertId)}
+                    onClick={() => openAdvertModal(advert)}
                   >
                     <div className={styles.thumbnail}>
                       {advert.imageUrls?.[0] ? (
@@ -95,6 +93,6 @@ export default function BookmarksSidebar() {
         </div>
       </aside>
     </>,
-    document.body
+    document.body,
   );
 }

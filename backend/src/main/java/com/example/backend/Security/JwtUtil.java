@@ -26,6 +26,7 @@ public class JwtUtil {
                 .subject(userDetails.getUsername())
                 .claim("id", userDetails.getId())
                 .claim("profileType", userDetails.getProfileType())
+                .claim("role", userDetails.getAuthorities().iterator().next().getAuthority().replace("ROLE_", ""))
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getKey())

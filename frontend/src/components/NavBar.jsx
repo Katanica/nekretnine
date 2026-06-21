@@ -12,7 +12,7 @@ export default function NavBar() {
   const { bookmarkCount, sidebarOpen, openSidebar, closeSidebar } =
     useBookmarksContext();
   const [menuOpen, setMenuOpen] = useState(false);
-
+  console.log("token", token);
   function handleProfil() {
     const t = getToken();
     setMenuOpen(false);
@@ -92,7 +92,7 @@ export default function NavBar() {
 
         {/* Desktop actions */}
         <div className={styles.right}>
-          {token && (
+          {token !== "EXPIRED" && token !== null && (
             <button
               className={`${styles.iconBtn} ${styles.heartBtn}`}
               onClick={handleBookmarks}

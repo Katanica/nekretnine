@@ -4,6 +4,7 @@ import com.example.backend.DTO.AdvertDto;
 import com.example.backend.Entity.Canton;
 import com.example.backend.Entity.City;
 import com.example.backend.Enums.ProfileType;
+import com.example.backend.Enums.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -31,6 +32,8 @@ public class ProfileDto {
         private String email;
 
         private Integer status;
+
+        private Role role;
 
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
         private String password;
