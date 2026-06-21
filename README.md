@@ -1,19 +1,30 @@
-🏠 Nekretnine
+Full-stack web application for advertising and browsing real estate listings, built as a team project at FSRE. Allows users to browse listings, manage their own profile and agency account, and bookmark listings.
 
-Full-stack web aplikacija za oglašavanje i pretraživanje nekretnina, izrađena kao timski projekt na FSRE. 
-Omogućuje korisnicima pregled oglasa, upravljanje vlastitim profilom i agencijskim računom, te bookmarkanje oglasa.
+✨ Features
+
+Authentication — registration and login with JWT token, protected routes
+Real estate listings — browse, search, add, edit, and delete listings
+Image upload — listing images and profile avatars stored on Supabase Storage
+User profile — view and edit personal info and avatar
+Agency profile — separate account type for agencies with their own listings
+Bookmarks — save and browse favourite listings in the sidebar
+Responsive design — mobile navigation with hamburger menu
 
 ⚙️ Tech Stack
-Sloj                 Tehnologije
-Frontend             React React Router v6, CSS Modules
-Backend              Java, Spring Boot, Spring Security (JWT)
-Baza podataka        PostgreSQL (Neon cloud)
-Storage              Supabase Storage (slike oglasa i avatara)
-ORM / Mapping        JPA/Hibernate, MapStruct
 
-📁 Struktura repozitorija
+Layer          Technologies
+Frontend       React, React Router v6, CSS Modules
+Backend        Java, Spring Boot, Spring Security (JWT)
+Database       PostgreSQL (Neon cloud)
+Storage        Supabase Storage (listing images and avatars)
+ORM / Mapping  JPA/Hibernate, MapStruc
+
+MapStruct
+
+📁 Repository Structure
+
 nekretnine/
-├── backend/          # Spring Boot aplikacija
+├── backend/                  # Spring Boot application
 │   └── src/
 │       └── main/java/
 │           ├── controller/
@@ -22,7 +33,7 @@ nekretnine/
 │           ├── entity/
 │           ├── dto/
 │           └── mapper/
-├── frontend/         # React aplikacija
+├── frontend/                 # React application
 │   └── src/
 │       ├── components/
 │       ├── pages/
@@ -31,37 +42,31 @@ nekretnine/
 ├── ER-dijagram-nekretnine.jpeg
 └── baza.jpeg
 
-🚀 Pokretanje lokalno
-Preduvjeti
-
+🚀 Running Locally
+Prerequisites: 
 Java 17+
 Node.js 18+
-PostgreSQL baza (ili Neon cloud account)
-Supabase projekt (za file storage)
+PostgreSQL database (or Neon cloud account)
+Supabase project (for file storage
 
 cd backend
-# Konfigurirati application.properties:
-# - spring.datasource.url
-# - spring.datasource.username / password
-# - jwt.secret
-# - supabase.url / supabase.key
+
+Configure application.properties:
+
+spring.datasource.url
+spring.datasource.username / password
+jwt.secret
+supabase.url / supabase.key
 
 ./mvnw spring-boot:run
-Backend je dostupan na http://localhost:8080.
+Backend available at http://localhost:8080.
 
+Frontend:
 cd frontend
 npm install
 npm run dev
-http://localhost:5173.
 
-Kreirati .env datoteku u frontend/ direktoriju:
+App available at http://localhost:5173.
+
+Create a .env file in the frontend/ directory.
 VITE_API_URL=http://localhost:8080
-
-✨ Funkcionalnosti
-Autentifikacija — registracija i prijava s JWT tokenom, zaštićene rute
-Oglasi nekretnina — pregled, pretraživanje, dodavanje, uređivanje i brisanje oglasa
-Upload slika — slike oglasa i avatar profila pohranjuju se na Supabase Storage
-Korisnički profil — prikaz i uređivanje osobnih podataka i avatara
-Agencijski profil — zaseban tip računa za agencije s vlastitim oglasima
-Bookmarks — spremi i pregledaj omiljene oglase u bočnoj traci
-Responzivan dizajn — mobilna navigacija s hamburger menijem
