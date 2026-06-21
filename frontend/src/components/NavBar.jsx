@@ -74,7 +74,6 @@ export default function NavBar() {
           {[
             { to: "/Home", label: "Home" },
             { to: "/About-us", label: "About us" },
-            { to: "/Contact", label: "Contact" },
           ].map(({ to, label }) => (
             <li key={label}>
               <NavLink
