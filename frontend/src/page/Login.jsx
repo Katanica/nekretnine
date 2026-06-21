@@ -43,6 +43,7 @@ export async function action({ request }) {
   console.log(payload);
   localStorage.setItem("id", payload.id);
   localStorage.setItem("profileType", payload.profileType);
+  localStorage.setItem("role", payload.role);
   console.log(payload);
 
   const expiration = new Date();

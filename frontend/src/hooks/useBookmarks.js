@@ -29,7 +29,7 @@ export default function useBookmarks() {
     try {
       const res = await fetch(
         `${BASE_URL}/api/bookmark?advertId=${advertId}&profileId=${profileId}`,
-        { method: "POST", headers: { Authorization: `Bearer ${token}` } }
+        { method: "POST", headers: { Authorization: `Bearer ${token}` } },
       );
       if (res.ok) {
         const newBookmark = await res.json();
@@ -48,14 +48,14 @@ export default function useBookmarks() {
     try {
       const res = await fetch(
         `${BASE_URL}/api/bookmark?advertId=${advertId}&profileId=${profileId}`,
-        { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }
+        { method: "DELETE", headers: { Authorization: `Bearer ${token}` } },
       );
       if (res.ok) {
         setBookmarks((prev) =>
           prev.filter((b) => {
             const bAdvertId = b.advertId ?? b.advert?.id ?? b.id;
             return bAdvertId !== advertId;
-          })
+          }),
         );
       }
     } catch (err) {
@@ -69,7 +69,7 @@ export default function useBookmarks() {
         const bAdvertId = b.advertId ?? b.advert?.id ?? b.id;
         return bAdvertId === advertId;
       }),
-    [bookmarks]
+    [bookmarks],
   );
 
   return {
@@ -82,7 +82,7 @@ export default function useBookmarks() {
     openSidebar: () => setSidebarOpen(true),
     closeSidebar: () => setSidebarOpen(false),
     openModalAdvertId,
-    openAdvertModal: (advertId) => setOpenModalAdvertId(advertId),
+    openAdvertModal: (advert) => setOpenModalAdvertId(advert),
     closeAdvertModal: () => setOpenModalAdvertId(null),
   };
 }

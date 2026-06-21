@@ -11,6 +11,7 @@ import EditAdvertModal from "../components/EditAdvertModal";
 import EditProfileModal from "../components/EditProfileModal";
 import DeleteAdvertModal from "../components/DeleteAdvertModal";
 import DeleteUserModal from "../components/DeleteUserModal";
+import AdminPanel from "../components/AdminPanel";
 export default function Profile() {
   const userID = getUserID();
   const role = getRole();
@@ -81,6 +82,7 @@ export default function Profile() {
     }
     return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
   };
+  console.log("role", role);
 
   if (error) return <div>{error}</div>;
   if (!user) return <div>Loading...</div>;
@@ -89,7 +91,11 @@ export default function Profile() {
       <header className={styles.header}>
         <div className={styles.profile}>
           <img
-            src={user.avatarUrl ? user.avatarUrl : "https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/no-image-user.png"}
+            src={
+              user.avatarUrl
+                ? user.avatarUrl
+                : "https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/no-image-user.png"
+            }
             alt="Profile Picture"
             className={styles.profileImg}
           ></img>
@@ -134,16 +140,24 @@ export default function Profile() {
             Delete profile
           </button>
         </div>
-      </header >
+      </header>
       <div>
-        <h2 style={{ marginLeft: "50px", marginTop: "50px" }}>My adverts</h2>
-        <Property
-          adverts={adverts}
-          handleDetails={openDetails}
-          edit={true}
-          editingAdvert={handleEditAdvert}
-          onDeleteOpen={setDeleteAdvert}
-        />
+        {role === "ADMIN" ? (
+          <AdminPanel />
+        ) : (
+          <>
+            <h2 style={{ marginLeft: "50px", marginTop: "50px" }}>
+              My adverts
+            </h2>
+            <Property
+              adverts={adverts}
+              handleDetails={openDetails}
+              edit={true}
+              editingAdvert={handleEditAdvert}
+              onDeleteOpen={setDeleteAdvert}
+            />
+          </>
+        )}
         {deleteUser && (
           <DeleteUserModal
             onClose={() => {

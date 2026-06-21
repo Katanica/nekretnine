@@ -5,7 +5,13 @@ import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { getToken } from "../api";
 
 export default function AdvertDetailsModal({ onClose, advert }) {
-  let imageUrls = advert.imageUrls.length > 0 ? advert.imageUrls : ["https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/images%20not%20uploaded.png"];
+  console.log(advert);
+  let imageUrls =
+    advert.imageUrls?.length > 0
+      ? advert.imageUrls
+      : [
+          "https://aurnchyhllskmomhcrxy.supabase.co/storage/v1/object/public/images/images%20not%20uploaded.png",
+        ];
   const total = imageUrls?.length || 0;
   const [currentImg, setCurrentImg] = useState(total === 0 ? 0 : 1);
 
@@ -13,12 +19,10 @@ export default function AdvertDetailsModal({ onClose, advert }) {
 
   const slide = (x) => {
     if (total != 0) {
-      if (currentImg == 1 && x == -1)
-        setCurrentImg(total);
+      if (currentImg == 1 && x == -1) setCurrentImg(total);
       else if (currentImg == total && x == 1) {
         setCurrentImg(1);
-      }
-      else setCurrentImg(currentImg + x);
+      } else setCurrentImg(currentImg + x);
     }
   };
   const formatDate = (dateStr) => {
@@ -27,7 +31,7 @@ export default function AdvertDetailsModal({ onClose, advert }) {
   const getImageUrl = () => {
     if (!filePath) return "/placeholder.jpg";
     return "http://localhost:8080/" + filePath.replace(/\\/g, "/");
-  }
+  };
   const propertyTypeMap = { FLAT: "Stan", HOUSE: "Kuća", LAND: "Zemljište" };
   const advertTypeMap = { SALE: "Prodaja", RENT: "Najam" };
 
@@ -111,6 +115,6 @@ export default function AdvertDetailsModal({ onClose, advert }) {
         </button>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
