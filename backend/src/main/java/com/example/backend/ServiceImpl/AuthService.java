@@ -11,7 +11,6 @@ import com.example.backend.Repository.ProfileRepository;
 import com.example.backend.Security.CustomUserDetails;
 import com.example.backend.Security.JwtUtil;
 import com.example.backend.Service.AgencyProfileService;
-import com.example.backend.Service.AvatarService;
 import com.example.backend.Service.UserProfileService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,7 +31,6 @@ public class AuthService  implements UserDetailsService {
     private final AgencyProfileService agencyProfileService;
     private final UserProfileService userProfileService;
 
-    private final AvatarService avatarService;
 
 
     @Override

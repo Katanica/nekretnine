@@ -1,10 +1,7 @@
 package com.example.backend.Controller;
 
-import com.example.backend.DTO.AvatarDto;
 import com.example.backend.DTO.CreateUserProfileDto;
 import com.example.backend.DTO.UserProfileDto;
-import com.example.backend.Mapper.AvatarMapper;
-import com.example.backend.Service.AvatarService;
 import com.example.backend.Service.UserProfileService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -22,8 +19,6 @@ import java.util.List;
 public class UserProfileController {
 
     private final UserProfileService service;
-    private final AvatarService avatarService;
-    private final AvatarMapper avatarMapper;
 
     @GetMapping
     public ResponseEntity<List<UserProfileDto>>  getAll(){
@@ -49,25 +44,5 @@ public class UserProfileController {
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping(value = "/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<AvatarDto> uploadAvatar(@PathVariable Long id, @RequestPart("file") MultipartFile file) throws IOException {
-        return ResponseEntity.status(201).body(avatarMapper.toDto(avatarService.uploadAvatar(id, file)));
-    }
-
-    @GetMapping("/{id}/avatar")
-    public ResponseEntity<AvatarDto> getAvatar(@PathVariable Long id) {
-        return ResponseEntity.ok(avatarMapper.toDto(avatarService.getByUserProfileId(id)));
-    }
-
-    @DeleteMapping("/{id}/avatar")
-    public ResponseEntity<Void> deleteAvatar(@PathVariable Long id) {
-        try {
-            avatarService.deleteAvatar(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
     }
 }
