@@ -110,26 +110,26 @@ export default function Header() {
         encType="multipart/form-data">
         <div className={styles.searchBar} style={{ paddingTop: "15px", paddingBottom: "15px", bottom: "-130px" }}>
           <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", gap: "16px", flexWrap: "wrap", width: "100%" }}>
-            <label className={styles.searchField} style={{ flexGrow: "100" }}><label>Title</label><input onChange={e => setTitle(e.target.value)} value={title} placeholder="..." type="text"></input></label>
-            <button className={styles.searchBtn} style={{ marginLeft: "auto" }} type="submit">🔍 Search</button>
-            <button className={styles.clearFiltersBtn} onClick={handleFilterClear}>Clear filters</button>
+            <label className={styles.searchField} style={{ flexGrow: "100" }}><label>Naslov</label><input onChange={e => setTitle(e.target.value)} value={title} placeholder="..." type="text"></input></label>
+            <button className={styles.searchBtn} style={{ marginLeft: "auto" }} type="submit">🔍 Traži</button>
+            <button className={styles.clearFiltersBtn} onClick={handleFilterClear}>Očisti filtere</button>
 
           </div>
           <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-end", gap: "16px", flexWrap: "wrap" }}>
-            <label className={styles.searchField} htmlFor="advertType"><label>Advert type</label>
+            <label className={styles.searchField} htmlFor="advertType"><label>Tip oglasa</label>
               <select value={advertType} onChange={e => setAdvertType(e.target.value)}>
-                <option className={styles.searchField} value="">All advert types</option>
-                <option value="SALE">Sale</option>
-                <option value="RENT">Rent</option>
+                <option className={styles.searchField} value="">Oglasi svakog tipa</option>
+                <option value="SALE">Prodaja</option>
+                <option value="RENT">Iznajmljivanje</option>
               </select>
             </label>
-            <label className={styles.searchField} htmlFor="propertyType"><label>Property type</label>
+            <label className={styles.searchField} htmlFor="propertyType"><label>Tip nekretnine</label>
               <select value={propertyType} onChange={e => setPropertyType(e.target.value)}>
-                <option className={styles.searchField} value="">All property types</option>
-                <option value="FLAT">Flat</option>
-                <option value="HOUSE">House</option>
-                <option value="LAND">Land</option>
-                <option value="BUSINESS PLACE">Business place</option>
+                <option className={styles.searchField} value="">Nekretnine svakog tipa</option>
+                <option value="FLAT">Stan</option>
+                <option value="HOUSE">Kuća</option>
+                <option value="LAND">Zemlja</option>
+                <option value="BUSINESS PLACE">Poslovni prostor</option>
               </select>
             </label>
             <label htmlFor="canton" className={styles.searchField}>
@@ -138,7 +138,7 @@ export default function Header() {
                 placeholder="Canton"
                 onChange={handleCantonChange}
                 value={canton}>
-                <option className={styles.searchField} value="">All cantons</option>‚
+                <option className={styles.searchField} value="">Svi kantoni</option>‚
                 {
                   cantons?.map((canton) =>
                   (<option style={{ color: 'black' }} value={canton.id} key={canton.id}>
@@ -155,7 +155,7 @@ export default function Header() {
                   placeholder="City"
                   onChange={handleCityChange}
                   value={city}>
-                  <option className={styles.searchField} value="">All cities</option>
+                  <option className={styles.searchField} value="">Svi gradovi</option>
                   {
                     Object.values(cities).map((city) =>
                     (<option style={{ color: 'black' }} value={city.id} key={city.id}>
@@ -166,16 +166,16 @@ export default function Header() {
                 </select>
               </label>
             )}
-            <label htmlFor="minPrice" className={styles.searchField}><label>Min price</label>
+            <label htmlFor="minPrice" className={styles.searchField}><label>Min cijena</label>
               <input type="number" onChange={e => setMinPrice(e.target.value)} value={minPrice} placeholder="KM"></input>
             </label>
-            <label htmlFor="maxPrice" className={styles.searchField}><label>Max price</label>
+            <label htmlFor="maxPrice" className={styles.searchField}><label>Max cijena</label>
               <input type="number" onChange={e => setMaxPrice(e.target.value)} value={maxPrice} placeholder="KM"></input>
             </label>
-            <label htmlFor="minSize" className={styles.searchField}><label>Min size</label>
+            <label htmlFor="minSize" className={styles.searchField}><label>Min veličina</label>
               <input type="number" onChange={e => setMinSize(e.target.value)} value={minSize} placeholder="m2"></input>
             </label>
-            <label htmlFor="maxSize" className={styles.searchField}><label>Max size</label>
+            <label htmlFor="maxSize" className={styles.searchField}><label>Max veličina</label>
               <input type="number" onChange={e => setMaxSize(e.target.value)} value={maxSize} placeholder="m2"></input>
             </label>
 

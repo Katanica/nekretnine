@@ -26,7 +26,7 @@ export async function action({ request }) {
   );
 
   if (!response.ok) {
-    throw new Response("Problem with adding advert", { status: 500 });
+    throw new Response("Problem sa dodavanjem oglasa", { status: 500 });
   }
 
   return redirect("/");

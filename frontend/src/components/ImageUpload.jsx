@@ -50,7 +50,7 @@ export default function ImageUpload({ onChange }) {
             />
 
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            {loading && <p>Uploading...</p>}
+            {loading && <p>Objavljivanje...</p>}
 
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
                 {previews.map((p, i) => (

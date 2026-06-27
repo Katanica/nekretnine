@@ -41,12 +41,12 @@ export default function AdminPanel() {
     }
   }
 
-  if (loading) return <div className={styles.status}>Loading profiles...</div>;
+  if (loading) return <div className={styles.status}>Učitavanje profila...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Admin Panel — All Profiles</h2>
+      <h2 className={styles.title}>Admin Panel — Svi profili</h2>
       <div className={styles.tableWrapper}>
         <table className={styles.table}>
           <thead>
@@ -54,10 +54,10 @@ export default function AdminPanel() {
               <th>ID</th>
               <th>Username</th>
               <th>Email</th>
-              <th>Phone</th>
-              <th>Profile Type</th>
+              <th>Telefon</th>
+              <th>Tip profila</th>
               <th>Role</th>
-              <th>Created At</th>
+              <th>Napravljen datuma:</th>
               <th></th>
             </tr>
           </thead>

@@ -32,14 +32,12 @@ export default function HomePage() {
       setAdvertNumber(count);
 
       if (!resAdverts.ok) {
-        setError("Could not fetch data...");
+        setError("Podaci nisu mogli biti dohvaćeni");
       }
 
       const advertsData = await resAdverts.json();
 
       setAdverts(advertsData.content);
-
-      console.log("HOME: ", advertsData.content);
     }
     fetchingData();
   }, [page]);
@@ -53,7 +51,7 @@ export default function HomePage() {
         <Property
           adverts={adverts}
           handleDetails={openDetails}
-          title="Top picks"
+          title="Najbolji izbori"
         />
         {selectedAdvert && (
           <AdvertDetailsModal

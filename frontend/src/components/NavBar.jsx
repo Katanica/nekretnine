@@ -72,8 +72,8 @@ export default function NavBar() {
         {/* Desktop links */}
         <ul className={styles.links}>
           {[
-            { to: "/Home", label: "Home" },
-            { to: "/About-us", label: "About us" },
+            { to: "/Home", label: "Početna stranica" },
+            { to: "/About-us", label: "O nama" },
           ].map(({ to, label }) => (
             <li key={label}>
               <NavLink
@@ -95,7 +95,7 @@ export default function NavBar() {
             <button
               className={`${styles.iconBtn} ${styles.heartBtn}`}
               onClick={handleBookmarks}
-              aria-label="Bookmarks"
+              aria-label="Spremljeni oglasi"
             >
               <Heart
                 size={20}
@@ -119,7 +119,7 @@ export default function NavBar() {
           {token !== "EXPIRED" && token !== null && (
             <button className={styles.cta} onClick={handleAddAdvert}>
               <Plus size={16} />
-              Add Advert
+              Dodaj oglas
             </button>
           )}
         </div>
@@ -128,7 +128,7 @@ export default function NavBar() {
         <button
           className={styles.hamburger}
           onClick={() => setMenuOpen((o) => !o)}
-          aria-label="Toggle menu"
+          aria-label="Prikaži menu"
         >
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -139,9 +139,8 @@ export default function NavBar() {
         <div className={styles.mobileMenu}>
           <ul className={styles.mobileLinks}>
             {[
-              { to: "/Home", label: "Home" },
-              { to: "/About-us", label: "About us" },
-              { to: "/Contact", label: "Contact" },
+              { to: "/Home", label: "Početna stranica" },
+              { to: "/About-us", label: "O nama" },
             ].map(({ to, label }) => (
               <li key={label}>
                 <NavLink
@@ -173,7 +172,7 @@ export default function NavBar() {
                   fill={sidebarOpen ? "#c49a3c" : "none"}
                   color={sidebarOpen ? "#c49a3c" : "currentColor"}
                 />
-                Bookmarks
+                Spremljeni oglasi
                 {bookmarkCount > 0 && (
                   <span className={styles.mobileBadge}>{bookmarkCount}</span>
                 )}
@@ -189,7 +188,7 @@ export default function NavBar() {
                 onClick={handleAddAdvert}
               >
                 <Plus size={16} />
-                Add Advert
+                Dodaj oglas
               </button>
             )}
           </div>

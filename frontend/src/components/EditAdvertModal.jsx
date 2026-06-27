@@ -74,15 +74,15 @@ export default function EditAdvertModal({ onClose, advert, onUpdated }) {
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.header}>
-          <h1>Edit advert</h1>
+          <h1>Uredi oglas</h1>
           <button className={styles.btnClose} onClick={onClose}>
-            Close
+            Zatvori
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.field}>
-            <label>Title</label>
+            <label>Naslov</label>
             <input
               name="title"
               value={formData.title}
@@ -92,7 +92,7 @@ export default function EditAdvertModal({ onClose, advert, onUpdated }) {
           </div>
 
           <div className={styles.field}>
-            <label>Description</label>
+            <label>Opis</label>
             <textarea
               name="description"
               value={formData.description}
@@ -103,7 +103,7 @@ export default function EditAdvertModal({ onClose, advert, onUpdated }) {
 
           <div className={styles.row}>
             <div className={styles.field}>
-              <label>Price (KM)</label>
+              <label>Cijena (KM)</label>
               <input
                 name="price"
                 type="number"
@@ -113,7 +113,7 @@ export default function EditAdvertModal({ onClose, advert, onUpdated }) {
               />
             </div>
             <div className={styles.field}>
-              <label>Size (m²)</label>
+              <label>Veličina (m²)</label>
               <input
                 name="size"
                 type="number"
@@ -126,33 +126,33 @@ export default function EditAdvertModal({ onClose, advert, onUpdated }) {
 
           <div className={styles.row}>
             <div className={styles.field}>
-              <label>Advert type</label>
+              <label>Tip oglasa</label>
               <select
                 name="advertType"
                 value={formData.advertType}
                 onChange={handleChange}
               >
-                <option value="SALE">Sale</option>
-                <option value="RENT">Rent</option>
+                <option value="SALE">Prodaja</option>
+                <option value="RENT">Iznajmljivanje</option>
               </select>
             </div>
             <div className={styles.field}>
-              <label>Property type</label>
+              <label>Tip nekretnine</label>
               <select
                 name="propertyType"
                 value={formData.propertyType}
                 onChange={handleChange}
               >
-                <option value="FLAT">Flat</option>
-                <option value="HOUSE">House</option>
-                <option value="LAND">Land</option>
+                <option value="FLAT">Stan</option>
+                <option value="HOUSE">Kuća</option>
+                <option value="LAND">Zemlja</option>
               </select>
             </div>
           </div>
 
           {/* Slike */}
           <div className={styles.field}>
-            <label>Images</label>
+            <label>Slike</label>
             <div className={styles.imageGrid}>
               {existingImages.map((url, i) => (
                 <div key={`existing-${i}`} className={styles.imageItem}>
@@ -179,7 +179,7 @@ export default function EditAdvertModal({ onClose, advert, onUpdated }) {
                 </div>
               ))}
               <label className={styles.uploadBtn}>
-                + Add
+                + Dodaj
                 <input
                   type="file"
                   accept="image/*"
@@ -199,7 +199,7 @@ export default function EditAdvertModal({ onClose, advert, onUpdated }) {
               onClick={onClose}
               className={styles.btnCancel}
             >
-              Cancel
+              Nazad
             </button>
             <button type="submit" className={styles.btnSave} disabled={loading}>
               {loading ? "Saving..." : "Save"}

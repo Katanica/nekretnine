@@ -22,12 +22,12 @@ export async function action({ request }) {
   });
 
   if (response.status === 422 || response.status === 401) {
-    return { error: "Invalid email or password!" };
+    return { error: "Nevažeći email ili lozinka!" };
   }
 
   if (!response.ok) {
     throw {
-      message: "Try to remember email and password. Try again",
+      message: "Probaj se sjetiti email-a ili lozinke. Pokušaj ponovno.",
       status: 500,
     };
   }

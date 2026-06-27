@@ -165,7 +165,7 @@ export default function EditProfileModal({ onClose, user }) {
             <img src={avatarPreview} />
           </div>
           <label htmlFor="avatar-input" className={styles.avatarUploadBtn}>
-            Change avatar
+            Promijeni avatar
           </label>
           <input
             ref={fileInputRef}
@@ -178,7 +178,7 @@ export default function EditProfileModal({ onClose, user }) {
           {user.profileType === "USER" ?
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
-                <label>First name</label>
+                <label>Ime</label>
                 <input
                   name="name"
                   value={form.name || ""}
@@ -186,7 +186,7 @@ export default function EditProfileModal({ onClose, user }) {
                 />
               </div>
               <div className={styles.formGroup}>
-                <label>Surname</label>
+                <label>Prezime</label>
                 <input
                   name="surname"
                   value={form.surname || ""}
@@ -197,7 +197,7 @@ export default function EditProfileModal({ onClose, user }) {
             :
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
-                <label>Agency name</label>
+                <label>Ime agencije</label>
                 <input
                   name="agencyName"
                   value={form.agencyName || ""}
@@ -230,14 +230,14 @@ export default function EditProfileModal({ onClose, user }) {
 
             <div className={styles.formGroup}>
               <label htmlFor="canton">
-                Canton
+                Kanton
               </label>
               <select
                 name="canton"
                 placeholder="Canton"
                 value={form.cantonId}
                 onChange={handleCantonChange}>
-                <option value="" disabled selected>Canton</option>‚
+                <option value="" disabled selected>Kanton</option>‚
                 {
                   cantons?.map((canton) =>
                   (<option style={{ color: 'black' }} value={canton.id} key={canton.id}>
@@ -249,14 +249,14 @@ export default function EditProfileModal({ onClose, user }) {
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="cityId" className={styles.formGroup}>
-                City
+                Grad
               </label>
               <select
                 name="cityId"
                 placeholder="City"
                 value={form.cityId}
                 onChange={handleCityChange}>
-                <option className={styles.option} value="" disabled selected>City</option>
+                <option className={styles.option} value="" disabled selected>Grad</option>
                 {
                   Object.values(cities).map((city) =>
                   (<option style={{ color: 'black' }} value={city.id} key={city.id}>
@@ -270,7 +270,7 @@ export default function EditProfileModal({ onClose, user }) {
           </div>
 
           <div className={styles.formGroup}>
-            <label>Phone number</label>
+            <label>Mobitel</label>
             <input
               name="phone"
               type="tel"
@@ -281,7 +281,7 @@ export default function EditProfileModal({ onClose, user }) {
 
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
-              <label>New password</label>
+              <label>Nova lozinka</label>
               <input
                 name="password"
                 type="password"
@@ -290,7 +290,7 @@ export default function EditProfileModal({ onClose, user }) {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Confirm new password</label>
+              <label>Potvrdi novu lozinku</label>
               <input
                 name="confirmPassword"
                 type="password"

@@ -8,7 +8,7 @@ export default function DeleteAdvertModal({ onClose, id }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  async function handleDelete() {
+  async function handleDelete(e) {
     e.preventDefault();
     try {
       setLoading(true);
@@ -35,17 +35,17 @@ export default function DeleteAdvertModal({ onClose, id }) {
   return createPortal(
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <h3>Are you sure?</h3>
+        <h3>Obriši oglas?</h3>
 
         <div className={styles.btn}>
           <button
-            onClick={handleDelete}
+            onClick={e => handleDelete(e)}
             className={styles.btnDelete}
             disabled={loading}
           >
             {loading ? "Deleting" : "Delete"}
           </button>
-          <button onClick={onClose}>Cancel</button>
+          <button onClick={onClose}>Nazad</button>
         </div>
       </div>
     </div>,

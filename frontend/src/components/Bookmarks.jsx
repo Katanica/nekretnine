@@ -22,7 +22,7 @@ export default function BookmarksSidebar() {
         <div className={styles.header}>
           <div className={styles.headerLeft}>
             <Heart size={18} fill="#c49a3c" color="#c49a3c" />
-            <h2 className={styles.title}>Bookmarks</h2>
+            <h2 className={styles.title}>Spremljeni</h2>
           </div>
           <button
             onClick={closeSidebar}
@@ -37,8 +37,8 @@ export default function BookmarksSidebar() {
           {bookmarks.length === 0 ? (
             <div className={styles.empty}>
               <Heart size={40} />
-              <p>No bookmarks yet</p>
-              <span>Save adverts you like to find them later</span>
+              <p>Nema spremljenih oglasa</p>
+              <span>Spremi oglase koje želiš ponovno vidjeti</span>
             </div>
           ) : (
             <ul className={styles.list}>

@@ -153,7 +153,7 @@ export default function RegisterForm() {
         method="post"
         encType="multipart/form-data"
       >
-        <p className={styles.title}>Register</p>
+        <p className={styles.title}>Registracija</p>
         <p className={styles.message}>Registruj se i ostvari puni pristup</p>
 
         <div style={{ display: "flex", flexWrap: "wrap", width: "100%", flexDirection: "row", marginBottom: "20px" }}>
@@ -193,7 +193,7 @@ export default function RegisterForm() {
             <div style={{ display: "flex", justifyContent: "center" }}>
               {avatarPreview !== noImageUserPath ? <button onClick={() => setAvatarPreview(noImageUserPath)} className={styles.avatarUploadBtn} style={{ width: "10%", height: "20%", color: "red" }}>x</button> : <h1></h1>}
               <label htmlFor="avatar-input" className={styles.avatarUploadBtn} style={{ width: "60%", height: "20%" }}>
-                Change avatar
+                Promijeni avatar
               </label>
             </div>
             <input type="hidden" name="avatarUrl" value={avatarUrl} />
@@ -245,7 +245,7 @@ export default function RegisterForm() {
               className={styles.input}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <span>Password</span>
+            <span>Lozinka</span>
           </label>
           <label>
             <input
@@ -255,7 +255,7 @@ export default function RegisterForm() {
               className={styles.input}
               onChange={(e) => setConfPassword(e.target.value)}
             />
-            <span>Confirm Password</span>
+            <span>Potvrdi lozinku</span>
           </label>
         </div>
         <label htmlFor="phone">
@@ -266,7 +266,7 @@ export default function RegisterForm() {
             type="tel"
             className={styles.input}
           />
-          <span>Phone Number</span>
+          <span>Mobitel</span>
         </label>
 
         <label htmlFor="canton">
@@ -309,10 +309,10 @@ export default function RegisterForm() {
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         <button className={styles.submit} type="submit">
-          Submit
+          Nastavi
         </button>
         <p className={styles.signin}>
-          Already have an account? <a href="/login">Sign in</a>
+          Već imaš račun? <a href="/login">Ulogiraj se</a>
         </p>
       </Form >
     </div >

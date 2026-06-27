@@ -38,8 +38,6 @@ export default function Search() {
         })
         .join("&");
 
-    console.log("SEARCH, request: ", request);
-
     function openDetails(advert) {
         setSelectedAdvert(advert);
     }

@@ -31,7 +31,7 @@ export default function DeleteUserModal({ onClose, id, profileType }) {
     return createPortal(
         <div className={styles.overlay}>
             <div className={styles.modal}>
-                <h3>Are you sure?</h3>
+                <h3>Nastavi?</h3>
 
                 <div className={styles.btn}>
                     <button
@@ -41,7 +41,7 @@ export default function DeleteUserModal({ onClose, id, profileType }) {
                     >
                         {loading ? "Deleting" : "Delete"}
                     </button>
-                    <button onClick={onClose}>Cancel</button>
+                    <button onClick={onClose}>Nazad</button>
                 </div>
             </div>
         </div>,

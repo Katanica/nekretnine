@@ -8,7 +8,7 @@ export default function LoginForm() {
       <Form className={styles.form} method="post">
         <p className={styles.title}>Login</p>
         <p className={styles.message}>
-          Welcome back! Please login to your account.
+          Dobrodošao/la nazad. Ulogiraj se.
         </p>
 
         <label>
@@ -30,18 +30,18 @@ export default function LoginForm() {
             type="password"
             className={styles.input}
           />
-          <span>Password</span>
+          <span>Lozinka</span>
         </label>
         {data?.error && <p className={styles.error}>{data.error}</p>}
         <a href="#" className={styles.forgot}>
-          Forgot password?
+          Zaboravljena lozinka?
         </a>
 
-        <button className={styles.submit} type="submit">
-          Login
+        <button className={styles.submit} type="submit" style={{ width: "100px", height: "40px" }}>
+          Ulogiraj se
         </button>
         <p className={styles.signin}>
-          Don't have an account? <a href="/register">Register</a>
+          Nemaš račun? <a href="/register">Registracija</a>
         </p>
       </Form>
     </div>

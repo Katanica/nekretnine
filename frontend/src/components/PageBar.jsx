@@ -11,7 +11,7 @@ export default function PageBar({ adverts, advertNumber, page, pageSize, onPageC
             </div>
             <div style={{ flexGrow: "1", textAlign: "center", border: "1px solid lightGray", backgroundColor: "rgb(229, 229, 229)", textAlign: "center", display: "flex", direction: "row", padding: "5px", height: "45px", boxSizing: "border-box", borderRadius: "10px" }}>
                 {page !== 0 && (<button onClick={() => { if (page > 0) { onPageChange(page - 1) } }} style={{ flexGrow: "1", border: "1px solid lightGray", height: "100%", maxWidth: "40px", borderRadius: "10px" }}>&lt;</button>)}
-                <div style={{ flexGrow: "1", height: "100%", width: "10px", display: "flex", justifyContent: "center", flexDirection: "column" }}><label style={{ fontSize: "10px" }}>Page</label>{page + 1}&nbsp;/&nbsp;{pageNumbers}</div>
+                <div style={{ flexGrow: "1", height: "100%", width: "10px", display: "flex", justifyContent: "center", flexDirection: "column" }}><label style={{ fontSize: "10px" }}>Stranica</label>{page + 1}&nbsp;/&nbsp;{pageNumbers}</div>
                 {page !== pageNumbers - 1 && (<button onClick={() => { if (page + 1 < pageNumbers) { onPageChange(page + 1) } }} style={{ flexGrow: "1", border: "1px solid lightGray", height: "100%", maxWidth: "40px", borderRadius: "10px" }}>&gt;</button>)}
             </div>
             <div style={{ flexGrow: "10" }}>

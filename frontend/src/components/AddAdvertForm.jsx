@@ -97,52 +97,52 @@ export default function AddAdvertForm() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.card}>
-        <p className={styles.title}>Add Listing</p>
+      <div className={styles.card} style={{}}>
+        <p className={styles.title}>Dodaj objavu</p>
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.row}>
             <div className={styles.group}>
-              <label className={styles.label}>Property Type</label>
+              <label className={styles.label}>Tip nekretnine</label>
               <select name="propertyType" className={styles.input}>
-                <option value="">Select...</option>
-                <option value="FLAT">Apartment</option>
-                <option value="HOUSE">House</option>
-                <option value="LAND">Land</option>
-                <option value="BUSINESS_PLACE">Office Space</option>
+                <option value="">Izaberi...</option>
+                <option value="FLAT">Apartman</option>
+                <option value="HOUSE">Kuća</option>
+                <option value="LAND">Zemlja</option>
+                <option value="BUSINESS_PLACE">Poslovni prostor</option>
               </select>
             </div>
             <div className={styles.group}>
-              <label className={styles.label}>Listing Type</label>
+              <label className={styles.label}>Tip oglasa</label>
               <select name="advertType" className={styles.input}>
-                <option value="">Select...</option>
-                <option value="SALE">Sale</option>
-                <option value="RENTING">Rent</option>
+                <option value="">Izaberi...</option>
+                <option value="SALE">Prodaja</option>
+                <option value="RENTING">Iznajmljivanje</option>
               </select>
             </div>
           </div>
 
           <div className={styles.group}>
-            <label className={styles.label}>Title</label>
+            <label className={styles.label}>Naslov</label>
             <input
               name="title"
               type="text"
               className={styles.input}
-              placeholder="e.g. Spacious 3-bedroom apartment in the city center"
+              placeholder="npr. Prostran trosoban apartman u centru grada."
             />
           </div>
 
           <div className={styles.group}>
-            <label className={styles.label}>Description</label>
+            <label className={styles.label}>Opis</label>
             <textarea
               name="description"
               className={styles.textarea}
-              placeholder="Describe the property..."
+              placeholder="Opiši nekretninu..."
             />
           </div>
 
           <div className={styles.row}>
             <div className={styles.group}>
-              <label className={styles.label}>Price (KM)</label>
+              <label className={styles.label}>Cijena (KM)</label>
               <input
                 name="price"
                 type="number"
@@ -152,7 +152,7 @@ export default function AddAdvertForm() {
               />
             </div>
             <div className={styles.group}>
-              <label className={styles.label}>Area (m²)</label>
+              <label className={styles.label}>Veličina (m²)</label>
               <input
                 name="size"
                 type="number"
@@ -164,29 +164,33 @@ export default function AddAdvertForm() {
             </div>
           </div>
           <div className={styles.row}>
-            <label htmlFor="canton">
-              <select
-                name="canton"
-                placeholder="Canton"
-                className={styles.input}
-                onChange={handleCantonChange}
-              >
-                <option className={styles.option} value="" disabled selected>
-                  Canton
-                </option>
-                ‚
-                {cantons?.map((canton) => (
-                  <option
-                    style={{ color: "black" }}
-                    value={canton.id}
-                    key={canton.id}
-                  >
-                    {canton.name}
+            <div className={styles.group}>
+              <label className={styles.label} >Kanton</label>
+              <label htmlFor="canton">
+                <select
+                  name="canton"
+                  placeholder="Canton"
+                  className={styles.input}
+                  onChange={handleCantonChange}
+                >
+                  <option className={styles.option} value="" disabled selected>
+                    Izaberi kanton
                   </option>
-                ))}
-              </select>
-            </label>
-            {canton && (
+                  ‚
+                  {cantons?.map((canton) => (
+                    <option
+                      style={{ color: "black" }}
+                      value={canton.id}
+                      key={canton.id}
+                    >
+                      {canton.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            {canton && (<div className={styles.group}>
+              <label className={styles.label}>Grad</label>
               <label htmlFor="cityId">
                 <select
                   className={styles.input}
@@ -195,7 +199,7 @@ export default function AddAdvertForm() {
                   onChange={handleCityChange}
                 >
                   <option className={styles.option} value="" disabled selected>
-                    City
+                    Izaberi grad
                   </option>
                   {Object.values(cities).map((city) => (
                     <option
@@ -208,10 +212,11 @@ export default function AddAdvertForm() {
                   ))}
                 </select>
               </label>
+            </div>
             )}
           </div>
           <div className={styles.group}>
-            <label className={styles.label}>Photos</label>
+            <label className={styles.label}>Slike</label>
             <input
               ref={fileInputRef}
               type="file"
@@ -237,7 +242,7 @@ export default function AddAdvertForm() {
           )}
 
           <button type="submit" className={styles.btn} disabled={uploading}>
-            {uploading ? "Uploading..." : "Publish Listing"}
+            {uploading ? "Objavljivanje..." : "Objavi"}
           </button>
         </form>
       </div>

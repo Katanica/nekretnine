@@ -1,12 +1,14 @@
 * {
   transition: background-color 0.1s ease;
 }
+
 .container {
   background-image: url("../../assets/formBackground.png");
   background-size: cover;
   background-position: center;
   min-height: 100vh;
 }
+
 .card {
   background-color: #ffffff;
   border: 0.5px solid #e0e0e0;
@@ -26,7 +28,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 17px;
 }
 
 .row {
@@ -42,14 +44,14 @@
 }
 
 .label {
-  font-size: 13px;
+  font-size: 15px;
   color: #666;
 }
 
 .input,
 .textarea {
   width: 100%;
-  padding: 8px 12px;
+  padding: 10px 12px;
   border: 0.5px solid #ccc;
   border-radius: 8px;
   font-size: 14px;

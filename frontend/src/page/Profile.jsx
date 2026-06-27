@@ -85,7 +85,7 @@ export default function Profile() {
   console.log("role", role);
 
   if (error) return <div>{error}</div>;
-  if (!user) return <div>Loading...</div>;
+  if (!user) return <div>Učitavanje...</div>;
   return (
     <>
       <header className={styles.header}>
@@ -117,14 +117,14 @@ export default function Profile() {
                 {user.city?.name}
               </span>
               <span>
-                <FiCalendar /> Profile since {formatDate(user.createdAt)}
+                <FiCalendar /> Profil od: {formatDate(user.createdAt)}
               </span>
             </div>
           </div>
         </div>
         <div className={styles.buttons}>
           <button onClick={() => setEditOpen(true)} className={styles.edit}>
-            Edit profile
+            Uredi profil
             <Edit2 size={16} />
           </button>
           {editOpen && (
@@ -132,12 +132,12 @@ export default function Profile() {
           )}
           <Form action="/logout" method="post">
             <button className={styles.logout}>
-              Log out
+              Odjava
               <LogOut size={16} />
             </button>
           </Form>
           <button className={styles.delete} onClick={() => setDeleteUser(true)}>
-            Delete profile
+            Obriši profil
           </button>
         </div>
       </header>
@@ -147,7 +147,7 @@ export default function Profile() {
         ) : (
           <>
             <h2 style={{ marginLeft: "50px", marginTop: "50px" }}>
-              My adverts
+              Moji oglasi
             </h2>
             <Property
               adverts={adverts}

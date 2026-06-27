@@ -8,10 +8,10 @@ export default function ErrorPage() {
   return (
     <div className={styles.errorPage}>
       <h1>Error {error?.status}</h1>
-      <p>{error?.message || "Something went wrong"}</p>
+      <p>{error?.message || "Nešto je pošlo krivo!"}</p>
       <div className={styles.btns}>
-        <button onClick={() => navigate("/")}>Go to Home</button>
-        <button onClick={() => navigate(-1)}>Go back</button>
+        <button onClick={() => navigate("/")}>Idi na početnu stranicu</button>
+        <button onClick={() => navigate(-1)}>Idi nazad</button>
       </div>
     </div>
   );

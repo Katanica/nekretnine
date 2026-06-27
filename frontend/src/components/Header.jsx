@@ -99,14 +99,14 @@ export default function Header() {
         <div className={styles.heroImage}>
           <div className={styles.heroText}>
             <h1>
-              Find a perfect
+              Nađi savršenu
               <br />
-              property for you
+              nekretninu za sebe
             </h1>
-            <p>Search over 1000+ property on one place</p>
+            <p>Traži od preko 1000 oglasa</p>
             <div className={styles.heroButtons}>
               <button className={styles.btnPrimary} style={{ display: "flex", flexDirection: "column" }}>
-                <div>🔍</div> <div style={{ width: "150px" }}>Search a property</div>
+                <div>🔍</div> <div style={{ width: "150px" }}>Traži nekretninu</div>
               </button>
               <button
                 type="button"
@@ -114,7 +114,7 @@ export default function Header() {
                 onClick={(e) => handleSale(e)}
                 style={{ display: "flex", flexDirection: "column" }}
               >
-                <div>👤</div> <div style={{ width: "150px" }}>Advertise a property</div>
+                <div>👤</div> <div style={{ width: "150px" }}>Objavi nekretninu</div>
               </button>
             </div>
           </div>
@@ -164,25 +164,25 @@ export default function Header() {
               }}
             >
               <label className={styles.searchField} htmlFor="advertType">
-                <label>Advert type</label>
+                <label>Tip oglasa</label>
                 <select onChange={(e) => setAdvertType(e.target.value)}>
                   <option className={styles.searchField} value="">
-                    All advert types
+                    Oglasi svakog tima
                   </option>
-                  <option value="SALE">Sale</option>
-                  <option value="RENT">Rent</option>
+                  <option value="SALE">Prodaja</option>
+                  <option value="RENT">Izanjmljivanje</option>
                 </select>
               </label>
               <label className={styles.searchField} htmlFor="propertyType">
-                <label>Property type</label>
+                <label>Tip nekretnine</label>
                 <select onChange={(e) => setPropertyType(e.target.value)}>
                   <option className={styles.searchField} value="">
-                    All property types
+                    Nekretnina svakog tipa
                   </option>
-                  <option value="FLAT">Flat</option>
-                  <option value="HOUSE">House</option>
-                  <option value="LAND">Land</option>
-                  <option value="BUSINESS PLACE">Business place</option>
+                  <option value="FLAT">Stan</option>
+                  <option value="HOUSE">Kuća</option>
+                  <option value="LAND">Zemlja</option>
+                  <option value="BUSINESS PLACE">Poslovni prostor</option>
                 </select>
               </label>
               <label htmlFor="canton" className={styles.searchField}>
@@ -192,7 +192,7 @@ export default function Header() {
                   onChange={handleCantonChange}
                 >
                   <option className={styles.searchField} value="">
-                    All cantons
+                    Svi kantoni
                   </option>
                   ‚
                   {cantons?.map((canton) => (
@@ -214,7 +214,7 @@ export default function Header() {
                     onChange={handleCityChange}
                   >
                     <option className={styles.searchField} value="">
-                      All cities
+                      Svi gradovi
                     </option>
                     {Object.values(cities).map((city) => (
                       <option
@@ -229,7 +229,7 @@ export default function Header() {
                 </label>
               )}
               <label htmlFor="minPrice" className={styles.searchField}>
-                <label>Min price</label>
+                <label>Min cijena</label>
                 <input
                   type="number"
                   onChange={(e) => setMinPrice(e.target.value)}
@@ -237,7 +237,7 @@ export default function Header() {
                 ></input>
               </label>
               <label htmlFor="maxPrice" className={styles.searchField}>
-                <label>Max price</label>
+                <label>Max cijena</label>
                 <input
                   type="number"
                   onChange={(e) => setMaxPrice(e.target.value)}
@@ -245,7 +245,7 @@ export default function Header() {
                 ></input>
               </label>
               <label htmlFor="minSize" className={styles.searchField}>
-                <label>Min size</label>
+                <label>Min veličina</label>
                 <input
                   type="number"
                   onChange={(e) => setMinSize(e.target.value)}
@@ -253,7 +253,7 @@ export default function Header() {
                 ></input>
               </label>
               <label htmlFor="maxSize" className={styles.searchField}>
-                <label>Max size</label>
+                <label>Max veličina</label>
                 <input
                   type="number"
                   onChange={(e) => setMaxSize(e.target.value)}
